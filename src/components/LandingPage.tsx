@@ -1,8 +1,57 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
+import axios from 'axios';
+import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
 import LandingNavbar from "./LandingNavbar";
+import { LoginDTO } from './Entities';
+
+const authBaseURL = "https://localhost:7247/api/Auth/login";
 
 const LandingPage = () => {
+    const navigate = useNavigate();
+    const [userDetails, setUserDetails] = useState<LoginDTO>({Username: "", Password:""});
+
+    const handleChange = (e:any) => 
+    {
+        const {name, value} = e.target;
+        setUserDetails({...userDetails, [name]: value });
+    };
+
+    const login = async () => {
+        if (userDetails.Username && userDetails.Password) {
+
+            axios.post(authBaseURL, userDetails)
+            .then(response => {
+                if (response.data.token) {
+
+                    console.log("Token : " + response.data.token);
+                    console.log("Role: " + response.data.role);
+                    console.log("User Id: " + response.data.userId);
+                    
+                    localStorage.setItem("User", JSON.stringify(response.data));
+                    console.log("Local Storage: " + localStorage.getItem("User"));
+                    const user = JSON.parse(localStorage.getItem("User") || '{}');
+
+                    if(user.role === "Admin")
+                    {
+                        console.log("Role: " + user.role);
+                        navigate("admin/home");
+                    }
+                    else
+                    {
+                        console.log("Role: " + user.role);
+                        navigate("employee/home");
+                    }
+                }
+            }).catch(error => alert(error.response.data.title));
+        }
+        else
+        {
+            alert("Username or Password cannot be Empty");
+        }
+    };
+
     return (
         <>
         <LandingNavbar />
@@ -23,14 +72,20 @@ const LandingPage = () => {
                         <div className="card2 card border-0 px-4 py-5">
                             <div className="row">
                                 <label className="mb-2"><h6 className="mb-0 text-md">Username</h6></label>
-                                <input className="mb-4" type="text" name="username" placeholder="Enter a valid Username"></input>
+                                <input className="mb-4" type="text" name="Username" placeholder="Enter a valid Username"
+                                        value={userDetails.Username} onChange={handleChange}>
+                                </input>
                             </div>
                             <div className="row">
                                 <label className="mb-2"><h6 className="mb-0 text-md">Password</h6></label>
-                                <input type="password" name="password" placeholder="Enter password"></input>
+                                <input type="password" name="Password" placeholder="Enter password"
+                                        value={userDetails.Password} onChange={handleChange}>
+                                </input>
                             </div>
                             <div className="row mt-3 mb-3">
-                                <button type="submit" className="btn btn-blue text-center">Login</button>
+                                <button type="submit" className="btn btn-blue text-center" onClick={login}>
+                                    Login
+                                </button>
                             </div>
                         </div>
                     </div>
