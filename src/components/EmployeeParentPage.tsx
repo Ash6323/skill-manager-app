@@ -3,7 +3,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import LandingNavbar from "./LandingNavbar";
 import EmployeeSidebar from "./EmployeeSidebar";
 
-const EmployeeHomePage = () => {
+const EmployeeParentPage = () => {
 
     const user = JSON.parse(localStorage.getItem("User") || '{}');
 
@@ -23,4 +23,4 @@ const EmployeeHomePage = () => {
         </>
     )
 }
-export default EmployeeHomePage
+export default EmployeeParentPage

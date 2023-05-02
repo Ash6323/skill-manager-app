@@ -36,12 +36,12 @@ const LandingPage = () => {
                     if(user.role === "Admin")
                     {
                         console.log("Role: " + user.role);
-                        navigate("admin/home/*");
+                        navigate("admin/home");
                     }
                     else if(user.role === "Employee")
                     {
                         console.log("Role: " + user.role);
-                        navigate("employee/home/*");
+                        navigate("employee/home");
                     }
                 }
             }).catch(error => {

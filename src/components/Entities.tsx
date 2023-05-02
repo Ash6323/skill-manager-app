@@ -3,11 +3,20 @@ export interface LoginDTO {
     Password: string,
 }
 export interface Employee {
-    Id: string,
-    Username: string,
-    FullName: string,
-    Gender: string,
-    PhoneNumber: string,
-    Email: string,
-    IsActive: number,
+    id: string,
+    userName: string,
+    fullName: string,
+    gender: string,
+    phoneNumber: string,
+    email: string,
+    isActive: number,
+}
+export interface NewEmployee {
+    firstName: string,
+    lastName: string,
+    userName: string,
+    phoneNumber: string,
+    email: string,
+    password: string,
+    gender: string,
 }

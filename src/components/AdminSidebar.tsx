@@ -11,18 +11,20 @@ const AdminSidebar = () => {
       <div>
         <div>
           <Button className = "sidebar-items" onClick={()=>navigate("../admin/home")}>Home</Button>
-          <Dropdown>
+          <Button className = "sidebar-items" onClick={()=>navigate("employees/view-all")}>Employees</Button>
+          <Button className = "sidebar-items" onClick={()=>navigate("employees/view-all")}>Skills</Button>
+          {/* <Dropdown>
             <Dropdown.Toggle variant="success" id="employees-dropdown" className="sidebar-items" 
                               data-bs-toggle="collapse" data-bs-target="#employees-collapse" aria-expanded="false">
               Employees
             </Dropdown.Toggle>
             <Dropdown.Menu className="sidebar-dropdown-menu" id="employees-collapse">
-              <Dropdown.Item className="dropdown-items" onClick={()=>navigate("employees/view-all")}>Add New</Dropdown.Item>
+              <Dropdown.Item className="dropdown-items" onClick={()=>navigate("employees/add-new")}>Add New</Dropdown.Item>
               <Dropdown.Item className="dropdown-items" onClick={()=>navigate("employees/view-all")}>View All</Dropdown.Item>
             </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown> */}
         </div>
-        <div>
+        {/* <div>
           <Dropdown>
           <Dropdown.Toggle variant="success" id="invoices-dropdown" className="sidebar-items">Skills</Dropdown.Toggle>
             <Dropdown.Menu className="sidebar-dropdown-menu ">
@@ -30,7 +32,7 @@ const AdminSidebar = () => {
               <Dropdown.Item className="dropdown-items" onClick={()=>navigate("../admin/home")}>View All</Dropdown.Item>            
             </Dropdown.Menu>
           </Dropdown>
-        </div>
+        </div> */}
         <div>
           <Dropdown>
             <Dropdown.Toggle variant="success" id="invoices-dropdown" className="sidebar-items">Employee Skills</Dropdown.Toggle>

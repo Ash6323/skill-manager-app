@@ -19,7 +19,9 @@ const ViewAllEmployees = () => {
     const getEmployees = () => {
         axios.get(baseURL).then((response) => 
         {
+            console.log("Inside get.then");
             setEmployees(response.data.data);
+
         }).catch(error => {
             if(error.response)
             {
@@ -33,8 +35,8 @@ const ViewAllEmployees = () => {
     }
 
     React.useEffect( () => {
-        console.log("Hello");
         getEmployees();
+
       }, []);
     
     // const handleTableRowClick = (employeeId:string) => FOR UPDATING EMPLOYEE
@@ -68,7 +70,20 @@ const ViewAllEmployees = () => {
     return (
         <>
         <div className="my-container shadow">
-            <h3>Employee List</h3>
+            <div className="row">
+                <div className="d-flex justify-content-end">
+                    <button type="submit" className="btn submit-btn" onClick={()=>navigate("../employees/add-new")}>
+                        Add New
+                    </button>
+                </div>
+            </div>
+            <div className="row">
+                <div className="d-flex col justify-content-center">
+                    <h3>Employee List</h3>
+                </div>
+            </div>
+
+
             <div className="table-responsive card">
                 <table className="table table-bordered table-striped ">
                     <thead className="table-dark">
@@ -78,19 +93,17 @@ const ViewAllEmployees = () => {
                             <th scope="col">Email</th>
                             <th scope="col">Phone</th>
                             <th scope="col">Gender</th>
-                            <th scope="col">Update</th>
-                            <th scope="col">Delete</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                  <tbody>
                     {employees.map((employee,index)=>{
-                        const {Id, Username, FullName, Gender, PhoneNumber, Email, IsActive} = employee;
                     return <tr key={index}>
                             <td className="view-info">{index+1}</td>
-                            <td className="view-info">{FullName}</td>
-                            <td className="view-info">{Email}</td>
-                            <td className="view-info">{PhoneNumber}</td>
-                            <td className="view-info">{Gender}</td>
+                            <td className="view-info">{employee.fullName}</td>
+                            <td className="view-info">{employee.email}</td>
+                            <td className="view-info">{employee.phoneNumber}</td>
+                            <td className="view-info">{employee.gender}</td>
                             <td>
                                 <button 
                                     type="button" 
@@ -99,8 +112,6 @@ const ViewAllEmployees = () => {
                                     >
                                     Update
                                 </button>
-                            </td>
-                            <td>
                                 <button 
                                     type="button" 
                                     className="btn btn-danger"

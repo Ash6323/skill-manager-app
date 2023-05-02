@@ -4,8 +4,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import Navbar from "./components/LandingNavbar";
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-import AdminHomePage from "./components/AdminHomePage";
-import EmployeeHomePage from "./components/EmployeeHomePage";
+import AdminParentPage from "./components/AdminParentPage";
+import EmployeeParentPage from "./components/EmployeeParentPage";
 import './App.css';
 
 function App() {
@@ -15,8 +15,8 @@ function App() {
         <div className="row">
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="admin/home/*" element={<AdminHomePage />} />
-            <Route path="employee/home/*" element={<EmployeeHomePage />} />
+            <Route path="admin/*" element={<AdminParentPage />} />
+            <Route path="employee/*" element={<EmployeeParentPage />} />
           </Routes>
         </div>
       </div>
