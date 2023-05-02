@@ -28,7 +28,7 @@ const LandingPage = () => {
                     console.log("Token : " + response.data.token);
                     console.log("Role: " + response.data.role);
                     console.log("User Id: " + response.data.userId);
-                    
+
                     localStorage.setItem("User", JSON.stringify(response.data));
                     console.log("Local Storage: " + localStorage.getItem("User"));
                     const user = JSON.parse(localStorage.getItem("User") || '{}');
@@ -36,15 +36,24 @@ const LandingPage = () => {
                     if(user.role === "Admin")
                     {
                         console.log("Role: " + user.role);
-                        navigate("admin/home");
+                        navigate("admin/home/*");
                     }
-                    else
+                    else if(user.role === "Employee")
                     {
                         console.log("Role: " + user.role);
-                        navigate("employee/home");
+                        navigate("employee/home/*");
                     }
                 }
-            }).catch(error => alert(error.response.data.title));
+            }).catch(error => {
+                    if(error.response)
+                    {
+                        alert(error.response.data.title);
+                    }
+                    else if (error.request)
+                    {
+                        alert("Server Inactive or Busy");
+                    }
+            });
         }
         else
         {

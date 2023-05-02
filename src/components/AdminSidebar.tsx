@@ -17,8 +17,8 @@ const AdminSidebar = () => {
               Employees
             </Dropdown.Toggle>
             <Dropdown.Menu className="sidebar-dropdown-menu" id="employees-collapse">
-              <Dropdown.Item className="dropdown-items" onClick={()=>navigate("../admin/home")}>Add New</Dropdown.Item>
-              <Dropdown.Item className="dropdown-items" onClick={()=>navigate("../admin/home")}>View All</Dropdown.Item>
+              <Dropdown.Item className="dropdown-items" onClick={()=>navigate("employees/view-all")}>Add New</Dropdown.Item>
+              <Dropdown.Item className="dropdown-items" onClick={()=>navigate("employees/view-all")}>View All</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
@@ -26,8 +26,8 @@ const AdminSidebar = () => {
           <Dropdown>
           <Dropdown.Toggle variant="success" id="invoices-dropdown" className="sidebar-items">Skills</Dropdown.Toggle>
             <Dropdown.Menu className="sidebar-dropdown-menu ">
-              <Dropdown.Item className="dropdown-items" onClick={()=>navigate("../admin/home")}>View all by Matters</Dropdown.Item>
-              <Dropdown.Item className="dropdown-items" onClick={()=>navigate("../admin/home")}>View all for Matter</Dropdown.Item>            
+              <Dropdown.Item className="dropdown-items" onClick={()=>navigate("../admin/home")}>Add New</Dropdown.Item>
+              <Dropdown.Item className="dropdown-items" onClick={()=>navigate("../admin/home")}>View All</Dropdown.Item>            
             </Dropdown.Menu>
           </Dropdown>
         </div>
@@ -35,6 +35,8 @@ const AdminSidebar = () => {
           <Dropdown>
             <Dropdown.Toggle variant="success" id="invoices-dropdown" className="sidebar-items">Employee Skills</Dropdown.Toggle>
             <Dropdown.Menu className="sidebar-dropdown-menu ">
+              <Dropdown.Item className="dropdown-items" 
+                            onClick={()=>navigate("../admin/home")}>Assign Skill</Dropdown.Item>
               <Dropdown.Item className="dropdown-items" 
                             onClick={()=>navigate("../admin/home")}>View all with Skills</Dropdown.Item>
               <Dropdown.Item className="dropdown-items" 

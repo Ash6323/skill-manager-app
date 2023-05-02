@@ -2,7 +2,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import LandingNavbar from "./LandingNavbar";
 import EmployeeSidebar from "./EmployeeSidebar";
-import { Console } from 'console';
 
 const EmployeeHomePage = () => {
 

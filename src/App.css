@@ -243,6 +243,18 @@ a {
   margin-bottom: 2%;
   border-radius: 5px;
 }
+.update-btn {
+  background-color: var(--update-btn-color);
+}
+.submit-btn {
+  background-color: var(--submit-btn-color) !important;
+  color: white !important;
+  margin-right: 2%;
+}
+.view-info {
+  vertical-align: middle;
+  cursor: pointer;
+}
 
 @media screen and (max-width: 991px) {
   .logo {
