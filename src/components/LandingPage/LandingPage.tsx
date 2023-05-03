@@ -11,6 +11,7 @@ const authBaseURL = "https://localhost:7247/api/Auth/login";
 const LandingPage = () => {
     const navigate = useNavigate();
     const [userDetails, setUserDetails] = useState<LoginDTO>({Username: "", Password:""});
+    const [invalidFlag, setInvalidFlag] = useState<boolean>(false);
 
     const handleChange = (e:any) => 
     {
@@ -18,53 +19,60 @@ const LandingPage = () => {
         setUserDetails({...userDetails, [name]: value });
     };
 
-    const login = async () => {
-        if (userDetails.Username && userDetails.Password) {
-
-            axios.post(authBaseURL, userDetails)
-            .then(response => {
-                if (response.data.token) {
-
-                    console.log("Token : " + response.data.token);
-                    console.log("Role: " + response.data.role);
-                    console.log("User Id: " + response.data.userId);
-
-                    localStorage.setItem("User", JSON.stringify(response.data));
-                    console.log("Local Storage: " + localStorage.getItem("User"));
-                    const user = JSON.parse(localStorage.getItem("User") || '{}');
-
-                    if(user.role === "Admin")
-                    {
-                        console.log("Role: " + user.role);
-                        navigate("admin/home");
-                    }
-                    else if(user.role === "Employee")
-                    {
-                        console.log("Role: " + user.role);
-                        navigate("employee/home");
-                    }
-                }
-            }).catch(error => {
-                    if(error.response)
-                    {
-                        alert(error.response.data.title);
-                    }
-                    else if (error.request)
-                    {
-                        alert("Server Inactive or Busy");
-                    }
-            });
+    const setAuthToken = (token:string) => {
+        if (token) {
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         }
         else
-        {
-            alert("Username or Password cannot be Empty");
-        }
+            delete axios.defaults.headers.common["Authorization"];
+     }
+
+    const login = async () => {
+
+        axios.post(authBaseURL, userDetails)
+        .then(response => {
+            if (response.data.token) {
+
+                console.log("Token : " + response.data.token);
+                console.log("Role: " + response.data.role);
+                console.log("User Id: " + response.data.userId);
+
+                localStorage.setItem('accessToken', response.data.token);
+                setAuthToken(response.data.token);
+
+
+                localStorage.setItem("User", JSON.stringify(response.data));
+                console.log("Local Storage: " + localStorage.getItem("User"));
+                const user = JSON.parse(localStorage.getItem("User") || '{}');
+
+                if(user.role === "Admin")
+                {
+                    console.log("Role: " + user.role);
+                    navigate("admin/home");
+                }
+                else if(user.role === "Employee")
+                {
+                    console.log("Role: " + user.role);
+                    navigate("employee/home");
+                }
+            }
+        }).catch(error => {
+                if(error.response)
+                {
+                    setInvalidFlag(true);
+                    // alert(error.response.data.title);
+                }
+                else if (error.request)
+                {
+                    alert("Server Inactive or Busy");
+                }
+        });
     };
 
     return (
         <>
         <LandingNavbar />
-        <div className="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto card-body"> 
+        <div className="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto login-card-body"> 
             <div className="card card0 border-0">
                 <div className="row d-flex">
                     <div className="col-lg-6">
@@ -81,18 +89,23 @@ const LandingPage = () => {
                         <div className="card2 card border-0 px-4 py-5">
                             <div className="row">
                                 <label className="mb-2"><h6 className="mb-0 text-md">Username</h6></label>
-                                <input className="mb-4" type="text" name="Username" placeholder="Enter a valid Username"
+                                <input  type="text" name="Username" placeholder="Enter Username"
                                         value={userDetails.Username} onChange={handleChange}>
                                 </input>
                             </div>
+                            {invalidFlag ? <p className="text-danger font-weight-bold text-sm">
+                                            Invalid Credentials. Please Try Again</p> : null}
                             <div className="row">
-                                <label className="mb-2"><h6 className="mb-0 text-md">Password</h6></label>
+                                <label className="mt-2 mb-2"><h6 className="mb-0 text-md">Password</h6></label>
                                 <input type="password" name="Password" placeholder="Enter password"
                                         value={userDetails.Password} onChange={handleChange}>
                                 </input>
                             </div>
+                            {invalidFlag ? <p className="text-danger font-weight-bold text-sm">
+                                            Invalid Credentials. Please Try Again</p> : null}
                             <div className="row mt-3 mb-3">
-                                <button type="submit" className="btn btn-blue text-center" onClick={login}>
+                                <button type="submit" className="btn btn-blue text-center" 
+                                        disabled={userDetails.Username == "" || userDetails.Password == ""} onClick={login}>
                                     Login
                                 </button>
                             </div>

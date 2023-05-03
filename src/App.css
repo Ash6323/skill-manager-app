@@ -22,7 +22,7 @@
   color: #61dafb;
 }
 
-.card-body {
+.login-card-body {
   color: #000;
   overflow-x: hidden;
   height: 100%;
@@ -154,9 +154,9 @@ a {
 }
 
 .btn-blue {
-  background-color: var(--login-btn-color);
+  background-color: var(--login-btn-color) !important;
   width: 150px;
-  color: #fff;
+  color: #fff !important;
   border-radius: 2px;
 }
 
@@ -180,7 +180,7 @@ a {
 
 #sidebar {
   display: flex;
-  height: 100vw;
+  height: 88vh;
   flex-direction: column;
   background: var(--sidebar-color);
   color: #fff;
@@ -230,7 +230,7 @@ a {
   text-align: center;
   margin-top: 3%;
   padding-top: 1%;
-  padding-bottom: 1%;
+  padding-bottom: 2%;
   box-shadow: 0px 0px 2px 3px rgba(97, 92, 92, 0.621);
   border-radius: 4px 4px;
   background-color:rgba(128, 128, 128, 0.185);
@@ -271,6 +271,16 @@ a {
 .view-info {
   vertical-align: middle;
   cursor: pointer;
+}
+.skill-update-btn {
+  font-size: small;
+  background-color: var(--update-btn-color);
+  margin-right: 5%;
+  width: 35%;
+}
+.skill-delete-btn {
+  font-size: small;
+  width: 35%;
 }
 
 

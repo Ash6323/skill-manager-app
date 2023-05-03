@@ -13,11 +13,21 @@ const AddEmployee = () => {
 
     const navigate = useNavigate();
     const [newEmployee,setNewEmployee]=useState<NewEmployee>
-                                        ({firstName:"",lastName: "",userName:"",phoneNumber:"",email:"",password:"",gender:""});
+                                        ({firstName:"",lastName: "",username:"",phoneNumber:"",email:"",password:"",gender:"",
+                                        address:"",zipcode:"",dateOfBirth:"",previousOrganisation:"",previousDesignation:""});
     const [genders, setGenders] = useState<string[]>([]);
     const [formHeading, setFormHeading] = useState<string>("Add Employee Details");
     const [submitButtonValue, setSubmitButtonValue] = useState<string>("Submit");
-    const [data,setData]=useState({id:"",userName:"",fullName:"",gender:"",phoneNumber:"",email:"",isActive:0});
+    const [validFirstNameFlag, setValidFirstNameFlag] = useState<boolean>(false);
+    const [validLastNameFlag, setValidLastNameFlag] = useState<boolean>(false);
+    const [validPhoneFlag, setValidPhoneFlag] = useState<boolean>(false);
+    const [validEmailFlag, setValidEmailFlag] = useState<boolean>(false);
+    const [validPasswordFlag, setValidPasswordFlag] = useState<boolean>(false);
+    const [validZipcodeFlag, setValidZipcodeFlag] = useState<boolean>(false);
+    const [validOrgNameFlag, setValidOrgNameFlag] = useState<boolean>(false);
+    const [validDesignationFlag, setValidDesignationFlag] = useState<boolean>(false);
+    const [data,setData]=useState({firstName:"",lastName: "",username:"",phoneNumber:"",email:"",password:"",gender:"",
+                                    address:"",zipcode:"",dateOfBirth:"",previousOrganisation:"",previousDesignation:""});
     const location = useLocation();
 
     const getGenders = () => {
@@ -25,11 +35,7 @@ const AddEmployee = () => {
         {
             setGenders(response.data.data);
         }).catch(error => {
-            if(error.response)
-            {
-                alert(error.response.data.message);
-            }
-            else if (error.request)
+            if (error.request)
             {
                 alert("Server Inactive or Busy");
             }
@@ -43,59 +49,69 @@ const AddEmployee = () => {
 
     const setDefaultValues = () =>
     {
-        setNewEmployee({firstName:"",lastName: "",userName:"",phoneNumber:"",email:"",password:"",gender:""});
+        setNewEmployee({firstName:"",lastName: "",username:"",phoneNumber:"",email:"",password:"",gender:"",
+                        address:"",zipcode:"",dateOfBirth:"",previousOrganisation:"",previousDesignation:""});
     }
 
     const handleSubmit = (e:any) => 
     {
         e.preventDefault();
         const validName = new RegExp('^[a-zA-z]+([\s][a-zA-Z]+)*$');
+        const validOrganisationName = new RegExp("^[A-Za-z]+[A-Za-z ]*$");
+        const validDesignation = new RegExp("^[A-Za-z]+[A-Za-z ]*$");
         const validEmail = new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$');
-        const validPhone = new RegExp("^[0-9]{10}$");
+        const validPhone = new RegExp("^[0-9]{10}$");;
         const validZipcode = new RegExp("^[0-9]{6}$");
-        
-        // if (!validName.test(custName)) 
-        // {
-        //     alert("Please enter a valid Name");
-        // }
-        if(newEmployee.firstName == "")
+
+        if (!validName.test(newEmployee.firstName)) 
         {
-            alert("Please Enter First Name");
+            setValidFirstNameFlag(true);
         }
-        else if(newEmployee.lastName == "")
+        else if(!validName.test(newEmployee.lastName))
         {
-            alert("Please Enter Last Name");
+            setValidLastNameFlag(true);
         }
-        else if(newEmployee.userName == "")
+        else if(!validPhone.test(newEmployee.phoneNumber))
         {
-            alert("Please Enter a Username");
+            setValidPhoneFlag(true);
         }
-        else if(newEmployee.phoneNumber == "")
+        else if(!validEmail.test(newEmployee.email))
         {
-            alert("Please Enter a Phone Number");
+            setValidEmailFlag(true);
         }
-        else if(newEmployee.email == "")
+        else if(!validZipcode.test(newEmployee.zipcode))
         {
-            alert("Please Enter an email");
+            setValidZipcodeFlag(true);
         }
-        else if(newEmployee.password == "")
+        else if(!validOrganisationName.test(newEmployee.previousOrganisation))
         {
-            alert("Please Enter a Password");
+            setValidOrgNameFlag(true);
         }
-        else if(newEmployee.gender == "")
+        else if(!validDesignation.test(newEmployee.previousDesignation))
         {
-            alert("Please select a Gender");
+            setValidDesignationFlag(true);
         }
         else
         {
-            if(submitButtonValue=== "Submit")
+            if(submitButtonValue === "Submit")
             {
-                // axios.post(baseURL, newEmployee)
-                // .then(response => 
-                // {
-                //     navigate("employees/view-all");
-                // })
-                setDefaultValues();
+                axios.post(baseURL, newEmployee)
+                .then(response => 
+                {
+                    console.log(response.data);
+                    setDefaultValues();
+                    navigate("../employees/view-all");
+                }).catch(error => {
+                    if(error.response)
+                    {
+                        setValidPasswordFlag(true);
+                        console.log(error.response.data.title);
+                    }
+                    else if (error.request)
+                    {
+                        alert("Server Inactive or Busy");
+                    }
+                });
             }
             else
             {
@@ -111,7 +127,6 @@ const AddEmployee = () => {
 
     const handleCancelButton = () => {
         navigate("../employees/view-all");
-        // console.log(newEmployee);
     }
 
     useEffect(()=> {
@@ -186,24 +201,34 @@ const AddEmployee = () => {
 
                         <label className="col-md-4">
                         Username
-                        <input type="text" name="userName" value={newEmployee.userName}
+                        <input type="text" name="username" value={newEmployee.username}
                         placeholder="Enter Username"
                         className="input-item-details" onChange={HandleChange} required/>
                         </label>
-                    </div>           
+                    </div> 
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            {validFirstNameFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
+                        <div className='col-md-4'>
+                            {validLastNameFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
+                    </div>
                     <div className="row g-3 input-row">
-                    <label className="col-md-4">
-                        Phone
-                        <input type="text" name="phoneNumber" value={newEmployee.phoneNumber}
-                        placeholder="Enter Phone No."
-                        className="input-item-details" onChange={HandleChange} required/>
+                        <label className="col-md-4">
+                            Phone
+                            <input type="text" name="phoneNumber" value={newEmployee.phoneNumber}
+                            placeholder="Enter Phone No."
+                            className="input-item-details" onChange={HandleChange} required/>
                         </label>
 
                         <label className="col-md-4">
-                        Email
-                        <input type="text" name="email" value={newEmployee.email}
-                        placeholder="Enter Email"
-                        className="input-item-details" onChange={HandleChange} required/>
+                            Email
+                            <input type="text" name="email" value={newEmployee.email}
+                            placeholder="Enter Email"
+                            className="input-item-details" onChange={HandleChange} required/>
                         </label>
 
                         <label className="col-md-4">
@@ -213,42 +238,70 @@ const AddEmployee = () => {
                             className="input-item-details" onChange={HandleChange} required/>
                         </label>
                     </div>
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            {validPhoneFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
+                        <div className='col-md-4'>
+                            {validEmailFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
+                        <div className='col-md-4'>
+                            {validPasswordFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
+                    </div>
                     <div className="row g-3 input-row">
-                    <label className="col-md-4">
-                        Address
-                        <input type="text" name="address" value={newEmployee.phoneNumber}
-                        placeholder="Enter Address"
-                        className="input-item-details" onChange={HandleChange} required/>
+                        <label className="col-md-4">
+                            Address
+                            <input type="text" name="address" value={newEmployee.address}
+                            placeholder="Enter Address"
+                            className="input-item-details" onChange={HandleChange} required/>
                         </label>
                         <label className="col-md-4">
-                        Zipcode
-                        <input type="text" name="zipcode" value={newEmployee.email}
-                        placeholder="Enter Zipcode"
-                        className="input-item-details" onChange={HandleChange} required/>
+                            Zipcode
+                            <input type="text" name="zipcode" value={newEmployee.zipcode}
+                            placeholder="Enter Zipcode"
+                            className="input-item-details" onChange={HandleChange} required/>
                         </label>
                         <label className="col-md-4">
                             Date of Birth
-                            <input type="date" name="dateOfBirth" value={newEmployee.password}
+                            <input type="date" name="dateOfBirth" value={newEmployee.dateOfBirth}
                             className="input-item-details" onChange={HandleChange} required/>
                         </label>
+                    </div>
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            {false ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
+                        <div className='col-md-4'>
+                            {validZipcodeFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
+                        <div className='col-md-4'>
+                            {false ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
                     </div>
                     <div className="row g-3 input-row">
                         <label className="col-md-4">
                             Previous Organisation
-                            <input type="text" name="previousEmployer" value={newEmployee.email}
+                            <input type="text" name="previousOrganisation" value={newEmployee.previousOrganisation}
                             placeholder="Enter Previous Organisation"
                             className="input-item-details" onChange={HandleChange} required/>
                         </label>
                         <label className="col-md-4">
                             Previous Designation
-                            <input type="text" name="previousDesignation" value={newEmployee.email}
+                            <input type="text" name="previousDesignation" value={newEmployee.previousDesignation}
                             placeholder="Enter Previous Designation"
                             className="input-item-details" onChange={HandleChange} required/>
                         </label>
                         <label className="col-md-4">
                             Gender
                             <br></br>
-                            <select required id = "gender-dropdown" className="mt-1 input-item-details" name="gender"
+                            <select required id = "gender-dropdown" className="input-item-details" name="gender"
                                     defaultValue="Select-Gender"
                                     onChange={HandleChange} >
                                 <option value= "Select-Gender" disabled>Select Gender</option>
@@ -260,9 +313,9 @@ const AddEmployee = () => {
                         </select>
                         </label>
                     </div>
-                    <button type="submit" className="btn submit-btn" 
+                    <button type="submit" className="btn submit-btn mt-3" 
                             >{submitButtonValue}</button>
-                    <button className="btn btn-danger" onClick={handleCancelButton}>Cancel</button>
+                    <button className="btn btn-danger mt-3" onClick={handleCancelButton}>Cancel</button>
                 </form>
             </div>
         </div>

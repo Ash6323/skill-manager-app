@@ -12,7 +12,7 @@ const AdminSidebar = () => {
         <div>
           <Button className = "sidebar-items" onClick={()=>navigate("../admin/home")}>Home</Button>
           <Button className = "sidebar-items" onClick={()=>navigate("employees/view-all")}>Employees</Button>
-          <Button className = "sidebar-items" onClick={()=>navigate("employees/view-all")}>Skills</Button>
+          <Button className = "sidebar-items" onClick={()=>navigate("skills/view-all")}>Skills</Button>
           {/* <Dropdown>
             <Dropdown.Toggle variant="success" id="employees-dropdown" className="sidebar-items" 
                               data-bs-toggle="collapse" data-bs-target="#employees-collapse" aria-expanded="false">
