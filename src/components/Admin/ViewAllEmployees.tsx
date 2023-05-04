@@ -72,7 +72,7 @@ const ViewAllEmployees = () => {
         <div className="my-container shadow">
             <div className="row">
                 <div className="d-flex justify-content-end">
-                    <button type="submit" className="btn submit-btn" onClick={()=>navigate("../employees/add-new")}>
+                    <button type="submit" className="btn submit-btn new-emp-btn" onClick={()=>navigate("../employees/add-new")}>
                         Add New
                     </button>
                 </div>
@@ -82,7 +82,7 @@ const ViewAllEmployees = () => {
                     <h3>Employee List</h3>
                 </div>
             </div>
-
+            <hr></hr>
 
             <div className="table-responsive card">
                 <table className="table table-bordered table-striped ">

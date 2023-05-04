@@ -30,3 +30,19 @@ export interface Skill {
     id: number,
     skillName: string,
 }
+export interface SkillExpertise {
+    id: number,
+    skillName: string,
+    expertise: string,
+}
+export interface EmployeeSkills {
+    employeeId: string,
+    employeeName: string,
+    employeeSkills: SkillExpertise[],
+}
+export interface EmployeeSkillMap {
+    employeeId: string,
+    skillId: number,
+    expertise: string,
+}
+

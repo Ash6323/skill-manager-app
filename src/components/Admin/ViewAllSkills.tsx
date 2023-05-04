@@ -42,19 +42,6 @@ const ViewAllSkills = () => {
         getSkills();
       }, [show]);
     
-    // const handleUpdateClick = (sendId:any,sendName:any,sendEmail:any,sendPhone:any,
-    //                         sendStreet:any,sendTown:any,sendCity:any, sendZipcode:any) => 
-    // { 
-    //     navigate('../employee/add-employee',
-    //             {state:
-    //                 {
-    //                     type: "Update",
-    //                     id: sendId, name: sendName, email: sendEmail, phone: sendPhone,
-    //                     street: sendStreet, town: sendTown, city: sendCity, zipcode: sendZipcode
-    //                 }
-    //             });
-    // }
-
     // const handleDeleteClick = (id:any) => {
     //     // setDeletionCustomerId(id);
     //     // invokeDeleteModal(true);
@@ -69,7 +56,7 @@ const ViewAllSkills = () => {
         <div className="my-container shadow pb-5">
             <div className="row">
                 <div className="d-flex justify-content-end">
-                    <button type="submit" className="btn submit-btn" onClick={() => setShow(true)}>
+                    <button type="submit" className="btn submit-btn map-emp-btn" onClick={() => setShow(true)}>
                         Add New
                     </button>
                 </div>
@@ -97,22 +84,6 @@ const ViewAllSkills = () => {
                 })
                 }  
             </div>
-            {/* 
-            <button 
-                type="button" 
-                className="btn update-btn btn-warning"
-                // onClick={() => handleUpdateClick(Id, Username, FullName, Gender, PhoneNumber, Email, IsActive)}
-                >
-                Update
-            </button>
-            <button 
-                type="button" 
-                className="btn btn-danger"
-                // onClick = {() => handleDeleteClick(id)}
-                >Delete
-            </button>
-                })} */}
-
             <div>
                 <Modal show={show} onHide={() => setShow(false)} contentClassName="modal-container">
                     <AddSkillModal ShowModal={closeModal}/>

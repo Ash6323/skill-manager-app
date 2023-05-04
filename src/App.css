@@ -192,7 +192,7 @@ a {
   background-color: var(--sidebar-buttons-color) !important;
   color: #fff !important;
   border-color: var(--sidebar-buttons-color) !important;
-  margin-bottom: 2%;
+  margin-bottom: 3% !important;
   height: 60px !important;
 }
 .sidebar-items:hover{
@@ -228,7 +228,7 @@ a {
 }
 .my-container {
   text-align: center;
-  margin-top: 3%;
+  margin-top: 1%;
   padding-top: 1%;
   padding-bottom: 2%;
   box-shadow: 0px 0px 2px 3px rgba(97, 92, 92, 0.621);
@@ -282,7 +282,12 @@ a {
   font-size: small;
   width: 35%;
 }
-
+.map-emp-btn {
+  margin-right: 3%;
+}
+.new-emp-btn {
+  margin-right: 5%;
+}
 
 @media screen and (max-width: 991px) {
   .logo {
