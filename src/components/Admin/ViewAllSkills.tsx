@@ -70,7 +70,7 @@ const ViewAllSkills = () => {
 
     React.useEffect( () => {
         getSkills();
-      }, [show]);
+      }, [show, showUpdate]);
     
     // const handleDeleteClick = (id:any) => {
     //     // setDeletionCustomerId(id);
@@ -89,7 +89,7 @@ const ViewAllSkills = () => {
                     <button type="submit" className="btn submit-btn btn-success" onClick={handleDownloadPdf}>
                         Print
                     </button>
-                    <button type="submit" className="btn submit-btn map-emp-btn" onClick={() => setShow(true)}>
+                    <button type="submit" className="btn submit-btn new-skill-btn" onClick={() => setShow(true)}>
                         Add New
                     </button>
                 </div>
@@ -108,6 +108,7 @@ const ViewAllSkills = () => {
                             <div className="card">
                                 <div className="card-body skill-card" onClick={() => HandleCardClick(skill.id,skill.skillName)}>
                                     <h5 className="card-title">{skill.skillName}</h5>
+                                    <p>{skill.description}</p>
                                     {/* <a href="#" className="btn skill-update-btn btn-warning">Update</a>
                                     <a href="#" className="btn skill-delete-btn btn-danger">Delete</a> */}
                                 </div>

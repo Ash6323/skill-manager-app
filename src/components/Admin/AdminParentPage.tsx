@@ -4,10 +4,10 @@ import { Routes, Route } from "react-router-dom";
 import LandingNavbar from "../LandingPage/LandingNavbar";
 import AdminSidebar from "./AdminSidebar";
 import ViewAllEmployees from "./ViewAllEmployees";
-import AdminHomePage from './AdminHomePage';
 import AddEmployee from './AddEmployee';
 import ViewAllSkills from "./ViewAllSkills";
 import { useEffect, useState } from 'react';
+import AdminHomePage from './AdminHomePage';
 
 const AdminParentPage = () => {
 

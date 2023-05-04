@@ -12,12 +12,12 @@ interface IModal {
 
 const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
 
-  const [newSkill, setNewSkill] = useState<Skill>({id:0, skillName:""});
+  const [newSkill, setNewSkill] = useState<Skill>({id:0, skillName:"",description:""});
   const [show, setShow] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const setDefaultValue = () => {
-    setNewSkill({id:0, skillName:""});
+    setNewSkill({id:0, skillName:"",description:""});
   }
 
   const HandleChange = (e:any) =>{
@@ -53,6 +53,10 @@ const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
         <div>
           <input type="text" name="skillName" value={newSkill.skillName} 
                 placeholder="Enter New Skill" onChange={HandleChange} required/>
+        </div>
+        <div>
+          <input type="text" name="description" value={newSkill.description} 
+                placeholder="Enter Description" onChange={HandleChange} required/>
         </div>
         <div className="d-flex justify-content-center">
           <button type="submit" className="btn btn-success mt-3 px-4" 

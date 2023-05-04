@@ -5,7 +5,11 @@
   --login-btn-color: #1A237E;
   --login-btn-hover-color: #0f1768;
   --add-item-button-color: rgb(34, 172, 29);
-  --contact-button-color : rgb(95, 71, 192);
+  --basic-expertise-color : cyan;
+  --novice-expertise-color : rgb(245, 245, 6);
+  --intermediate-expertise-color : rgb(30, 82, 255);
+  --advanced-expertise-color : orange;
+  --expert-expertise-color : rgb(12, 213, 12);
   --submit-btn-color: #4c49ea;
   --update-btn-color: #ebbf2e;
   --reset-list-btn-color: #d4d4dd;
@@ -253,8 +257,8 @@ a {
 }
 .table-responsive {
   margin-top: 2%;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 2%;
+  margin-right: 2%;
   margin-bottom: 2%;
   border-radius: 5px;
 }
@@ -301,11 +305,50 @@ a {
   cursor: pointer;
 }
 .map-emp-btn {
-  margin-right: 3%;
+  margin-right: 25px;
 }
 .new-emp-btn {
-  margin-right: 5%;
+  margin-right: 25px;
 }
+.new-skill-btn {
+  margin-right: 35px !important;
+}
+.badge {
+  padding: 8px;
+  background-color: rgb(255, 255, 255);
+  font-size: medium;
+  color: black;
+  font-weight: normal;
+  margin-right: 3px;
+}
+.basic {
+  border-color: var(--basic-expertise-color) !important;
+}
+.novice {
+  border-color: var(--novice-expertise-color) !important;
+}
+.intermediate {
+  border-color: var(--intermediate-expertise-color) !important;
+}
+.advanced {
+  border-color: var(--advanced-expertise-color) !important;
+}
+.expert {
+  border-color: var(--expert-expertise-color) !important;
+}
+td.description {
+  vertical-align: middle;
+}
+/* .card-registration .select-input.form-control[readonly]:not([disabled]) {
+  line-height: 2.15;
+  padding-left: .75em;
+  padding-right: .75em;
+} */
+.card-registration .select-arrow {
+  top: 13px;
+}
+
+
 
 @media screen and (max-width: 991px) {
   .logo {

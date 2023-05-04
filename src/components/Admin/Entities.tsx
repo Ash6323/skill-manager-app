@@ -20,7 +20,9 @@ export interface NewEmployee {
     email: string,
     password: string,
     gender: string,
-    address: string,
+    street: string,
+    town: string,
+    city: string,
     zipcode: string,
     dateOfBirth: string,
     previousOrganisation: string,
@@ -29,6 +31,7 @@ export interface NewEmployee {
 export interface Skill {
     id: number,
     skillName: string,
+    description: string,
 }
 export interface SkillExpertise {
     id: number,

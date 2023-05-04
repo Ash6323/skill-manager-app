@@ -1,5 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
 import { Modal } from "react-bootstrap";
 import {EmployeeSkills} from './Entities';
 import React, {useState} from "react";
@@ -46,59 +49,93 @@ const AdminHomePage = () => {
         <>
         <div className="my-container shadow">
             <div className="row">
-                <div className="d-flex justify-content-end">
+                <div className="d-flex px-4 col-md-6">
+                    <span className="badge rounded-pill border border-4 basic">Basic</span>
+                    <span className="badge rounded-pill border border-4 novice">Novice</span>
+                    <span className="badge rounded-pill border border-4 intermediate">Intermediate</span>
+                    <span className="badge rounded-pill border border-4 advanced">Advanced</span>
+                    <span className="badge rounded-pill border border-4 expert">Expert</span>
+                </div>
+                <div className="d-flex justify-content-end mb-2 col-md-6">
                     <button type="submit" className="btn submit-btn map-emp-btn" onClick={() => setShow(true)}>
                         Map to Employee
                     </button>
                 </div>
             </div>
             <div className="row">
-                <div className="d-flex col justify-content-center">
-                    <h3>Employees Skill List</h3>
+                <div className="d-flex mt-2 justify-content-center">
+                    <h3>Employee Skill List</h3>
                 </div>
             </div>
             <hr></hr>
-            <div className="row mx-4 mt-2">     
-                {allEmployeeSkills.map((item,index) => {
-                    return (
-                      <div key={index} className="col-sm-4 mt-2">
-                        <div className="card">
-                          <div className="card-body">
-                            <h5 className="card-title">
-                              {item.employeeName}
-                            </h5>
-                            <div className="table-responsive card">
-                              <table className="table table-bordered table-striped ">
-                                <thead className="table-dark">
-                                    <tr>
-                                        <th scope="col">S.No.</th>
-                                        <th scope="col">Skill</th>
-                                        <th scope="col">Expertise</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <React.Fragment key={index}>
+            <div className="mt-2">
+                <div className="table-responsive card">
+                    <table className="table table-bordered table-striped ">
+                        <thead className="table-dark">
+                            <tr>
+                                <th scope="col">S.No.</th>
+                                <th scope="col">Employee</th>
+                                <th scope="col">Skills</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {allEmployeeSkills.map((item,index) => {
+                            return ( 
+                            <tr key={index}>
+                                <td className="description">{index+1}</td>
+                                <td className="description">{item.employeeName}</td>
+                                <td>
+                                <React.Fragment key={index}>
                                         {item.employeeSkills.map((skill, index) => {
+                                            if(skill.expertise==="Basic")
                                             return (
-                                                <tr key={index}>
-                                                    <td>{index + 1}</td>
-                                                    <td>{skill.skillName}</td>
-                                                    <td>{skill.expertise}</td>
-                                                </tr>
+                                                <td key = {index}>      
+                                                    <span className="badge rounded-pill border border-4 basic">
+                                                        {skill.skillName}
+                                                    </span>
+                                                </td>
+                                            )
+                                            else if(skill.expertise==="Novice")
+                                            return (
+                                                <td key = {index}>      
+                                                    <span className="badge rounded-pill border border-4 novice">
+                                                        {skill.skillName}
+                                                    </span>
+                                                </td>
+                                            )
+                                            else if(skill.expertise==="Intermediate")
+                                            return (
+                                                <td key = {index}>      
+                                                    <span className="badge rounded-pill border border-4 intermediate">
+                                                        {skill.skillName}
+                                                    </span>
+                                                </td>
+                                            )
+                                            else if(skill.expertise==="Advanced")
+                                            return (
+                                                <td key = {index}>      
+                                                    <span className="badge rounded-pill border border-4 advanced">
+                                                        {skill.skillName}
+                                                    </span>
+                                                </td>
+                                            )
+                                            else if(skill.expertise==="Expert")
+                                            return (
+                                                <td key = {index}>      
+                                                    <span className="badge rounded-pill border border-4 expert">
+                                                        {skill.skillName}
+                                                    </span>
+                                                </td>
                                             )
                                         })}
                                     </React.Fragment>
-                                </tbody>
-                              </table>
-                            </div>
-                            {/* <a href="#" className="btn skill-update-btn btn-warning">Update</a>
-                                    <a href="#" className="btn skill-delete-btn btn-danger">Delete</a> */}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                })
-                }  
+                                </td>
+                            </tr>
+                            );
+                        })}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div>
                 <Modal show={show} onHide={() => setShow(false)} contentClassName="modal-container">

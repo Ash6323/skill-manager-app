@@ -9,21 +9,22 @@ const baseURL = "https://localhost:7247/api/Skill";
 interface IModal {
   ShowUpdateModal: (showUpdate: boolean) => void;
   updateSkillId: number,
-  updateSkillName: string
+  updateSkillName: string,
+  updateSkillDescription: string,
 }
 
-const UpdateSkillModal:React.FC<IModal> = ({ShowUpdateModal, updateSkillId, updateSkillName}) => {
+const UpdateSkillModal:React.FC<IModal> = ({ShowUpdateModal, updateSkillId, updateSkillName,updateSkillDescription}) => {
 
-  const [updatedSkill, setUpdatedSkill] = useState<Skill>({id: 0, skillName: ""});
+  const [updatedSkill, setUpdatedSkill] = useState<Skill>({id: 0, skillName: "",description: ""});
   const [show, setShow] = useState<boolean>(false);
   const navigate = useNavigate();
 
   React.useEffect( () => {
-    setUpdatedSkill({id: updateSkillId, skillName: updateSkillName});
+    setUpdatedSkill({id: updateSkillId, skillName: updateSkillName, description: updateSkillDescription});
   }, []);
 
   const setDefaultValue = () => {
-    setUpdatedSkill({id:0, skillName:""});
+    setUpdatedSkill({id:0, skillName:"", description:""});
   }
 
   const HandleChange = (e:any) =>{

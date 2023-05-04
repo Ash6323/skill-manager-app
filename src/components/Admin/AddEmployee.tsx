@@ -13,8 +13,8 @@ const AddEmployee = () => {
 
     const navigate = useNavigate();
     const [newEmployee,setNewEmployee]=useState<NewEmployee>
-                                        ({firstName:"",lastName: "",username:"",phoneNumber:"",email:"",password:"",gender:"",
-                                        address:"",zipcode:"",dateOfBirth:"",previousOrganisation:"",previousDesignation:""});
+                                    ({firstName:"",lastName: "",username:"",phoneNumber:"",email:"",password:"",gender:"",
+                                    street:"",town:"",city:"",zipcode:"",dateOfBirth:"",previousOrganisation:"",previousDesignation:""});
     const [genders, setGenders] = useState<string[]>([]);
     const [formHeading, setFormHeading] = useState<string>("Add Employee Details");
     const [submitButtonValue, setSubmitButtonValue] = useState<string>("Submit");
@@ -27,7 +27,7 @@ const AddEmployee = () => {
     const [validOrgNameFlag, setValidOrgNameFlag] = useState<boolean>(false);
     const [validDesignationFlag, setValidDesignationFlag] = useState<boolean>(false);
     const [data,setData]=useState({firstName:"",lastName: "",username:"",phoneNumber:"",email:"",password:"",gender:"",
-                                    address:"",zipcode:"",dateOfBirth:"",previousOrganisation:"",previousDesignation:""});
+                                    street:"",town:"",city:"",zipcode:"",dateOfBirth:"",previousOrganisation:"",previousDesignation:""});
     const location = useLocation();
 
     const getGenders = () => {
@@ -50,7 +50,7 @@ const AddEmployee = () => {
     const setDefaultValues = () =>
     {
         setNewEmployee({firstName:"",lastName: "",username:"",phoneNumber:"",email:"",password:"",gender:"",
-                        address:"",zipcode:"",dateOfBirth:"",previousOrganisation:"",previousDesignation:""});
+                        street:"",town:"",city:"",zipcode:"",dateOfBirth:"",previousOrganisation:"",previousDesignation:""});
     }
 
     const handleSubmit = (e:any) => 
@@ -60,7 +60,7 @@ const AddEmployee = () => {
         const validOrganisationName = new RegExp("^[A-Za-z]+[A-Za-z ]*$");
         const validDesignation = new RegExp("^[A-Za-z]+[A-Za-z ]*$");
         const validEmail = new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$');
-        const validPhone = new RegExp("^[0-9]{10}$");;
+        const validPhone = new RegExp("^[0-9]{10}$");
         const validZipcode = new RegExp("^[0-9]{6}$");
 
         if (!validName.test(newEmployee.firstName)) 
@@ -178,39 +178,34 @@ const AddEmployee = () => {
     },[location.state])
    
     return (
-        <>
-        <div className="my-container shadow">
-            <h3>{formHeading}</h3>
-            <hr></hr>
-            <div>
+      <>
+        <div className="row justify-content-center my-container shadow">
+          <h3>{formHeading}</h3>
+          <hr></hr>
+
+          <div className='card shadow-2-strong card-registration col-md-10'>
                 <form onSubmit={handleSubmit}>
                     <div className="row g-3 input-row">
-                        <label className="col-md-4">
+                        <label className="col-md-4"> 
                         First Name
                         <input type="text" name="firstName" value={newEmployee.firstName}
                         placeholder="Enter First Name"
                         className="input-item-details" onChange={HandleChange} required/>
                         </label>
-
+                    <div className='col-md-1'></div>
                         <label className="col-md-4">
                         Last Name
                         <input type="text" name="lastName" value={newEmployee.lastName}
                         placeholder="Enter Last Name"
                         className="input-item-details" onChange={HandleChange} required/>
                         </label>
-
-                        <label className="col-md-4">
-                        Username
-                        <input type="text" name="username" value={newEmployee.username}
-                        placeholder="Enter Username"
-                        className="input-item-details" onChange={HandleChange} required/>
-                        </label>
-                    </div> 
+                    </div>
                     <div className='row'>
                         <div className='col-md-4'>
                             {validFirstNameFlag ? <p className="text-danger font-weight-bold text-sm">
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
+                        <div className='col-md-1'></div>
                         <div className='col-md-4'>
                             {validLastNameFlag ? <p className="text-danger font-weight-bold text-sm">
                             Invalid Entry. Please Try Again</p> : null}
@@ -218,23 +213,40 @@ const AddEmployee = () => {
                     </div>
                     <div className="row g-3 input-row">
                         <label className="col-md-4">
+                        Username
+                        <input type="text" name="username" value={newEmployee.username}
+                        placeholder="Enter Username"
+                        className="input-item-details" onChange={HandleChange} required/>
+                        </label>
+                        <div className='col-md-1'></div>
+                        <label className="col-md-4">
+                            Password
+                            <input type="password" name="password" value={newEmployee.password}
+                            placeholder="Enter Password"
+                            className="input-item-details" onChange={HandleChange} required/>
+                        </label>
+                    </div> 
+                    <div className='row'>
+                        <div className='col-md-4'></div>
+                        <div className='col-md-1'></div>
+                        <div className='col-md-4'>
+                            {validPasswordFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
+                    </div>
+
+                    <div className="row g-3 input-row">
+                        <label className="col-md-4">
                             Phone
                             <input type="text" name="phoneNumber" value={newEmployee.phoneNumber}
                             placeholder="Enter Phone No."
                             className="input-item-details" onChange={HandleChange} required/>
                         </label>
-
+                        <div className='col-md-1'></div>
                         <label className="col-md-4">
                             Email
                             <input type="text" name="email" value={newEmployee.email}
                             placeholder="Enter Email"
-                            className="input-item-details" onChange={HandleChange} required/>
-                        </label>
-
-                        <label className="col-md-4">
-                            Password
-                            <input type="password" name="password" value={newEmployee.password}
-                            placeholder="Enter Password"
                             className="input-item-details" onChange={HandleChange} required/>
                         </label>
                     </div>
@@ -243,35 +255,42 @@ const AddEmployee = () => {
                             {validPhoneFlag ? <p className="text-danger font-weight-bold text-sm">
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
+                        <div className='col-md-1'></div>
                         <div className='col-md-4'>
                             {validEmailFlag ? <p className="text-danger font-weight-bold text-sm">
-                            Invalid Entry. Please Try Again</p> : null}
-                        </div>
-                        <div className='col-md-4'>
-                            {validPasswordFlag ? <p className="text-danger font-weight-bold text-sm">
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
                     </div>
                     <div className="row g-3 input-row">
                         <label className="col-md-4">
-                            Address
-                            <input type="text" name="address" value={newEmployee.address}
-                            placeholder="Enter Address"
+                            Street
+                            <input type="text" name="street" value={newEmployee.street}
+                            placeholder="Enter Street"
                             className="input-item-details" onChange={HandleChange} required/>
                         </label>
+                        <div className='col-md-1'></div>
+                        <label className="col-md-4">
+                            Town
+                            <input type="text" name="town" value={newEmployee.town}
+                            placeholder="Enter Town"
+                            className="input-item-details" onChange={HandleChange} required/>
+                        </label>
+                        <div className="row g-3 input-row">
+                        <label className="col-md-4">
+                            City
+                            <input type="text" name="city" value={newEmployee.city}
+                            placeholder="Enter City"
+                            className="input-item-details" onChange={HandleChange} required/>
+                        </label>
+                        <div className='col-md-1'></div>
                         <label className="col-md-4">
                             Zipcode
                             <input type="text" name="zipcode" value={newEmployee.zipcode}
                             placeholder="Enter Zipcode"
                             className="input-item-details" onChange={HandleChange} required/>
                         </label>
-                        <label className="col-md-4">
-                            Date of Birth
-                            <input type="date" name="dateOfBirth" value={newEmployee.dateOfBirth}
-                            className="input-item-details" onChange={HandleChange} required/>
-                        </label>
-                    </div>
-                    <div className='row'>
+                        </div>
+                        <div className='row'>
                         <div className='col-md-4'>
                             {false ? <p className="text-danger font-weight-bold text-sm">
                             Invalid Entry. Please Try Again</p> : null}
@@ -280,9 +299,27 @@ const AddEmployee = () => {
                             {validZipcodeFlag ? <p className="text-danger font-weight-bold text-sm">
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
-                        <div className='col-md-4'>
-                            {false ? <p className="text-danger font-weight-bold text-sm">
-                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
+                        <div className="row g-3 input-row">
+                        <label className="col-md-4">
+                            Date of Birth
+                            <input type="date" name="dateOfBirth" value={newEmployee.dateOfBirth}
+                            className="input-item-details" onChange={HandleChange} required/>
+                        </label>
+                        <div className='col-md-1'></div>
+                        <label className="col-md-4">
+                            Gender
+                            <select required id = "gender-dropdown" className="input-item-details col-md-12" name="gender"
+                                    defaultValue="Select-Gender"
+                                    onChange={HandleChange} >
+                                <option value= "Select-Gender" disabled>Select Gender</option>
+                                {genders.map((gender, index) => { 
+                                return (<option key= {index} value={ newEmployee.gender }>
+                                            {gender}
+                                        </option>);
+                                })}
+                            </select>
+                        </label>
                         </div>
                     </div>
                     <div className="row g-3 input-row">
@@ -292,34 +329,21 @@ const AddEmployee = () => {
                             placeholder="Enter Previous Organisation"
                             className="input-item-details" onChange={HandleChange} required/>
                         </label>
+                        <div className='col-md-1'></div>
                         <label className="col-md-4">
                             Previous Designation
                             <input type="text" name="previousDesignation" value={newEmployee.previousDesignation}
                             placeholder="Enter Previous Designation"
                             className="input-item-details" onChange={HandleChange} required/>
                         </label>
-                        <label className="col-md-4">
-                            Gender
-                            <br></br>
-                            <select required id = "gender-dropdown" className="input-item-details" name="gender"
-                                    defaultValue="Select-Gender"
-                                    onChange={HandleChange} >
-                                <option value= "Select-Gender" disabled>Select Gender</option>
-                                {genders.map((gender, index) => { 
-                                return (<option key= {index} value={ gender=="Male"? "M":"F" }>
-                                            {gender}
-                                        </option>);
-                                })}
-                        </select>
-                        </label>
+                        
                     </div>
-                    <button type="submit" className="btn submit-btn mt-3" 
-                            >{submitButtonValue}</button>
-                    <button className="btn btn-danger mt-3" onClick={handleCancelButton}>Cancel</button>
+                    <button type="submit" className="btn submit-btn mt-3 mb-4">{submitButtonValue}</button>
+                    <button className="btn btn-danger mt-3 mb-4" onClick={handleCancelButton}>Cancel</button>
                 </form>
             </div>
         </div>
-        </>
+      </>
     );
 }
 export default AddEmployee
