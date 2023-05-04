@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { Modal } from "react-bootstrap";
 import {Employee} from './Entities';
-import React, {useState, useContext} from "react";
+import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 

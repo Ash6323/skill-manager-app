@@ -16,10 +16,22 @@
 
 .App {
   font-family: 'Poppins', sans-serif;
+  overflow:hidden;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+.my-spinner {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  backdrop-filter: blur(2px);
 }
 
 .login-card-body {
@@ -180,7 +192,7 @@ a {
 
 #sidebar {
   display: flex;
-  height: 88vh;
+  height: 90vh;
   flex-direction: column;
   background: var(--sidebar-color);
   color: #fff;
@@ -228,13 +240,16 @@ a {
 }
 .my-container {
   text-align: center;
-  margin-top: 1%;
-  padding-top: 1%;
-  padding-bottom: 2%;
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: 15px;
+  padding-top: 15px;
+  padding-bottom: 25px;
   box-shadow: 0px 0px 2px 3px rgba(97, 92, 92, 0.621);
   border-radius: 4px 4px;
   background-color:rgba(128, 128, 128, 0.185);
-  margin-bottom: 5%;
+  overflow: scroll;
+  height: 88vh;
 }
 .table-responsive {
   margin-top: 2%;

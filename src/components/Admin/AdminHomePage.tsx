@@ -43,6 +43,7 @@ const AdminHomePage = () => {
     }, [show]);
 
     return (
+        <>
         <div className="my-container shadow">
             <div className="row">
                 <div className="d-flex justify-content-end">
@@ -105,6 +106,7 @@ const AdminHomePage = () => {
                 </Modal>
             </div>
         </div>
+        </>
     )
 }
 export default AdminHomePage

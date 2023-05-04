@@ -43,6 +43,8 @@
   "devDependencies": {
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "react-bootstrap": "^2.7.4",
     "react-router-dom": "^6.10.0"
   }
