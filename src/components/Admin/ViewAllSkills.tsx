@@ -6,6 +6,7 @@ import React, {useState, useContext} from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import AddSkillModal from './AddSkillModal';
+import UpdateSkillModal from './UpdateSkillModal';
 
 const baseURL = "https://localhost:7247/api/Skill";
 
@@ -13,12 +14,23 @@ const ViewAllSkills = () => {
 
     const [skills, setSkills] = useState<Skill[]>([]);
     const [show, setShow] = useState(false);
-    const [deletionSkillId, setDeletionSkillId] = useState<string>("");
+    const [showUpdate, setShowUpdate] = useState(false);
+    const [updationSkillId, setUpdationSkillId] = useState<number>(0);
+    const [updationSkillName, setUpdationSkillName] = useState<string>("");
     const navigate = useNavigate();
     
     const closeModal = (showValue : boolean) =>
     {
       setShow(showValue);
+    }
+    const closeUpdateModal = (showValue : boolean) =>
+    {
+      setShowUpdate(showValue);
+    }
+    const HandleCardClick = (skillId: number, skillName: string) => {
+        setUpdationSkillId(skillId);
+        setUpdationSkillName(skillName);
+        setShowUpdate(true);
     }
 
     const getSkills = () => {
@@ -68,15 +80,15 @@ const ViewAllSkills = () => {
             </div>
             <hr></hr>
 
-            <div className="row mx-4 mt-2">     
+            <div className="row mx-4 mt-2">
                 {skills.map((skill,index) => {
                     return (
                         <div key={index} className="col-sm-3 mt-2">
                             <div className="card">
-                                <div className="card-body">
+                                <div className="card-body skill-card" onClick={() => HandleCardClick(skill.id,skill.skillName)}>
                                     <h5 className="card-title">{skill.skillName}</h5>
-                                    <a href="#" className="btn skill-update-btn btn-warning">Update</a>
-                                    <a href="#" className="btn skill-delete-btn btn-danger">Delete</a>
+                                    {/* <a href="#" className="btn skill-update-btn btn-warning">Update</a>
+                                    <a href="#" className="btn skill-delete-btn btn-danger">Delete</a> */}
                                 </div>
                             </div>
                         </div>
@@ -87,6 +99,10 @@ const ViewAllSkills = () => {
             <div>
                 <Modal show={show} onHide={() => setShow(false)} contentClassName="modal-container">
                     <AddSkillModal ShowModal={closeModal}/>
+                </Modal>
+                <Modal show={showUpdate} onHide={() => setShowUpdate(false)} contentClassName="modal-container">
+                    <UpdateSkillModal ShowUpdateModal={closeUpdateModal} 
+                                        updateSkillId={updationSkillId} updateSkillName={updationSkillName}/>
                 </Modal>
             </div>
         </div>

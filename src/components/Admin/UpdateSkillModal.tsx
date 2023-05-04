@@ -7,30 +7,38 @@ import { useNavigate } from 'react-router-dom';
 const baseURL = "https://localhost:7247/api/Skill";
 
 interface IModal {
-  ShowModal: (show: boolean) => void;
+  ShowUpdateModal: (showUpdate: boolean) => void;
+  updateSkillId: number,
+  updateSkillName: string
 }
 
-const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
+const UpdateSkillModal:React.FC<IModal> = ({ShowUpdateModal, updateSkillId, updateSkillName}) => {
 
-  const [newSkill, setNewSkill] = useState<Skill>({id:0, skillName:""});
+  const [updatedSkill, setUpdatedSkill] = useState<Skill>({id: 0, skillName: ""});
   const [show, setShow] = useState<boolean>(false);
   const navigate = useNavigate();
 
+  React.useEffect( () => {
+    setUpdatedSkill({id: updateSkillId, skillName: updateSkillName});
+  }, []);
+
   const setDefaultValue = () => {
-    setNewSkill({id:0, skillName:""});
+    setUpdatedSkill({id:0, skillName:""});
   }
 
   const HandleChange = (e:any) =>{
     const {name,value} = e.target;
-    setNewSkill({...newSkill, [name]:value})
+    setUpdatedSkill({...updatedSkill, [name]:value})
   }
 
   const handleClose = () => {
-    ShowModal(false);
+    ShowUpdateModal(false);
   };
 
-  const addSkill = () => {
-    axios.post(baseURL, newSkill)
+  const updateSkill = () => {
+    console.log(updatedSkill);
+    
+    axios.put(baseURL, updatedSkill)
     .then(response => 
     {
       console.log(response.data);
@@ -47,21 +55,18 @@ const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
   return (
     <div>
       <Modal.Header closeButton onClick={() => setShow(false)}>
-        <Modal.Title>Add New Skill</Modal.Title>
+        <Modal.Title>Update Skill</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div>
-          <input type="text" name="skillName" value={newSkill.skillName} 
+          <input type="text" name="skillName" value={updatedSkill.skillName}
                 placeholder="Enter New Skill" onChange={HandleChange} required/>
         </div>
         <div className="d-flex justify-content-center">
-          <button type="submit" className="btn btn-success mt-3 px-4" 
-                  onClick={addSkill} disabled = {newSkill.skillName == ""}>
-            Add
-          </button>
+          <button type="submit" className="btn btn-warning mt-3 px-4" onClick={updateSkill}>Update</button>
         </div>
       </Modal.Body>
     </div>
   )
 }
-export default AddSkillModal;
+export default UpdateSkillModal;

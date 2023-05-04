@@ -83,6 +83,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
 
   const addSkill = () => {
     console.log(newSkill);
+
     axios.post(employeeSkillBaseURL, newSkill)
     .then(response => 
     {
@@ -129,7 +130,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
               })}
           </select>
         </div>
-        <div className='d-flex justify-content-center'>
+        <div className='d-flex'>
           <select required id = "expertise-dropdown" className="input-item-details" name="expertise"
                   defaultValue="Select-Expertise"
                   onChange={HandleChange} >
@@ -142,7 +143,10 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
           </select>
         </div>
         <div className="d-flex justify-content-center">
-          <button type="submit" className="btn btn-success mt-3 px-4" onClick={addSkill}>Add</button>
+          <button type="submit" className="btn btn-success mt-3 px-4" 
+                  onClick={addSkill} disabled={newSkill.employeeId == "" || newSkill.skillId == 0 || newSkill.expertise == ""}>
+            Add
+          </button>
         </div>
       </Modal.Body>
     </div>

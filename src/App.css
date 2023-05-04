@@ -128,7 +128,7 @@ input, textarea {
   margin-top: 2px;
   width: 100%;
   box-sizing: border-box;
-  color: #2C3E50;
+  /* color: #2C3E50; */
   font-size: 14px;
   letter-spacing: 1px;
 }
@@ -281,6 +281,9 @@ a {
 .skill-delete-btn {
   font-size: small;
   width: 35%;
+}
+.skill-card {
+  cursor: pointer;
 }
 .map-emp-btn {
   margin-right: 3%;

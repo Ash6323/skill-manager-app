@@ -7,14 +7,20 @@ import ViewAllEmployees from "./ViewAllEmployees";
 import AdminHomePage from './AdminHomePage';
 import AddEmployee from './AddEmployee';
 import ViewAllSkills from "./ViewAllSkills";
+import { useEffect, useState } from 'react';
 
 const AdminParentPage = () => {
 
     const user = JSON.parse(localStorage.getItem("User") || '{}');
+    const [userName, setUserName] = useState<string>("");
+    
+    useEffect( () => {
+        setUserName(user.userFullName);
+    },[]);
 
     return (
         <>
-        <LandingNavbar />
+        <LandingNavbar userFullName={userName}/>
         <div className="row">
             <div className="col-md-2">
                 <AdminSidebar />

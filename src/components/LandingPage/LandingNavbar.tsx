@@ -1,9 +1,31 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import AvatarImage from '../../res/img_avatar.png';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const LandingNavbar = () => {
-return (
+interface IProfile {
+    userFullName: string,
+}
+
+const LandingNavbar:React.FC<IProfile> = ({userFullName}) => {
+
+    const [signIn, setSignIn] = useState<string>("Sign In"); 
+    const navigate = useNavigate();
+    
+    useEffect( () => {
+        if(localStorage.getItem("User") != null)
+        {
+            setSignIn("Sign Out");
+        }
+    },[]);
+
+    const HandleSignOut = () => {
+        localStorage.clear();
+        navigate("/");
+    }
+
+    return (
         <>
         <svg xmlns="http://www.w3.org/2000/svg" style={{display: "none"}}>
             <symbol id="bootstrap" viewBox="0 0 118 94">
@@ -31,14 +53,14 @@ return (
                             <img src={AvatarImage} alt="mdo" width="32" height="32" className="rounded-circle"></img>
                         </a>
                         <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                            <li><a className="dropdown-item" href="#">Ashwin Kumar</a></li>
+                            <li><a className="dropdown-item" href="#">{userFullName}</a></li>
                             <li><hr className="dropdown-divider"></hr></li>
-                            <li><a className="dropdown-item" href="#">Sign out</a></li>
+                            <li><a className="dropdown-item" onClick={HandleSignOut}>{signIn}</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </header></>
-);
+    );
 };
 export default LandingNavbar;

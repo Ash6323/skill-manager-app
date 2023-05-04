@@ -12,24 +12,16 @@ import './App.css';
 
 const apiUrl = "http://localhost:3000";
 
-// axios.interceptors.request.use(
-//   config => {
-//     console.log("Before Request..");
-
-//     const origin  = config.url;
-//     const allowedOrigins = [apiUrl];
-    
-//     const accessToken = localStorage.getItem('accessToken');
-//     if (allowedOrigins.includes(origin? origin:"")) {
-//       config.headers.authorization = `Bearer ${accessToken}`;
-//     }
-
-//     return config
-//   },
-//   error => {
-//     return Promise.reject(error);
-//   }
-// )
+axios.interceptors.request.use(
+  config => {
+    console.log("Before Request..");
+      
+    return config
+  },
+  error => {
+    return Promise.reject(error);
+  }
+)
 
 
 function App() {

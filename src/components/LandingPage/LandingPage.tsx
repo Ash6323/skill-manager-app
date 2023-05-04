@@ -33,13 +33,8 @@ const LandingPage = () => {
         .then(response => {
             if (response.data.token) {
 
-                console.log("Token : " + response.data.token);
-                console.log("Role: " + response.data.role);
-                console.log("User Id: " + response.data.userId);
-
                 localStorage.setItem('accessToken', response.data.token);
                 setAuthToken(response.data.token);
-
 
                 localStorage.setItem("User", JSON.stringify(response.data));
                 console.log("Local Storage: " + localStorage.getItem("User"));
@@ -71,7 +66,7 @@ const LandingPage = () => {
 
     return (
         <>
-        <LandingNavbar />
+        <LandingNavbar userFullName="Anonymous"/>
         <div className="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto login-card-body"> 
             <div className="card card0 border-0">
                 <div className="row d-flex">
