@@ -8,7 +8,7 @@ interface IProfile {
     userFullName: string,
 }
 
-const LandingNavbar:React.FC<IProfile> = ({userFullName}) => {
+const Navbar: React.FC<IProfile> = ({userFullName}) => {
 
     const [signIn, setSignIn] = useState<string>("Sign In"); 
     const navigate = useNavigate();
@@ -53,7 +53,7 @@ const LandingNavbar:React.FC<IProfile> = ({userFullName}) => {
                             <img src={AvatarImage} alt="mdo" width="32" height="32" className="rounded-circle"></img>
                         </a>
                         <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                            <li><a className="dropdown-item" href="#">{userFullName}</a></li>
+                            <li><a className="dropdown-item" onClick={() => navigate("profile")}>{userFullName}</a></li>
                             <li><hr className="dropdown-divider"></hr></li>
                             <li><a className="dropdown-item" onClick={HandleSignOut}>{signIn}</a></li>
                         </ul>
@@ -63,4 +63,4 @@ const LandingNavbar:React.FC<IProfile> = ({userFullName}) => {
         </header></>
     );
 };
-export default LandingNavbar;
+export default Navbar;

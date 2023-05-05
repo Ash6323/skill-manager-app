@@ -1,12 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import {Skill} from './Entities';
+import {Skill} from '../Data/Entities';
 import { Modal } from "react-bootstrap";
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import AddSkillModal from './AddSkillModal';
-import UpdateSkillModal from './UpdateSkillModal';
+import AddSkillModal from './Modals/AddSkillModal';
+import UpdateSkillModal from './Modals/UpdateSkillModal';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
@@ -35,6 +35,7 @@ const ViewAllSkills = () => {
     const [showUpdate, setShowUpdate] = useState(false);
     const [updationSkillId, setUpdationSkillId] = useState<number>(0);
     const [updationSkillName, setUpdationSkillName] = useState<string>("");
+    const [updationSkillDescription, setUpdationSkillDescription] = useState<string>("");
     const navigate = useNavigate();
     
     const closeModal = (showValue : boolean) =>
@@ -45,9 +46,10 @@ const ViewAllSkills = () => {
     {
       setShowUpdate(showValue);
     }
-    const HandleCardClick = (skillId: number, skillName: string) => {
+    const HandleCardClick = (skillId: number, skillName: string, skillDescription: string) => {
         setUpdationSkillId(skillId);
         setUpdationSkillName(skillName);
+        setUpdationSkillDescription(skillDescription);
         setShowUpdate(true);
     }
 
@@ -106,7 +108,8 @@ const ViewAllSkills = () => {
                     return (
                         <div key={index} className="col-sm-3 mt-2">
                             <div className="card">
-                                <div className="card-body skill-card" onClick={() => HandleCardClick(skill.id,skill.skillName)}>
+                                <div className="card-body skill-card" onClick={() => 
+                                                    HandleCardClick(skill.id,skill.skillName,skill.description)}>
                                     <h5 className="card-title">{skill.skillName}</h5>
                                     <p>{skill.description}</p>
                                     {/* <a href="#" className="btn skill-update-btn btn-warning">Update</a>
@@ -124,7 +127,8 @@ const ViewAllSkills = () => {
                 </Modal>
                 <Modal show={showUpdate} onHide={() => setShowUpdate(false)} contentClassName="modal-container">
                     <UpdateSkillModal ShowUpdateModal={closeUpdateModal} 
-                                        updateSkillId={updationSkillId} updateSkillName={updationSkillName}/>
+                                        updateSkillId={updationSkillId} updateSkillName={updationSkillName} 
+                                        updateSkillDescription={updationSkillDescription}/>
                 </Modal>
             </div>
         </div>

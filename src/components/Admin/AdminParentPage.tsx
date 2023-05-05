@@ -1,13 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { Routes, Route } from "react-router-dom";
-import LandingNavbar from "../LandingPage/LandingNavbar";
+import Navbar from "../Shared/Navbar";
 import AdminSidebar from "./AdminSidebar";
 import ViewAllEmployees from "./ViewAllEmployees";
 import AddEmployee from './AddEmployee';
 import ViewAllSkills from "./ViewAllSkills";
 import { useEffect, useState } from 'react';
 import AdminHomePage from './AdminHomePage';
+import Profile from '../Shared/Profile';
 
 const AdminParentPage = () => {
 
@@ -20,7 +21,7 @@ const AdminParentPage = () => {
 
     return (
         <>
-        <LandingNavbar userFullName={userName}/>
+        <Navbar userFullName={userName}/>
         <div className="d-flex">
             <div className="col-md-2">
                 <AdminSidebar />
@@ -28,6 +29,7 @@ const AdminParentPage = () => {
             <div className="col-md-10">
             <Routes>
                 <Route path="home" element={<AdminHomePage />} />
+                <Route path="profile" element={<Profile />} />
                 <Route path="employees/add-new" element={<AddEmployee />} />
                 <Route path="employees/view-all" element={<ViewAllEmployees />} />
                 <Route path="skills/view-all" element={<ViewAllSkills />} />

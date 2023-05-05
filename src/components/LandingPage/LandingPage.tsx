@@ -3,8 +3,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import axios from 'axios';
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import LandingNavbar from "./LandingNavbar";
-import { LoginDTO } from './Entities';
+import Navbar from "../Shared/Navbar";
+import { LoginDTO } from '../Data/Entities';
 
 const authBaseURL = "https://localhost:7247/api/Auth/login";
 
@@ -66,7 +66,7 @@ const LandingPage = () => {
 
     return (
         <>
-        <LandingNavbar userFullName="Anonymous"/>
+        <Navbar userFullName="Anonymous"/>
         <div className="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto login-card-body"> 
             <div className="card card0 border-0">
                 <div className="row d-flex">

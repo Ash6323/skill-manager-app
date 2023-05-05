@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import {Modal} from 'react-bootstrap';
-import {Skill} from './Entities';
+import {Skill} from '../../Data/Entities';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -60,8 +60,14 @@ const UpdateSkillModal:React.FC<IModal> = ({ShowUpdateModal, updateSkillId, upda
       </Modal.Header>
       <Modal.Body>
         <div>
+          <h5>Title</h5>
           <input type="text" name="skillName" value={updatedSkill.skillName}
-                placeholder="Enter New Skill" onChange={HandleChange} required/>
+                placeholder="Enter New Skill" onChange={HandleChange}/>
+        </div>
+        <div className='mt-2'>
+          <h5>Description</h5>
+          <input type="text" name="description" value={updatedSkill.description}
+                placeholder="Enter Description" onChange={HandleChange}/>
         </div>
         <div className="d-flex justify-content-center">
           <button type="submit" className="btn btn-warning mt-3 px-4" onClick={updateSkill}>Update</button>

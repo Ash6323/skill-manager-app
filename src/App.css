@@ -339,13 +339,14 @@ a {
 td.description {
   vertical-align: middle;
 }
-/* .card-registration .select-input.form-control[readonly]:not([disabled]) {
-  line-height: 2.15;
-  padding-left: .75em;
-  padding-right: .75em;
-} */
 .card-registration .select-arrow {
   top: 13px;
+}
+.card-profile-image {
+  width: 250px;
+  height: 250px;
+  align-self: center;
+  border-radius: 50%;
 }
 
 

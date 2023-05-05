@@ -1,3 +1,7 @@
+export interface LoginDTO {
+    Username: string,
+    Password: string,
+}
 export interface Employee {
     id: string,
     userName: string,
@@ -6,9 +10,11 @@ export interface Employee {
     phoneNumber: string,
     email: string,
     isActive: number,
-    address: string,
+    street: string,
+    town: string,
+    city: string,
     zipcode: string,
-    dateOfBirth: Date,
+    dateOfBirth: string,
     previousOrganisation: string,
     previousDesignation: string,
 }
@@ -20,6 +26,23 @@ export interface NewEmployee {
     email: string,
     password: string,
     gender: string,
+    street: string,
+    town: string,
+    city: string,
+    zipcode: string,
+    dateOfBirth: string,
+    previousOrganisation: string,
+    previousDesignation: string,
+}
+export interface User {
+    id: string,
+    userName: string,
+    fullName: string,
+    gender: string,
+    phoneNumber: string,
+    email: string,
+    profilePictureUrl: string,
+    isActive: number,
     street: string,
     town: string,
     city: string,

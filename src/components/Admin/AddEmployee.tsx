@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import {NewEmployee} from './Entities';
+import {NewEmployee} from '../Data/Entities';
 import axios from 'axios';
 import {useLocation} from 'react-router-dom';
 
@@ -338,8 +338,8 @@ const AddEmployee = () => {
                         </label>
                         
                     </div>
+                    <button className="btn btn-danger mt-3 mb-4 m-3" onClick={handleCancelButton}>Cancel</button>
                     <button type="submit" className="btn submit-btn mt-3 mb-4">{submitButtonValue}</button>
-                    <button className="btn btn-danger mt-3 mb-4" onClick={handleCancelButton}>Cancel</button>
                 </form>
             </div>
         </div>

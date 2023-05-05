@@ -4,11 +4,11 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { Modal } from "react-bootstrap";
-import {EmployeeSkills} from './Entities';
+import {EmployeeSkills} from '../Data/Entities';
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import MapSkillModal from './MapSkillModal';
+import MapSkillModal from './Modals/MapSkillModal';
 
 const baseURL = "https://localhost:7247/api/EmployeeSkill";
 

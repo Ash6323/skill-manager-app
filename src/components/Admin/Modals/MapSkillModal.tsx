@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import {Modal} from 'react-bootstrap';
-import {Employee, Skill, EmployeeSkillMap} from './Entities';
+import {Employee, Skill, EmployeeSkillMap} from '../../Data/Entities';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 

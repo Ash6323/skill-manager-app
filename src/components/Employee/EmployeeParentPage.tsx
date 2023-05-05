@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import LandingNavbar from "../LandingPage/LandingNavbar";
+import Navbar from "../Shared/Navbar";
 import EmployeeSidebar from "./EmployeeSidebar";
 import { useEffect, useState } from 'react';
 
@@ -15,7 +15,7 @@ const EmployeeParentPage = () => {
 
     return (
         <>
-        <LandingNavbar userFullName={userName}/>
+        <Navbar userFullName={userName}/>
         <div className="d-flex">
             <div className="col-md-2">
                 <EmployeeSidebar />
