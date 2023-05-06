@@ -3,6 +3,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import Navbar from "../Shared/Navbar";
 import EmployeeSidebar from "./EmployeeSidebar";
 import { useEffect, useState } from 'react';
+import {Routes, Route} from 'react-router-dom';
+import Profile from '../Shared/Profile';
 
 const EmployeeParentPage = () => {
 
@@ -21,10 +23,15 @@ const EmployeeParentPage = () => {
                 <EmployeeSidebar />
             </div>
             <div className="col-md-10">
-                <div className="my-container shadow">
-                    <h3>Employee Home</h3>
-                </div>
+                <Routes>
+                    {/* <Route path="home" element={<EmployeeHomePage />} /> */}
+                    <Route path="profile" element={<Profile />} />
+                    {/* <Route path="employees/add-new" element={<AddEmployee />} />
+                    <Route path="employees/view-all" element={<ViewAllEmployees />} />
+                    <Route path="skills/view-all" element={<ViewAllSkills />} /> */}
+                </Routes>
             </div>
+            
         </div>
         </>
     )

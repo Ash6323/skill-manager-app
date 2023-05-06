@@ -8,16 +8,17 @@ import EmployeeParentPage from "./components/Employee/EmployeeParentPage";
 import './App.css';
 import axios from 'axios';
 import Loader from './components/Loader/Loader'
+import Protected from './components/Protected/Protected';
 
 function App() {
 
   const [loading, setLoading] = useState(false);
+  const user = JSON.parse(localStorage.getItem("User") || '{}');
 
   useEffect(() => {
     axios.interceptors.request.use(
       function (config) {
         console.log("Before Request..");
-        // document.body.classList.add("loading-indicator");
         setLoading(true);
         return config;
       },
@@ -31,7 +32,6 @@ function App() {
     axios.interceptors.response.use(
       function (response) {
         console.log("After Request..");
-        // document.body.classList.remove("loading-indicator");
         setLoading(false);
         return response;
       },
@@ -49,10 +49,15 @@ function App() {
       <div className="row">
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="admin/*" element={<AdminParentPage />} />
-          <Route path="employee/*" element={<EmployeeParentPage />} />
-         
+          <Route path="admin/*" element={ <Protected> <AdminParentPage /> </Protected>} />
+          <Route path="employee/*" element={ <Protected> <EmployeeParentPage /> </Protected>} />
         </Routes>
+        {/* {user.role?
+        (
+          <>
+          {user.role == "Employee"? <EmployeeParentPage /> : (user.role =="Admin" ? <AdminParentPage /> : <p>Unknown</p>)}
+          </>
+        ):<LandingPage />} */}
       </div>
     </div>
   );

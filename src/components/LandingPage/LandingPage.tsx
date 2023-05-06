@@ -31,36 +31,36 @@ const LandingPage = () => {
 
         axios.post(authBaseURL, userDetails)
         .then(response => {
-            if (response.data.token) {
+        if (response.data.token) {
 
-                localStorage.setItem('accessToken', response.data.token);
-                setAuthToken(response.data.token);
+            localStorage.setItem('accessToken', response.data.token);
+            setAuthToken(response.data.token);
 
-                localStorage.setItem("User", JSON.stringify(response.data));
-                console.log("Local Storage: " + localStorage.getItem("User"));
-                const user = JSON.parse(localStorage.getItem("User") || '{}');
+            localStorage.setItem("User", JSON.stringify(response.data));
+            console.log("Local Storage: " + localStorage.getItem("User"));
+            const user = JSON.parse(localStorage.getItem("User") || '{}');
 
-                if(user.role === "Admin")
-                {
-                    console.log("Role: " + user.role);
-                    navigate("admin/home");
-                }
-                else if(user.role === "Employee")
-                {
-                    console.log("Role: " + user.role);
-                    navigate("employee/home");
-                }
+            if(user.role === "Admin")
+            {
+                console.log("Role: " + user.role);
+                navigate("admin/home");
             }
+            else if(user.role === "Employee")
+            {
+                console.log("Role: " + user.role);
+                navigate("employee/home");
+            }
+        }
         }).catch(error => {
-                if(error.response)
-                {
-                    setInvalidFlag(true);
-                    // alert(error.response.data.title);
-                }
-                else if (error.request)
-                {
-                    alert("Server Inactive or Busy");
-                }
+            if(error.response)
+            {
+                setInvalidFlag(true);
+                // alert(error.response.data.title);
+            }
+            else if (error.request)
+            {
+                alert("Server Inactive or Busy");
+            }
         });
     };
 

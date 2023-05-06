@@ -37,11 +37,19 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
             }
         });
     }
+
+    const profileNavigator = ()=> {
+        if(userFullName === "Anonymous")
+            navigate("/");
+        else
+            navigate("profile");
+    }
     
     useEffect( () => {
         if(localStorage.getItem("User") != null)
         {
             setSignIn("Sign Out");
+            getUser();
         }
     },[]);
 
@@ -73,12 +81,14 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
                     </ul>
 
                     <div className="dropdown text-end">
-                        <a href="#" className="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" 
+                        <a href="#" className="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src={profileImage? profileImage:AvatarImage } alt="mdo" width="32" height="32" className="rounded-circle"></img>
+                            <img src={profileImage? profileImage:AvatarImage } width="32" height="32" className="rounded-circle"></img>
                         </a>
                         <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                            <li><a className="dropdown-item" onClick={() => navigate("profile")}>{userFullName}</a></li>
+                            <li><a className="dropdown-item" onClick={profileNavigator}>
+                                {userFullName}</a>
+                            </li>
                             <li><hr className="dropdown-divider"></hr></li>
                             <li><a className="dropdown-item" onClick={HandleSignOut}>{signIn}</a></li>
                         </ul>

@@ -7,7 +7,8 @@ import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
-const baseURL = "https://localhost:7247/api/Admin";
+const adminBaseURL = "https://localhost:7247/api/Admin";
+const employeeBaseURL = "https://localhost:7247/api/Employee";
 
 const Profile = () => {
 
@@ -18,10 +19,12 @@ const Profile = () => {
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
  
     const getUser = () => {
-        axios.get(`${baseURL}/${userProps.userId}`).then((response) => 
+        const url = userProps.role=="Admin"? adminBaseURL : employeeBaseURL;
+        axios.get(`${url}/${userProps.userId}`).then((response) => 
         {
             console.log(response.data.data);
             setUser(response.data.data);
+
         }).catch(error => {
             if(error.response)
             {
@@ -81,8 +84,9 @@ const Profile = () => {
                     <div className="container row mt-5">
                         <div className='col-md-6'>
                             <img className="card-img-top card-profile-image mx-5 col-md-6" alt="Profile Image"
-                                src={user.profilePictureUrl? user.profilePictureUrl:AvatarImage }>
-                            </img>
+                                // src={user.profilePictureUrl? require(`${ user.profilePictureUrl}`):AvatarImage}
+                                src={user.profilePictureUrl? user.profilePictureUrl: AvatarImage}
+                            />
                         </div>
                         <div className="col-md-6 text-start">
                         <ul className="list-unstyled mt-5">
@@ -110,31 +114,31 @@ const Profile = () => {
                                         {new Date(user.dateOfBirth).toLocaleDateString()}
                                 </li>
                                 <li className="mb-2 display-28 list-group-item">
-                                    <span className="display-26 text-secondary me-2 font-weight-600">Gender:</span> {user.gender}
+                                    <span className="display-26 text-secondary me-2 font-weight-600">Street:</span> {user.street}
+                                </li>
+                                <li className="mb-2 display-28 list-group-item">
+                                    <span className="display-26 text-secondary me-2 font-weight-600">City:</span> {user.city}
                                 </li>
                                 <li className="mb-2 display-28 list-group-item">
                                     <span className="display-26 text-secondary me-2 font-weight-600">Previous Organisation:</span> 
                                         {user.previousOrganisation}
-                                </li>
-                                <li className="mb-2 display-28 list-group-item">
-                                    <span className="display-26 text-secondary me-2 font-weight-600">Previous Designation:</span> 
-                                        {user.previousDesignation}
                                 </li>
                             </ul>
                         </div>
                         <div className='col-md-6'>
                             <ul className="list-group list-group-flush text-start mb-4">
                                 <li className="mb-2 display-28 list-group-item">
-                                    <span className="display-26 text-secondary me-2 font-weight-600">Street:</span> {user.street}
+                                    <span className="display-26 text-secondary me-2 font-weight-600">Gender:</span> {user.gender}
                                 </li>
                                 <li className="mb-2 display-28 list-group-item">
                                     <span className="display-26 text-secondary me-2 font-weight-600">Town:</span> {user.town}
                                 </li>
                                 <li className="mb-2 display-28 list-group-item">
-                                    <span className="display-26 text-secondary me-2 font-weight-600">City:</span> {user.city}
+                                    <span className="display-26 text-secondary me-2 font-weight-600">Zipcode:</span> {user.zipcode}
                                 </li>
                                 <li className="mb-2 display-28 list-group-item">
-                                    <span className="display-26 text-secondary me-2 font-weight-600">Zipcode:</span> {user.zipcode}
+                                    <span className="display-26 text-secondary me-2 font-weight-600">Previous Designation:</span> 
+                                        {user.previousDesignation}
                                 </li>
                             </ul>
                         </div>
