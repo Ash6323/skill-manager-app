@@ -8,7 +8,9 @@ import EmployeeParentPage from "./components/Employee/EmployeeParentPage";
 import './App.css';
 import axios from 'axios';
 import Loader from './components/Loader/Loader'
-import Protected from './components/Protected/Protected';
+import ProtectedAdmin from './components/ProtectedRouting/ProtectedAdmin';
+import ProtectedEmployee from './components/ProtectedRouting/ProtectedEmployee';
+import ProtectedLandingPage from './components/ProtectedRouting/ProtectedLandingPage';
 
 function App() {
 
@@ -48,16 +50,10 @@ function App() {
       {loading? <Loader />:""}
       <div className="row">
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="admin/*" element={ <Protected> <AdminParentPage /> </Protected>} />
-          <Route path="employee/*" element={ <Protected> <EmployeeParentPage /> </Protected>} />
+          <Route path="/" element={ <ProtectedLandingPage> <LandingPage /> </ProtectedLandingPage>} />
+          <Route path="admin/*" element={ <ProtectedAdmin> <AdminParentPage /> </ProtectedAdmin>} />
+          <Route path="employee/*" element={ <ProtectedEmployee> <EmployeeParentPage /> </ProtectedEmployee>} />
         </Routes>
-        {/* {user.role?
-        (
-          <>
-          {user.role == "Employee"? <EmployeeParentPage /> : (user.role =="Admin" ? <AdminParentPage /> : <p>Unknown</p>)}
-          </>
-        ):<LandingPage />} */}
       </div>
     </div>
   );
