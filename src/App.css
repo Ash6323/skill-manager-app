@@ -59,8 +59,8 @@
 }
 
 .logo {
-  width: 200px;
-  height: 100px;
+  width: 120px;
+  height: 80px;
   margin-top: 20px;
   margin-left: 35px;
 }
@@ -114,7 +114,6 @@ input, textarea {
   margin-top: 2px;
   width: 100%;
   box-sizing: border-box;
-  /* color: #2C3E50; */
   font-size: 14px;
   letter-spacing: 1px;
 }
@@ -174,6 +173,8 @@ a {
   padding-top: 5%;
 }
 .sidebar-items{
+  font-size: larger;
+  text-align: left;
   width: 100%;
   background-color: var(--sidebar-buttons-color) !important;
   color: #fff !important;
@@ -237,7 +238,6 @@ a {
   cursor: pointer;
 }
 .input-item-details {
-  /* margin-left: 10px; */
   margin-bottom: 10px;
   padding: 6px;
   font-family: 'Poppins', sans-serif;
@@ -269,7 +269,6 @@ a {
 }
 .view-info {
   vertical-align: middle;
-  cursor: pointer;
 }
 .skill-update-btn {
   font-size: small;

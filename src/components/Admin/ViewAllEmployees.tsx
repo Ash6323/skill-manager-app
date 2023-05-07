@@ -67,7 +67,7 @@ const ViewAllEmployees = () => {
             <div className="row">
                 <div className="d-flex justify-content-end">
                     <button type="submit" className="btn submit-btn new-emp-btn" onClick={()=>navigate("../employees/add-new")}>
-                        Add New
+                        <i className="bi bi-person-plus-fill px-1"></i> Add New
                     </button>
                 </div>
             </div>
@@ -105,7 +105,7 @@ const ViewAllEmployees = () => {
                                     onClick={() => handleUpdateClick(employee.id, employee.fullName,employee.userName,employee.phoneNumber,
                                                 employee.email,employee.gender,employee.street,employee.town,employee.city,employee.zipcode,
                                                 employee.dateOfBirth,employee.previousOrganisation,employee.previousDesignation)}>
-                                    Update
+                                    <i className="bi bi-pencil-square px-1"></i> Update
                                 </button>
                                 {/* <button 
                                     type="button" 

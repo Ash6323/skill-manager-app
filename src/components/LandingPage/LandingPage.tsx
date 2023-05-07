@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Shared/Navbar";
+import Logo from "../../res/Untitled.png";
 import { LoginDTO } from '../Data/Entities';
 
 const authBaseURL = "https://localhost:7247/api/Auth/login";
@@ -73,7 +74,7 @@ const LandingPage = () => {
                     <div className="col-lg-6">
                         <div className="card1 pb-5">
                             <div className="row">
-                                <img src="https://i.imgur.com/CXQmsmF.png" className="logo"></img>
+                                <img src={Logo} className="logo"></img>
                             </div>
                             <div className="row px-3 justify-content-center mt-4 mb-5 border-line">
                                 <img src="https://i.imgur.com/uNGdWHi.png" className="image"></img>

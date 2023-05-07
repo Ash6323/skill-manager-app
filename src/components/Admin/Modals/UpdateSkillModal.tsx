@@ -68,7 +68,9 @@ const UpdateSkillModal:React.FC<IModal> = ({ShowUpdateModal, updateSkillId, upda
                 placeholder="Enter Description" onChange={HandleChange}/>
         </div>
         <div className="d-flex justify-content-center">
-          <button type="submit" className="btn btn-warning mt-3 px-4" onClick={updateSkill}>Update</button>
+          <button type="submit" className="btn btn-warning mt-3 px-4" onClick={updateSkill}><i className="bi bi-pencil-square px-1"></i>
+             Update
+          </button>
         </div>
       </Modal.Body>
     </div>

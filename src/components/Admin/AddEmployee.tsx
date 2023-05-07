@@ -199,6 +199,8 @@ const AddEmployee = () => {
             navigate("../employees/view-all");
         else if(location.state != null && location.state.type === "UpdateSelf")
             navigate("../profile");
+        else
+            navigate("../home");
     }
 
     useEffect(()=> {
@@ -440,11 +442,17 @@ const AddEmployee = () => {
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
                     </div>
-                    <button className="btn btn-danger mt-4 mb-4 m-2" onClick={handleCancelButton}>Cancel</button>
+                    <button className="btn btn-danger mt-4 mb-4 m-2" onClick={handleCancelButton}>
+                        <i className="bi bi-x-circle-fill mx-1"></i> Cancel
+                    </button>
                     {submitButtonValue === 'Submit' &&
-                    <button type="submit" className="btn add-new-btn mt-4  m-2 mb-4">{submitButtonValue}</button>}
+                    <button type="submit" className="btn add-new-btn mt-4 m-2 mb-4">
+                        <i className="bi bi-check-circle-fill mx-1"></i> {submitButtonValue}
+                    </button>}
                     {submitButtonValue === 'Update' &&
-                    <button type="submit" className="btn update-btn btn-warning mt-4 m-2 mb-4">{submitButtonValue}</button>}
+                    <button type="submit" className="btn update-btn btn-warning mt-4 m-2 mb-4">
+                        <i className="bi bi-pencil-square px-1"></i> {submitButtonValue}
+                    </button>}
                 </form>
             </div>
         </div>

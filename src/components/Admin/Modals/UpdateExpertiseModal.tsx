@@ -88,7 +88,7 @@ const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmploye
         <div className="d-flex justify-content-center">
           <button type="submit" className="btn update-btn btn-warning mt-3 px-4" 
                   onClick={updateExpertise}>
-                  Update
+                  <i className="bi bi-pencil-square px-1"></i> Update
           </button>
         </div>
       </Modal.Body>

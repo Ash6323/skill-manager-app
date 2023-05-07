@@ -61,7 +61,7 @@ const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
         <div className="d-flex justify-content-center">
           <button type="submit" className="btn btn-success mt-3 px-4" 
                   onClick={addSkill} disabled = {newSkill.skillName == ""}>
-            Add
+            <i className="bi bi-plus-square mx-1"></i> Add
           </button>
         </div>
       </Modal.Body>

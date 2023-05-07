@@ -6,6 +6,7 @@ import React, {useState} from "react";
 import axios from 'axios';
 import MapSkillModal from './Modals/MapSkillModal';
 import UpdateExpertiseModal from './Modals/UpdateExpertiseModal';
+import GenerateReportModal from './Modals/GenerateReportModal';
 
 const baseURL = "https://localhost:7247/api/EmployeeSkill";
 
@@ -14,9 +15,12 @@ const AdminHomePage = () => {
     const [allEmployeeSkills, setAllEmployeeSkills] = useState<EmployeeSkills[]>([]);
     const [show, setShow] = useState(false);
     const [updateShow, setUpdateShow] = useState(false);
+    const [reportShow, setReportShow] = useState(false);
     const [updationEmployeeId, setUpdationEmployeeId] = useState<string>("");
     const [updationSkillId, setUpdationSkillId] = useState<number>(0);
     const [updationExpertise, setUpdationExpertise] = useState<string>("");
+    const [reportEmployeeId, setReportEmployeeId] = useState<string>("");
+    const [reportEmployeeName, setReportEmployeeName] = useState<string>("");
 
     const closeModal = (showValue : boolean) =>
     {
@@ -26,11 +30,20 @@ const AdminHomePage = () => {
     {
         setUpdateShow(showValue);
     }
+    const closeReportModal = (showValue : boolean) =>
+    {
+        setReportShow(showValue);
+    }
     const handleExpertiseClick = (employeeId: string, skillId: number, skillExpertise: string) => {
         setUpdationEmployeeId(employeeId);
         setUpdationSkillId(skillId);
         setUpdationExpertise(skillExpertise);
         setUpdateShow(true);
+    }
+    const handleReportClick = (employeeId: string, employeeName: string) => {
+        setReportEmployeeId(employeeId);
+        setReportEmployeeName(employeeName);
+        setReportShow(true);
     }
 
     const getAllEmployeeSkills = () => {
@@ -69,13 +82,18 @@ const AdminHomePage = () => {
                 </div>
                 <div className="d-flex justify-content-end mb-2 col-md-6">
                     <button type="submit" className="btn submit-btn map-emp-btn" onClick={() => setShow(true)}>
-                        Map to Employee
+                        <i className="bi bi-person-fill-up px-1"></i> Map to Employee
                     </button>
                 </div>
             </div>
             <div className="row">
                 <div className="d-flex mt-2 justify-content-center">
                     <h3>Employee Skill List</h3>
+                </div>
+            </div>
+            <div className="row">
+                <div className="d-flex mt-1 justify-content-center">
+                    <h6>(Click on: Employee Name for Skill Report, Particular Skill to Update Expertise)</h6>
                 </div>
             </div>
             <hr></hr>
@@ -94,7 +112,9 @@ const AdminHomePage = () => {
                             return ( 
                             <tr key={index}>
                                 <td className="description">{index+1}</td>
-                                <td className="description">{item.employeeName}</td>
+                                <td className="description hoverable" onClick={() => handleReportClick(item.employeeId, item.employeeName)}>
+                                    {item.employeeName}
+                                </td>
                                 <td>
                                 <React.Fragment key={index}>
                                         {item.employeeSkills.map((skill, index) => {
@@ -160,6 +180,9 @@ const AdminHomePage = () => {
                 <Modal show={updateShow} onHide={() => setUpdateShow(false)} contentClassName="modal-container">
                     <UpdateExpertiseModal ShowUpdateModal={closeUpdateModal} updatedEmployeeId={updationEmployeeId}
                                             updatedSkillId={updationSkillId} updatedExpertise={updationExpertise}/>
+                </Modal>
+                <Modal show={reportShow} onHide={() => setReportShow(false)} contentClassName="modal-container">
+                    <GenerateReportModal ShowReportModal={closeReportModal} employeeId={reportEmployeeId} employeeName={reportEmployeeName}/>
                 </Modal>
             </div>
         </div>

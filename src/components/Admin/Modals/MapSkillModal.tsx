@@ -119,7 +119,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
                     </option>);
             })}
           </select>
-          <select required id = "skill-dropdown" className="input-item-details" name="skillId"
+          <select required id = "skill-dropdown" className="input-item-details mx-2" name="skillId"
                   defaultValue="Select-Skill"
                   onChange={HandleChange} >
               <option value= "Select-Skill" disabled>Select a Skill</option>
@@ -145,7 +145,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
         <div className="d-flex justify-content-center">
           <button type="submit" className="btn btn-success mt-3 px-4" 
                   onClick={addSkill} disabled={newSkill.employeeId == "" || newSkill.skillId == 0 || newSkill.expertise == ""}>
-            Add
+            <i className="bi bi-person-fill-up"></i> Add
           </button>
         </div>
       </Modal.Body>

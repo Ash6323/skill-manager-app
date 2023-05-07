@@ -87,10 +87,10 @@ const ViewAllSkills = () => {
             <div className="row">
                 <div className="d-flex justify-content-end">
                     <button type="submit" className="btn submit-btn btn-success" onClick={handleDownloadPdf}>
-                        Print
+                        <i className="bi bi-printer-fill mx-1"></i> Print
                     </button>
                     <button type="submit" className="btn submit-btn new-skill-btn" onClick={() => setShow(true)}>
-                        Add New
+                        <i className="bi bi-plus-square px-1"></i> Add New
                     </button>
                 </div>
             </div>

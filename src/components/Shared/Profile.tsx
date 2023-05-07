@@ -128,7 +128,7 @@ const Profile = () => {
                                 onClick={() => handleUpdateClick(user.id, user.fullName,user.userName,user.phoneNumber,
                                                 user.email,user.gender,user.street,user.town,user.city,user.zipcode,
                                                 user.dateOfBirth,user.previousOrganisation,user.previousDesignation)}>
-                                Update Profile
+                                <i className="bi bi-pencil-square px-1"></i> Update Profile
                         </button>
                     </div>
                 </div>
