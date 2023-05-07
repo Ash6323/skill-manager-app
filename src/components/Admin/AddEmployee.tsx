@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import {NewEmployee} from '../Data/Entities';
+import {NewEmployee, UpdateEmployee} from '../Data/Entities';
 import axios from 'axios';
 import {useLocation} from 'react-router-dom';
 
@@ -20,14 +20,20 @@ const AddEmployee = () => {
     const [submitButtonValue, setSubmitButtonValue] = useState<string>("Submit");
     const [validFirstNameFlag, setValidFirstNameFlag] = useState<boolean>(false);
     const [validLastNameFlag, setValidLastNameFlag] = useState<boolean>(false);
+    const [validUsernameFlag, setValidUserNameFlag] = useState<boolean>(false);
     const [validPhoneFlag, setValidPhoneFlag] = useState<boolean>(false);
     const [validEmailFlag, setValidEmailFlag] = useState<boolean>(false);
     const [validPasswordFlag, setValidPasswordFlag] = useState<boolean>(false);
+    const [validStreetFlag, setValidStreetFlag] = useState<boolean>(false);
+    const [validTownFlag, setValidTownFlag] = useState<boolean>(false);
+    const [validCityFlag, setValidCityFlag] = useState<boolean>(false);
     const [validZipcodeFlag, setValidZipcodeFlag] = useState<boolean>(false);
+    const [validDateFlag, setValidDateFlag] = useState<boolean>(false);
     const [validOrgNameFlag, setValidOrgNameFlag] = useState<boolean>(false);
     const [validDesignationFlag, setValidDesignationFlag] = useState<boolean>(false);
-    const [data,setData]=useState({firstName:"",lastName: "",username:"",phoneNumber:"",email:"",password:"",gender:"",
-                                    street:"",town:"",city:"",zipcode:"",dateOfBirth:"",previousOrganisation:"",previousDesignation:""});
+    const [updatedEmployeeId, setUpdatedEmployeeId] = useState<string>("");
+
+    
     const location = useLocation();
 
     const getGenders = () => {
@@ -57,8 +63,6 @@ const AddEmployee = () => {
     {
         e.preventDefault();
         const validName = new RegExp('^[a-zA-z]+([\s][a-zA-Z]+)*$');
-        const validOrganisationName = new RegExp("^[A-Za-z]+[A-Za-z ]*$");
-        const validDesignation = new RegExp("^[A-Za-z]+[A-Za-z ]*$");
         const validEmail = new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$');
         const validPhone = new RegExp("^[0-9]{10}$");
         const validZipcode = new RegExp("^[0-9]{6}$");
@@ -71,6 +75,10 @@ const AddEmployee = () => {
         {
             setValidLastNameFlag(true);
         }
+        else if (newEmployee.username == "") 
+        {
+            setValidUserNameFlag(true);
+        }
         else if(!validPhone.test(newEmployee.phoneNumber))
         {
             setValidPhoneFlag(true);
@@ -79,15 +87,31 @@ const AddEmployee = () => {
         {
             setValidEmailFlag(true);
         }
+        else if(newEmployee.street == "")
+        {
+            setValidStreetFlag(true);
+        }
+        else if(newEmployee.town == "")
+        {
+            setValidTownFlag(true);
+        }
+        else if(newEmployee.city == "")
+        {
+            setValidCityFlag(true);
+        }
         else if(!validZipcode.test(newEmployee.zipcode))
         {
             setValidZipcodeFlag(true);
         }
-        else if(!validOrganisationName.test(newEmployee.previousOrganisation))
+        else if(newEmployee.dateOfBirth == "")
+        {
+            setValidDateFlag(true);
+        }
+        else if(newEmployee.previousOrganisation == "") 
         {
             setValidOrgNameFlag(true);
         }
-        else if(!validDesignation.test(newEmployee.previousDesignation))
+        else if(newEmployee.previousOrganisation == "")
         {
             setValidDesignationFlag(true);
         }
@@ -115,12 +139,28 @@ const AddEmployee = () => {
             }
             else
             {
-                // axios.put(`${baseURL}/${data.id}`, newEmployee)
-                // .then(response => 
-                // {
-                //     navigate("../Customer/ViewAllCustomers");
-                // })
-                // setDefaultValues();
+
+                const data : UpdateEmployee = ({firstName:newEmployee.firstName,lastName: newEmployee.lastName,gender:newEmployee.gender,
+                    phoneNumber:newEmployee.phoneNumber,email:newEmployee.email,profilePictureUrl:"",street:newEmployee.street,
+                    town:newEmployee.town,city:newEmployee.city,zipcode:newEmployee.zipcode,dateOfBirth:newEmployee.dateOfBirth});
+
+
+                console.log("Updated Employee: "+ data);
+                axios.put(`${baseURL}/${updatedEmployeeId}`, data)
+                .then(response => 
+                {
+                    navigate("../employees/view-all");
+                }).catch(error => {
+                    if(error.response)
+                    {
+                      alert(error.response.data.message);
+                    }
+                    else if (error.request)
+                    {
+                      alert("Server Inactive or Busy");
+                    }
+                  });
+                setDefaultValues();
             }
         }
     }
@@ -134,45 +174,21 @@ const AddEmployee = () => {
     {
         setFormHeading("Update Customer Details");
         setSubmitButtonValue("Update");
-        // data.id = location.state.id;
-        // data.name = location.state.name;
-        // data.email = location.state.email;
-        // data.phone = location.state.phone;
-        // data.street = location.state.street;
-        // data.town = location.state.town;
-        // data.city = location.state.city;
-        // data.zipcode = location.state.zipcode;
-    
-        // // setCustId(data.id);
-        // setCustName(data.name);
-        // setCustEmail(data.email);
-        // setCustPhone(data.phone);
-        // setCustStreet(data.street);
-        // setCustTown(data.town);
-        // setCustCity(data.city);
-        // setCustZipcode(data.zipcode);
-    }
-    else
-    {
-        setFormHeading("Add Employee Details");
-        setSubmitButtonValue("Submit");
-        // data.id = 0;
-        // data.name = '';
-        // data.email = '';
-        // data.phone = '';
-        // data.street = '';
-        // data.town = '';
-        // data.city = '';
-        // data.zipcode = '';
-    
-        // // setCustId(data.id);
-        // setCustName(data.name);
-        // setCustEmail(data.email);
-        // setCustPhone(data.phone);
-        // setCustStreet(data.street);
-        // setCustTown(data.town);
-        // setCustCity(data.city);
-        // setCustZipcode(data.zipcode);
+        const name_array = location.state.fullName.split(" ");
+        setUpdatedEmployeeId(location.state.id); 
+        newEmployee.firstName = name_array[0];
+        newEmployee.lastName = name_array[1];
+        newEmployee.username = location.state.username;
+        newEmployee.gender = location.state.gender;
+        newEmployee.phoneNumber = location.state.phoneNumber;
+        newEmployee.email = location.state.email;
+        newEmployee.street = location.state.street;
+        newEmployee.town = location.state.town;
+        newEmployee.city = location.state.city;
+        newEmployee.zipcode = location.state.zipcode;
+        newEmployee.dateOfBirth = location.state.dateOfBirth;
+        newEmployee.previousOrganisation = location.state.previousOrganisation;
+        newEmployee.previousDesignation = location.state.previousDesignation;
     }
     getGenders();
     },[location.state])
@@ -183,163 +199,200 @@ const AddEmployee = () => {
           <h3>{formHeading}</h3>
           <hr></hr>
 
-          <div className='card shadow-2-strong card-registration col-md-10'>
+          <div className='card shadow-2-strong card-registration col-md-10 pt-3'>
                 <form onSubmit={handleSubmit}>
+
                     <div className="row g-3 input-row">
-                        <label className="col-md-4"> 
-                        First Name
+
+                        <label className="col-md-2">
+                            First Name
+                        </label>
                         <input type="text" name="firstName" value={newEmployee.firstName}
                         placeholder="Enter First Name"
-                        className="input-item-details" onChange={HandleChange} required/>
+                        className="input-item-details col-md-4" onChange={HandleChange} />
+
+                        <label className="col-md-2">
+                            Last Name
                         </label>
-                    <div className='col-md-1'></div>
-                        <label className="col-md-4">
-                        Last Name
                         <input type="text" name="lastName" value={newEmployee.lastName}
                         placeholder="Enter Last Name"
-                        className="input-item-details" onChange={HandleChange} required/>
-                        </label>
+                        className="input-item-details col-md-4" onChange={HandleChange} />
                     </div>
                     <div className='row'>
-                        <div className='col-md-4'>
+                        <div className='col-md-2'></div>
+                        <div className='col-md-3'>
                             {validFirstNameFlag ? <p className="text-danger font-weight-bold text-sm">
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
-                        <div className='col-md-1'></div>
-                        <div className='col-md-4'>
+                        <div className='col-md-3'></div>
+                        <div className='col-md-3'>
                             {validLastNameFlag ? <p className="text-danger font-weight-bold text-sm">
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
                     </div>
-                    <div className="row g-3 input-row">
-                        <label className="col-md-4">
-                        Username
+                    {submitButtonValue != 'Update' &&<div className="row g-3 input-row">
+                        <label className="col-md-2">
+                            Username
+                        </label>
                         <input type="text" name="username" value={newEmployee.username}
-                        placeholder="Enter Username"
-                        className="input-item-details" onChange={HandleChange} required/>
-                        </label>
-                        <div className='col-md-1'></div>
-                        <label className="col-md-4">
+                        placeholder="Enter Username" 
+                        className="input-item-details col-md-4" onChange={HandleChange} />
+                        
+                        <label className="col-md-2">
                             Password
-                            <input type="password" name="password" value={newEmployee.password}
-                            placeholder="Enter Password"
-                            className="input-item-details" onChange={HandleChange} required/>
                         </label>
-                    </div> 
+                        <input type="password" name="password" value={newEmployee.password}
+                        placeholder="Enter Password"
+                        className="input-item-details col-md-4" onChange={HandleChange} />
+                    </div> }
                     <div className='row'>
-                        <div className='col-md-4'></div>
-                        <div className='col-md-1'></div>
+                        <div className='col-md-2'></div>
+                        <div className='col-md-3'>
+                        {validUsernameFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
                         <div className='col-md-4'>
                             {validPasswordFlag ? <p className="text-danger font-weight-bold text-sm">
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
                     </div>
-
                     <div className="row g-3 input-row">
-                        <label className="col-md-4">
+                        <label className="col-md-2">
                             Phone
-                            <input type="text" name="phoneNumber" value={newEmployee.phoneNumber}
-                            placeholder="Enter Phone No."
-                            className="input-item-details" onChange={HandleChange} required/>
                         </label>
-                        <div className='col-md-1'></div>
-                        <label className="col-md-4">
+                        <input type="text" name="phoneNumber" value={newEmployee.phoneNumber}
+                        placeholder="Enter Phone No."
+                        className="input-item-details col-md-4" onChange={HandleChange} />
+
+                        <label className="col-md-2">
                             Email
-                            <input type="text" name="email" value={newEmployee.email}
-                            placeholder="Enter Email"
-                            className="input-item-details" onChange={HandleChange} required/>
                         </label>
+                        <input type="text" name="email" value={newEmployee.email}
+                        placeholder="Enter Email"
+                        className="input-item-details col-md-4" onChange={HandleChange} />
                     </div>
                     <div className='row'>
-                        <div className='col-md-4'>
+                        <div className='col-md-2'></div>
+                        <div className='col-md-3'>
                             {validPhoneFlag ? <p className="text-danger font-weight-bold text-sm">
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
-                        <div className='col-md-1'></div>
+                        <div className='col-md-2'></div>
                         <div className='col-md-4'>
                             {validEmailFlag ? <p className="text-danger font-weight-bold text-sm">
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
                     </div>
                     <div className="row g-3 input-row">
-                        <label className="col-md-4">
+                        <label className="col-md-2">
                             Street
-                            <input type="text" name="street" value={newEmployee.street}
-                            placeholder="Enter Street"
-                            className="input-item-details" onChange={HandleChange} required/>
                         </label>
-                        <div className='col-md-1'></div>
-                        <label className="col-md-4">
+                        <input type="text" name="street" value={newEmployee.street}
+                        placeholder="Enter Street"
+                        className="input-item-details col-md-4" onChange={HandleChange} />
+                        <label className="col-md-2">
                             Town
-                            <input type="text" name="town" value={newEmployee.town}
-                            placeholder="Enter Town"
-                            className="input-item-details" onChange={HandleChange} required/>
                         </label>
-                        <div className="row g-3 input-row">
-                        <label className="col-md-4">
-                            City
-                            <input type="text" name="city" value={newEmployee.city}
-                            placeholder="Enter City"
-                            className="input-item-details" onChange={HandleChange} required/>
-                        </label>
-                        <div className='col-md-1'></div>
-                        <label className="col-md-4">
-                            Zipcode
-                            <input type="text" name="zipcode" value={newEmployee.zipcode}
-                            placeholder="Enter Zipcode"
-                            className="input-item-details" onChange={HandleChange} required/>
-                        </label>
-                        </div>
-                        <div className='row'>
-                        <div className='col-md-4'>
-                            {false ? <p className="text-danger font-weight-bold text-sm">
+                        <input type="text" name="town" value={newEmployee.town}
+                        placeholder="Enter Town"
+                        className="input-item-details col-md-4" onChange={HandleChange} />
+                    </div>
+                    <div className='row'>
+                        <div className='col-md-2'></div>
+                        <div className='col-md-3'>
+                            {validStreetFlag ? <p className="text-danger font-weight-bold text-sm">
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
+                        <div className='col-md-2'></div>
+                        <div className='col-md-4'>
+                            {validTownFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
+                    </div>
+                    <div className="row g-3 input-row">
+                        <label className="col-md-2">
+                            City
+                        </label>
+                        <input type="text" name="city" value={newEmployee.city}
+                        placeholder="Enter City"
+                        className="input-item-details col-md-4" onChange={HandleChange} />
+                        <label className="col-md-2">
+                            Zipcode
+                        </label>
+                        <input type="text" name="zipcode" value={newEmployee.zipcode}
+                        placeholder="Enter Zipcode"
+                        className="input-item-details col-md-4" onChange={HandleChange} />
+                    </div>
+                    <div className='row'>
+                        <div className='col-md-2'></div>
+                        <div className='col-md-3'>
+                            {validCityFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
+                        <div className='col-md-2'></div>
                         <div className='col-md-4'>
                             {validZipcodeFlag ? <p className="text-danger font-weight-bold text-sm">
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
-                        </div>
-                        <div className="row g-3 input-row">
-                        <label className="col-md-4">
+                    </div>
+                    {submitButtonValue != 'Update' && <div className="row g-3 input-row">
+                        <label className="col-md-2">
                             Date of Birth
-                            <input type="date" name="dateOfBirth" value={newEmployee.dateOfBirth}
-                            className="input-item-details" onChange={HandleChange} required/>
                         </label>
-                        <div className='col-md-1'></div>
-                        <label className="col-md-4">
+                        <input type="date" name="dateOfBirth" value={newEmployee.dateOfBirth}
+                        className="input-item-details col-md-4" onChange={HandleChange} />
+                        <label className="col-md-2">
                             Gender
-                            <select required id = "gender-dropdown" className="input-item-details col-md-12" name="gender"
-                                    defaultValue="Select-Gender"
-                                    onChange={HandleChange} >
-                                <option value= "Select-Gender" disabled>Select Gender</option>
-                                {genders.map((gender, index) => { 
-                                return (<option key= {index} value={ newEmployee.gender }>
-                                            {gender}
-                                        </option>);
-                                })}
-                            </select>
                         </label>
+                        <select required id = "gender-dropdown" className="input-item-details col-md-4" name="gender"
+                                defaultValue="Select-Gender" 
+                                onChange={HandleChange} >
+                            <option value= "Select-Gender" disabled>Select Gender</option>
+                            {genders.map((gender, index) => { 
+                            return (<option key= {index} value={ newEmployee.gender }>
+                                        {gender}
+                                    </option>);
+                            })}
+                        </select>
+                    </div>}
+                    <div className='row'>
+                        <div className='col-md-2'></div>
+                        <div className='col-md-3'>
+                            {validDateFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
                         </div>
                     </div>
-                    <div className="row g-3 input-row">
-                        <label className="col-md-4">
+                    {submitButtonValue != 'Update' &&<div className="row g-3 input-row">
+                        <label className="col-md-2">
                             Previous Organisation
-                            <input type="text" name="previousOrganisation" value={newEmployee.previousOrganisation}
-                            placeholder="Enter Previous Organisation"
-                            className="input-item-details" onChange={HandleChange} required/>
                         </label>
-                        <div className='col-md-1'></div>
-                        <label className="col-md-4">
+                        <input type="text" name="previousOrganisation" value={newEmployee.previousOrganisation}
+                        placeholder="Enter Previous Organisation" 
+                        className="input-item-details col-md-4" onChange={HandleChange} />
+                        <label className="col-md-2">
                             Previous Designation
-                            <input type="text" name="previousDesignation" value={newEmployee.previousDesignation}
-                            placeholder="Enter Previous Designation"
-                            className="input-item-details" onChange={HandleChange} required/>
                         </label>
-                        
+                        <input type="text" name="previousDesignation" value={newEmployee.previousDesignation}
+                        placeholder="Enter Previous Designation" 
+                        className="input-item-details col-md-4" onChange={HandleChange}/>
+                    </div>}
+                    <div className='row'>
+                        <div className='col-md-2'></div>
+                        <div className='col-md-3'>
+                            {validOrgNameFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
+                        <div className='col-md-2'></div>
+                        <div className='col-md-4'>
+                            {validDesignationFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null}
+                        </div>
                     </div>
-                    <button className="btn btn-danger mt-3 mb-4 m-3" onClick={handleCancelButton}>Cancel</button>
-                    <button type="submit" className="btn add-new-btn mt-3 mb-4">{submitButtonValue}</button>
+                    <button className="btn btn-danger mt-4 mb-4 m-2" onClick={handleCancelButton}>Cancel</button>
+                    {submitButtonValue === 'Submit' &&
+                    <button type="submit" className="btn add-new-btn mt-4  m-2 mb-4">{submitButtonValue}</button>}
+                    {submitButtonValue === 'Update' &&
+                    <button type="submit" className="btn update-btn btn-warning mt-4 m-2 mb-4">{submitButtonValue}</button>}
                 </form>
             </div>
         </div>

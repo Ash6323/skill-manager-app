@@ -45,18 +45,21 @@ const ViewAllEmployees = () => {
     //     invokeViewModal(true);
     // }
 
-    // const handleUpdateClick = (sendId:any,sendName:any,sendEmail:any,sendPhone:any,
-    //                         sendStreet:any,sendTown:any,sendCity:any, sendZipcode:any) => 
-    // { 
-    //     navigate('../employee/add-employee',
-    //             {state:
-    //                 {
-    //                     type: "Update",
-    //                     id: sendId, name: sendName, email: sendEmail, phone: sendPhone,
-    //                     street: sendStreet, town: sendTown, city: sendCity, zipcode: sendZipcode
-    //                 }
-    //             });
-    // }
+    const handleUpdateClick = (sendId:string,fullName: string,username:string,phoneNumber:string,email:string,
+                            gender:string,street:string,town:string,city:string,zipcode:string,dateOfBirth:string,
+                            previousOrganisation:string,previousDesignation:string) => 
+    { 
+        navigate('../employees/add-new',
+        {state:
+            {
+                type: "Update",
+                id: sendId, fullName: fullName,username: username,phoneNumber: phoneNumber,email: email,gender: gender,street: street,town: town,
+                city: city,zipcode: zipcode,dateOfBirth: dateOfBirth,previousOrganisation: previousOrganisation,
+                previousDesignation: previousDesignation
+            }   
+            // changesssssss
+        });
+    }
 
     // const handleDeleteClick = (id:any) => {
     //     // setDeletionCustomerId(id);
@@ -108,8 +111,9 @@ const ViewAllEmployees = () => {
                                 <button 
                                     type="button" 
                                     className="btn update-btn btn-warning"
-                                    // onClick={() => handleUpdateClick(Id, Username, FullName, Gender, PhoneNumber, Email, IsActive)}
-                                    >
+                                    onClick={() => handleUpdateClick(employee.id, employee.fullName,employee.userName,employee.phoneNumber,
+                                                employee.email,employee.gender,employee.street,employee.town,employee.city,employee.zipcode,
+                                                employee.dateOfBirth,employee.previousOrganisation,employee.previousDesignation)}>
                                     Update
                                 </button>
                                 <button 

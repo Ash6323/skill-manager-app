@@ -264,7 +264,7 @@ a {
   overflow: scroll;
 }
 .input-item-details {
-  margin-left: 10px;
+  /* margin-left: 10px; */
   margin-bottom: 10px;
   padding: 6px;
   font-family: 'Poppins', sans-serif;
@@ -273,6 +273,7 @@ a {
 }
 .input-row {
   margin-top: 1% !important;
+  padding-right: 30px;
   margin-bottom: 1%;
   width: 100%;
   display: flex;

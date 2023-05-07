@@ -71,4 +71,17 @@ export interface EmployeeSkillMap {
     skillId: number,
     expertise: string,
 }
+export interface UpdateEmployee {
+    firstName: string,
+    lastName: string,
+    gender: string,
+    phoneNumber: string,
+    email: string,
+    profilePictureUrl: string,
+    street: string,
+    town: string,
+    city: string,
+    zipcode: string,
+    dateOfBirth: string,
+}
 
