@@ -1,5 +1,3 @@
-import { Navigate } from "react-router-dom";
-
 interface IProtected {
   children: any;
 }

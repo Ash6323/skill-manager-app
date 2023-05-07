@@ -339,7 +339,7 @@ const AddEmployee = () => {
                         
                     </div>
                     <button className="btn btn-danger mt-3 mb-4 m-3" onClick={handleCancelButton}>Cancel</button>
-                    <button type="submit" className="btn submit-btn mt-3 mb-4">{submitButtonValue}</button>
+                    <button type="submit" className="btn add-new-btn mt-3 mb-4">{submitButtonValue}</button>
                 </form>
             </div>
         </div>

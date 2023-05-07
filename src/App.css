@@ -4,7 +4,7 @@
 :root {
   --login-btn-color: #1A237E;
   --login-btn-hover-color: #0f1768;
-  --add-item-button-color: rgb(34, 172, 29);
+  --add-item-button-color: rgb(21, 163, 16);
   --basic-expertise-color : cyan;
   --novice-expertise-color : rgb(245, 245, 6);
   --intermediate-expertise-color : rgb(30, 82, 255);
@@ -261,6 +261,7 @@ a {
   margin-right: 2%;
   margin-bottom: 2%;
   border-radius: 5px;
+  overflow: scroll;
 }
 .input-item-details {
   margin-left: 10px;
@@ -284,6 +285,11 @@ a {
 }
 .submit-btn {
   background-color: var(--submit-btn-color) !important;
+  color: white !important;
+  margin-right: 2%;
+}
+.add-new-btn {
+  background-color: var(--add-item-button-color) !important;
   color: white !important;
   margin-right: 2%;
 }
