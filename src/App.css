@@ -37,7 +37,10 @@
   z-index: 1;
   backdrop-filter: blur(2px);
 }
-
+.ix-banner {
+  width: 200px;
+  height: 50px;
+}
 .login-card-body {
   color: #000;
   overflow-x: hidden;
@@ -69,39 +72,6 @@
 
 .border-line {
   border-right: 1px solid #EEEEEE;
-}
-
-.facebook {
-  background-color: #3b5998;
-  color: #fff;
-  font-size: 18px;
-  padding-top: 5px;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
-}
-
-.twitter {
-  background-color: #1DA1F2;
-  color: #fff;
-  font-size: 18px;
-  padding-top: 5px;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
-}
-
-.linkedin {
-  background-color: #2867B2;
-  color: #fff;
-  font-size: 18px;
-  padding-top: 5px;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
 }
 
 .line {
