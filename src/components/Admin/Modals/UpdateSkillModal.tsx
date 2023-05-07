@@ -1,8 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
 import {Skill} from '../../Data/Entities';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const baseURL = "https://localhost:7247/api/Skill";
 
@@ -17,7 +16,6 @@ const UpdateSkillModal:React.FC<IModal> = ({ShowUpdateModal, updateSkillId, upda
 
   const [updatedSkill, setUpdatedSkill] = useState<Skill>({id: 0, skillName: "",description: ""});
   const [show, setShow] = useState<boolean>(false);
-  const navigate = useNavigate();
 
   React.useEffect( () => {
     setUpdatedSkill({id: updateSkillId, skillName: updateSkillName, description: updateSkillDescription});

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
 import {Employee, Skill, EmployeeSkillMap} from '../../Data/Entities';
 import axios from 'axios';

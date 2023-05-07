@@ -3,9 +3,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { Modal } from "react-bootstrap";
 import {EmployeeSkills} from '../Data/Entities';
 import React, {useState} from "react";
-import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import MapSkillModal from './Modals/MapSkillModal';
+import UpdateExpertiseModal from './Modals/UpdateExpertiseModal';
 
 const baseURL = "https://localhost:7247/api/EmployeeSkill";
 
@@ -13,11 +13,24 @@ const AdminHomePage = () => {
 
     const [allEmployeeSkills, setAllEmployeeSkills] = useState<EmployeeSkills[]>([]);
     const [show, setShow] = useState(false);
-    const navigate = useNavigate();
+    const [updateShow, setUpdateShow] = useState(false);
+    const [updationEmployeeId, setUpdationEmployeeId] = useState<string>("");
+    const [updationSkillId, setUpdationSkillId] = useState<number>(0);
+    const [updationExpertise, setUpdationExpertise] = useState<string>("");
 
     const closeModal = (showValue : boolean) =>
     {
       setShow(showValue);
+    }
+    const closeUpdateModal = (showValue : boolean) =>
+    {
+        setUpdateShow(showValue);
+    }
+    const handleExpertiseClick = (employeeId: string, skillId: number, skillExpertise: string) => {
+        setUpdationEmployeeId(employeeId);
+        setUpdationSkillId(skillId);
+        setUpdationExpertise(skillExpertise);
+        setUpdateShow(true);
     }
 
     const getAllEmployeeSkills = () => {
@@ -38,9 +51,10 @@ const AdminHomePage = () => {
         });
     }
 
+
     React.useEffect( () => {
         getAllEmployeeSkills();
-    }, [show]);
+    }, [show, updateShow]);
 
     return (
         <>
@@ -86,8 +100,9 @@ const AdminHomePage = () => {
                                         {item.employeeSkills.map((skill, index) => {
                                             if(skill.expertise==="Basic")
                                             return (
-                                                <td key = {index}>      
-                                                    <span className="badge rounded-pill border border-4 basic">
+                                                <td key = {index}>  
+                                                    <span className="badge rounded-pill border border-4 basic hoverable"
+                                                            onClick={() => handleExpertiseClick(item.employeeId, skill.id, skill.expertise)}>
                                                         {skill.skillName}
                                                     </span>
                                                 </td>
@@ -95,7 +110,8 @@ const AdminHomePage = () => {
                                             else if(skill.expertise==="Novice")
                                             return (
                                                 <td key = {index}>      
-                                                    <span className="badge rounded-pill border border-4 novice">
+                                                    <span className="badge rounded-pill border border-4 novice hoverable"
+                                                            onClick={() => handleExpertiseClick(item.employeeId, skill.id, skill.expertise)}>
                                                         {skill.skillName}
                                                     </span>
                                                 </td>
@@ -103,7 +119,8 @@ const AdminHomePage = () => {
                                             else if(skill.expertise==="Intermediate")
                                             return (
                                                 <td key = {index}>      
-                                                    <span className="badge rounded-pill border border-4 intermediate">
+                                                    <span className="badge rounded-pill border border-4 intermediate hoverable"
+                                                            onClick={() => handleExpertiseClick(item.employeeId, skill.id, skill.expertise)}>
                                                         {skill.skillName}
                                                     </span>
                                                 </td>
@@ -111,7 +128,8 @@ const AdminHomePage = () => {
                                             else if(skill.expertise==="Advanced")
                                             return (
                                                 <td key = {index}>      
-                                                    <span className="badge rounded-pill border border-4 advanced">
+                                                    <span className="badge rounded-pill border border-4 advanced hoverable"
+                                                            onClick={() => handleExpertiseClick(item.employeeId, skill.id, skill.expertise)}>
                                                         {skill.skillName}
                                                     </span>
                                                 </td>
@@ -119,7 +137,8 @@ const AdminHomePage = () => {
                                             else if(skill.expertise==="Expert")
                                             return (
                                                 <td key = {index}>      
-                                                    <span className="badge rounded-pill border border-4 expert">
+                                                    <span className="badge rounded-pill border border-4 expert hoverable"
+                                                            onClick={() => handleExpertiseClick(item.employeeId, skill.id, skill.expertise)}>
                                                         {skill.skillName}
                                                     </span>
                                                 </td>
@@ -137,6 +156,10 @@ const AdminHomePage = () => {
             <div>
                 <Modal show={show} onHide={() => setShow(false)} contentClassName="modal-container">
                     <MapSkillModal ShowModal={closeModal}/>
+                </Modal>
+                <Modal show={updateShow} onHide={() => setUpdateShow(false)} contentClassName="modal-container">
+                    <UpdateExpertiseModal ShowUpdateModal={closeUpdateModal} updatedEmployeeId={updationEmployeeId}
+                                            updatedSkillId={updationSkillId} updatedExpertise={updationExpertise}/>
                 </Modal>
             </div>
         </div>
