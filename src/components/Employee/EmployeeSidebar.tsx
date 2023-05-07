@@ -10,8 +10,7 @@ const EmployeeSidebar = () => {
     <nav id="sidebar">
       <div>
         <Button className = "sidebar-items" onClick={()=>navigate("../employee/home")}>Home</Button>
-        <Button className = "sidebar-items" onClick={()=>navigate("../employee/home")}>My Skills</Button>
-        <Button className = "sidebar-items" onClick={()=>navigate("../employee/home")}>What I can Achieve</Button>
+        <Button className = "sidebar-items" onClick={()=>navigate("../employee/skills/view-all")}>What I can Achieve</Button>
       </div>
     </nav>
   );

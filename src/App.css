@@ -263,6 +263,9 @@ a {
   border-radius: 5px;
   overflow: scroll;
 }
+.hoverable {
+  cursor: pointer;
+}
 .input-item-details {
   /* margin-left: 10px; */
   margin-bottom: 10px;
@@ -366,6 +369,17 @@ td.description {
   font-size: 1.2rem;
 }
 
+.skill-table-cell {
+  word-wrap: break-word;
+  min-width: 160px;
+  max-width: 160px;
+}
+.table-fit {
+  width: 100px !important;
+}
+.align-middle {
+  margin-top: auto;
+}
 
 @media screen and (max-width: 991px) {
   .logo {

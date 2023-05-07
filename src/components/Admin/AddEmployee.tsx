@@ -7,6 +7,7 @@ import axios from 'axios';
 import {useLocation} from 'react-router-dom';
 
 const baseURL = "https://localhost:7247/api/Employee";
+const adminBaseURL = "https://localhost:7247/api/Admin";
 const genderEnumURL = "https://localhost:7247/api/Employee/Gender";
 
 const AddEmployee = () => {
@@ -32,6 +33,7 @@ const AddEmployee = () => {
     const [validOrgNameFlag, setValidOrgNameFlag] = useState<boolean>(false);
     const [validDesignationFlag, setValidDesignationFlag] = useState<boolean>(false);
     const [updatedEmployeeId, setUpdatedEmployeeId] = useState<string>("");
+    const user = JSON.parse(localStorage.getItem("User") || '{}');
 
     
     const location = useLocation();
@@ -137,6 +139,31 @@ const AddEmployee = () => {
                     }
                 });
             }
+            else if(submitButtonValue === "Update Self" && user.role === "Admin")
+            {
+                const data : UpdateEmployee = ({firstName:newEmployee.firstName,lastName: newEmployee.lastName,gender:newEmployee.gender,
+                    phoneNumber:newEmployee.phoneNumber,email:newEmployee.email,profilePictureUrl:"",street:newEmployee.street,
+                    town:newEmployee.town,city:newEmployee.city,zipcode:newEmployee.zipcode,dateOfBirth:newEmployee.dateOfBirth});
+
+                axios.put(`${adminBaseURL}/${updatedEmployeeId}`, data)
+                .then(response => 
+                {
+                    if(location.state != null && location.state.type === "Update")
+                        navigate("../employees/view-all");
+                    else if(location.state != null && location.state.type === "UpdateSelf")
+                        navigate("../profile");
+                }).catch(error => {
+                    if(error.response)
+                    {
+                      alert(error.response.data.message);
+                    }
+                    else if (error.request)
+                    {
+                      alert("Server Inactive or Busy");
+                    }
+                  });
+                setDefaultValues();
+            }
             else
             {
 
@@ -144,12 +171,14 @@ const AddEmployee = () => {
                     phoneNumber:newEmployee.phoneNumber,email:newEmployee.email,profilePictureUrl:"",street:newEmployee.street,
                     town:newEmployee.town,city:newEmployee.city,zipcode:newEmployee.zipcode,dateOfBirth:newEmployee.dateOfBirth});
 
-
                 console.log("Updated Employee: "+ data);
                 axios.put(`${baseURL}/${updatedEmployeeId}`, data)
                 .then(response => 
                 {
-                    navigate("../employees/view-all");
+                    if(location.state != null && location.state.type === "Update")
+                        navigate("../employees/view-all");
+                    else if(location.state != null && location.state.type === "UpdateSelf")
+                        navigate("../profile");
                 }).catch(error => {
                     if(error.response)
                     {
@@ -166,14 +195,37 @@ const AddEmployee = () => {
     }
 
     const handleCancelButton = () => {
-        navigate("../employees/view-all");
+        if(location.state != null && location.state.type === "Update")
+            navigate("../employees/view-all");
+        else if(location.state != null && location.state.type === "UpdateSelf")
+            navigate("../profile");
     }
 
     useEffect(()=> {
     if(location.state != null && location.state.type === "Update")
     {
-        setFormHeading("Update Customer Details");
+        setFormHeading("Update Employee Details");
         setSubmitButtonValue("Update");
+        const name_array = location.state.fullName.split(" ");
+        setUpdatedEmployeeId(location.state.id); 
+        newEmployee.firstName = name_array[0];
+        newEmployee.lastName = name_array[1];
+        newEmployee.username = location.state.username;
+        newEmployee.gender = location.state.gender;
+        newEmployee.phoneNumber = location.state.phoneNumber;
+        newEmployee.email = location.state.email;
+        newEmployee.street = location.state.street;
+        newEmployee.town = location.state.town;
+        newEmployee.city = location.state.city;
+        newEmployee.zipcode = location.state.zipcode;
+        newEmployee.dateOfBirth = location.state.dateOfBirth;
+        newEmployee.previousOrganisation = location.state.previousOrganisation;
+        newEmployee.previousDesignation = location.state.previousDesignation;
+    }
+    else if(location.state != null && location.state.type === "UpdateSelf")
+    {
+        setFormHeading("Update Profile");
+        setSubmitButtonValue("Update Self");
         const name_array = location.state.fullName.split(" ");
         setUpdatedEmployeeId(location.state.id); 
         newEmployee.firstName = name_array[0];

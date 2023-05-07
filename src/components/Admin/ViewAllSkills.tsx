@@ -3,7 +3,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import {Skill} from '../Data/Entities';
 import { Modal } from "react-bootstrap";
 import React, {useState} from "react";
-import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import AddSkillModal from './Modals/AddSkillModal';
 import UpdateSkillModal from './Modals/UpdateSkillModal';
@@ -36,7 +35,6 @@ const ViewAllSkills = () => {
     const [updationSkillId, setUpdationSkillId] = useState<number>(0);
     const [updationSkillName, setUpdationSkillName] = useState<string>("");
     const [updationSkillDescription, setUpdationSkillDescription] = useState<string>("");
-    const navigate = useNavigate();
     
     const closeModal = (showValue : boolean) =>
     {
@@ -72,7 +70,7 @@ const ViewAllSkills = () => {
 
     React.useEffect( () => {
         getSkills();
-      }, [show, showUpdate]);
+    }, [show, showUpdate]);
     
     // const handleDeleteClick = (id:any) => {
     //     // setDeletionCustomerId(id);
@@ -103,23 +101,29 @@ const ViewAllSkills = () => {
             </div>
             <hr></hr>
 
-            <div className="row mx-4 mt-2">
-                {skills.map((skill,index) => {
-                    return (
-                        <div key={index} className="col-sm-3 mt-2">
-                            <div className="card">
-                                <div className="card-body skill-card" onClick={() => 
-                                                    HandleCardClick(skill.id,skill.skillName,skill.description)}>
-                                    <h5 className="card-title">{skill.skillName}</h5>
-                                    <p>{skill.description}</p>
-                                    {/* <a href="#" className="btn skill-update-btn btn-warning">Update</a>
-                                    <a href="#" className="btn skill-delete-btn btn-danger">Delete</a> */}
-                                </div>
-                            </div>
-                        </div>
-                    )
-                })
-                }  
+            <div className="mt-2">
+                <div className="table-responsive card">
+                    <table className="table table-bordered table-striped">
+                        <thead className="table-dark">
+                            <tr>
+                                <th scope="col">S.No.</th>
+                                <th scope="col">Skill</th>
+                                <th scope="col">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {skills.map((skill,index) => {
+                            return (
+                                <tr className='hoverable' onClick={() => HandleCardClick(skill.id,skill.skillName,skill.description)}>
+                                    <td className='table-fit'>{index+1}</td>
+                                    <td className='table-fit'>{skill.skillName}</td>
+                                    <td className='skill-table-cell'>{skill.description}</td>
+                                </tr>
+                            )
+                        })}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div>
                 <Modal show={show} onHide={() => setShow(false)} contentClassName="modal-container">

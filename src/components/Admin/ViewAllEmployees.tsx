@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import { Modal } from "react-bootstrap";
 import {Employee} from '../Data/Entities';
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
@@ -12,7 +11,6 @@ const ViewAllEmployees = () => {
 
     const [employees, setEmployees] = useState<Employee[]>([]);
     const [isView, invokeViewModal] = useState(false);
-    const [getCustomerId,setGetCustomerId] = useState<number>();
     const [deletionCustomerId, setDeletionCustomerId] = useState<string>("");
     const navigate = useNavigate();
     
@@ -38,26 +36,19 @@ const ViewAllEmployees = () => {
         getEmployees();
 
       }, []);
-    
-    // const handleTableRowClick = (employeeId:string) => FOR UPDATING EMPLOYEE
-    // {
-    //     setGetCustomerId(employeeId);
-    //     invokeViewModal(true);
-    // }
 
     const handleUpdateClick = (sendId:string,fullName: string,username:string,phoneNumber:string,email:string,
                             gender:string,street:string,town:string,city:string,zipcode:string,dateOfBirth:string,
                             previousOrganisation:string,previousDesignation:string) => 
     { 
-        navigate('../employees/add-new',
+        navigate('../employee/update',
         {state:
             {
                 type: "Update",
                 id: sendId, fullName: fullName,username: username,phoneNumber: phoneNumber,email: email,gender: gender,street: street,town: town,
                 city: city,zipcode: zipcode,dateOfBirth: dateOfBirth,previousOrganisation: previousOrganisation,
                 previousDesignation: previousDesignation
-            }   
-            // changesssssss
+            }
         });
     }
 
@@ -116,12 +107,12 @@ const ViewAllEmployees = () => {
                                                 employee.dateOfBirth,employee.previousOrganisation,employee.previousDesignation)}>
                                     Update
                                 </button>
-                                <button 
+                                {/* <button 
                                     type="button" 
                                     className="btn btn-danger"
-                                    // onClick = {() => handleDeleteClick(id)}
+                                    onClick = {() => handleDeleteClick(id)}
                                     >Delete
-                                </button>
+                                </button> */}
                             </td>
                             </tr>
                         })}
@@ -129,9 +120,6 @@ const ViewAllEmployees = () => {
                 </table>
             </div>
             {/* <div>
-                <Modal show={isView} onHide={() => invokeViewModal(false)} contentClassName="modal-container">
-                    <ViewModal getCustomerId={getCustomerId} /> 
-                </Modal>
                 <Modal show={isShow} onHide={() => invokeDeleteModal(false)} contentClassName="modal-container">
                     <ConfirmDeleteModal deletionCustomerId = {deletionCustomerId} /> 
                 </Modal>

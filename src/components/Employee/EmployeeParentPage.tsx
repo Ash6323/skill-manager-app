@@ -5,6 +5,9 @@ import EmployeeSidebar from "./EmployeeSidebar";
 import { useEffect, useState } from 'react';
 import {Routes, Route} from 'react-router-dom';
 import Profile from '../Shared/Profile';
+import EmployeeHomePage from './EmployeeHomePage';
+import AvailableSkills from './AvailableSkills';
+import AddEmployee from '../Admin/AddEmployee';
 
 const EmployeeParentPage = () => {
 
@@ -24,11 +27,10 @@ const EmployeeParentPage = () => {
             </div>
             <div className="col-md-10">
                 <Routes>
-                    {/* <Route path="home" element={<EmployeeHomePage />} /> */}
+                    <Route path="home" element={<EmployeeHomePage />} />
                     <Route path="profile" element={<Profile />} />
-                    {/* <Route path="employees/add-new" element={<AddEmployee />} />
-                    <Route path="employees/view-all" element={<ViewAllEmployees />} />
-                    <Route path="skills/view-all" element={<ViewAllSkills />} /> */}
+                    <Route path="profile/update" element={<AddEmployee />} />
+                    <Route path="skills/view-all" element={<AvailableSkills />} />
                 </Routes>
             </div>
             

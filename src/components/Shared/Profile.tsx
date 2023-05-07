@@ -37,48 +37,27 @@ const Profile = () => {
         });
     }
 
+    const handleUpdateClick = (sendId:string,fullName: string,username:string,phoneNumber:string,email:string,
+                                gender:string,street:string,town:string,city:string,zipcode:string,dateOfBirth:string,
+                                previousOrganisation:string,previousDesignation:string) => { 
+        navigate("../profile/update",
+        {state:
+            {
+                type: "UpdateSelf",
+                id: sendId, fullName: fullName,username: username,phoneNumber: phoneNumber,email: email,gender: gender,street: street,town: town,
+                city: city,zipcode: zipcode,dateOfBirth: dateOfBirth,previousOrganisation: previousOrganisation,
+                previousDesignation: previousDesignation
+            }
+        });
+    }
+
     React.useEffect( () => {
         getUser();
-      }, []);
+    }, []);
     
-    // const handleTableRowClick = (employeeId:string) => FOR UPDATING EMPLOYEE
-    // {
-    //     setGetCustomerId(employeeId);
-    //     invokeViewModal(true);
-    // }
-
-    // const handleUpdateClick = (sendId:any,sendName:any,sendEmail:any,sendPhone:any,
-    //                         sendStreet:any,sendTown:any,sendCity:any, sendZipcode:any) => 
-    // { 
-    //     navigate('../employee/add-employee',
-    //             {state:
-    //                 {
-    //                     type: "Update",
-    //                     id: sendId, name: sendName, email: sendEmail, phone: sendPhone,
-    //                     street: sendStreet, town: sendTown, city: sendCity, zipcode: sendZipcode
-    //                 }
-    //             });
-    // }
-
-    // const handleDeleteClick = (id:any) => {
-    //     // setDeletionCustomerId(id);
-    //     // invokeDeleteModal(true);
-    //     axios.delete(`${baseURL}/${id}`)
-    //     .then(() => 
-    //     {
-    //         getCustomers();
-    //     });
-    // }
     return (
         <>
         <div className="my-container shadow ">
-            <div className="row">
-                {/* <div className="d-flex justify-content-end">
-                    <button type="submit" className="btn submit-btn new-emp-btn" onClick={()=>navigate("../employees/add-new")}>
-                        Add New
-                    </button>
-                </div> */}
-            </div>
             <div className="container d-flex justify-content-center mt-4">
                 <div className="card shadow-2-strong card-registration col-md-9">
                     <div className="container row mt-5">
@@ -143,6 +122,16 @@ const Profile = () => {
                             </ul>
                         </div>
                     </div>
+                    <div className="row mb-4">
+                        <div className="d-flex justify-content-center">
+                        <button type="submit" className="btn update-btn btn-warning" 
+                                onClick={() => handleUpdateClick(user.id, user.fullName,user.userName,user.phoneNumber,
+                                                user.email,user.gender,user.street,user.town,user.city,user.zipcode,
+                                                user.dateOfBirth,user.previousOrganisation,user.previousDesignation)}>
+                                Update Profile
+                        </button>
+                    </div>
+                </div>
                 </div>
             </div>
             
