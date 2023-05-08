@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import {Modal} from 'react-bootstrap';
 import {Skill} from '../../Data/Entities';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -16,7 +15,6 @@ const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
 
   const [newSkill, setNewSkill] = useState<Skill>({id:0, skillName:"",description:""});
   const [show, setShow] = useState<boolean>(false);
-  const navigate = useNavigate();
 
   const setDefaultValue = () => {
     setNewSkill({id:0, skillName:"",description:""});
@@ -64,7 +62,7 @@ const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
         </div>
         <div className="d-flex justify-content-center">
           <button type="submit" className="btn btn-success mt-3 px-4" 
-                  onClick={addSkill} disabled = {newSkill.skillName == ""}>
+                  onClick={addSkill} disabled = {newSkill.skillName == "" || newSkill.description == ""}>
             <i className="bi bi-plus-square mx-1"></i> Add
           </button>
         </div>

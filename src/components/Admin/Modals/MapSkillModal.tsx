@@ -4,7 +4,6 @@ import {Employee, Skill, EmployeeSkillMap} from '../../Data/Entities';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import { useNavigate } from 'react-router-dom';
 
 const EmployeeBaseURL = "https://localhost:7247/api/Employee";
 const employeeSkillBaseURL = "https://localhost:7247/api/EmployeeSkill";
@@ -21,7 +20,6 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
   const [skills, setSkills] = useState<Skill[]>([]);
   const [expertises, setExpertises] = useState<string[]>([]);
   const [show, setShow] = useState<boolean>(false);
-  const navigate = useNavigate();
 
   const setDefaultValue = () => {
     setNewSkill({employeeId:"", skillId:0, expertise:""});
@@ -92,8 +90,6 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
   }, []);
 
   const addSkill = () => {
-    console.log(newSkill);
-
     axios.post(employeeSkillBaseURL, newSkill)
     .then(response => 
     {
@@ -103,7 +99,9 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
     }).catch(error => {
       if(error.response)
       {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.TOP_RIGHT        
+      });
       }
       else if (error.request)
       {

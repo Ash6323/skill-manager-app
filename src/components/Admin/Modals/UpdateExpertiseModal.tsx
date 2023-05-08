@@ -69,7 +69,9 @@ const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmploye
     }).catch(error => {
       if (error.request)
       {
-        alert("Server Inactive or Busy");
+        toast.error("Server Inactive or Busy", {
+          position: toast.POSITION.TOP_RIGHT        
+      });
       }
     });
   }

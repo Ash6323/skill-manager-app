@@ -23,7 +23,6 @@ const UpdateSkillModal:React.FC<IModal> = ({ShowUpdateModal, updateSkillId, upda
     setUpdatedSkill({id: updateSkillId, skillName: updateSkillName, description: updateSkillDescription});
   }, []);
 
-    
   const setDefaultValue = () => {
     setUpdatedSkill({id:0, skillName:"", description:""});
   }
@@ -38,13 +37,9 @@ const UpdateSkillModal:React.FC<IModal> = ({ShowUpdateModal, updateSkillId, upda
   };
 
   const updateSkill = () => {
-    console.log("inside updateskill");
-    console.log(updatedSkill);
-    
     axios.put(baseURL, updatedSkill)
     .then(response => 
     {
-      console.log(response.data);
       setDefaultValue();
       handleClose();
     }).catch(error => {

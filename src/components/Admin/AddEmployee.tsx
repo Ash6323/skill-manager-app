@@ -2,9 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import {NewEmployee, UpdateEmployee} from '../Data/Entities';
+import {NewEmployee, UpdateAdmin, UpdateEmployee} from '../Data/Entities';
 import axios from 'axios';
 import {useLocation} from 'react-router-dom';
 
@@ -37,7 +37,6 @@ const AddEmployee = () => {
     const [updatedEmployeeId, setUpdatedEmployeeId] = useState<string>("");
     const user = JSON.parse(localStorage.getItem("User") || '{}');
 
-    
     const location = useLocation();
 
     const getGenders = () => {
@@ -135,7 +134,6 @@ const AddEmployee = () => {
                     if(error.response)
                     {
                         setValidPasswordFlag(true);
-                        console.log(error.response.data.title);
                     }
                     else if (error.request)
                     {
@@ -147,21 +145,20 @@ const AddEmployee = () => {
             }
             else if(submitButtonValue === "Update Self" && user.role === "Admin")
             {
-                const data : UpdateEmployee = ({firstName:newEmployee.firstName,lastName: newEmployee.lastName,gender:newEmployee.gender,
+                const data : UpdateAdmin = ({userName:newEmployee.username, firstName:newEmployee.firstName,lastName: newEmployee.lastName,gender:newEmployee.gender,
                     phoneNumber:newEmployee.phoneNumber,email:newEmployee.email,profilePictureUrl:"",street:newEmployee.street,
                     town:newEmployee.town,city:newEmployee.city,zipcode:newEmployee.zipcode,dateOfBirth:newEmployee.dateOfBirth});
 
                 axios.put(`${adminBaseURL}/${updatedEmployeeId}`, data)
                 .then(response => 
                 {
-                    if(location.state != null && location.state.type === "Update")
-                        navigate("../employees/view-all");
-                    else if(location.state != null && location.state.type === "UpdateSelf")
-                        navigate("../profile");
+                    navigate("../profile");
                 }).catch(error => {
                     if(error.response)
                     {
-                      alert(error.response.data.message);
+                        toast.error(error.response.data.message, {
+                            position: toast.POSITION.TOP_RIGHT        
+                        });
                     }
                     else if (error.request)
                     {
@@ -174,12 +171,10 @@ const AddEmployee = () => {
             }
             else
             {
-
                 const data : UpdateEmployee = ({firstName:newEmployee.firstName,lastName: newEmployee.lastName,gender:newEmployee.gender,
                     phoneNumber:newEmployee.phoneNumber,email:newEmployee.email,profilePictureUrl:"",street:newEmployee.street,
                     town:newEmployee.town,city:newEmployee.city,zipcode:newEmployee.zipcode,dateOfBirth:newEmployee.dateOfBirth});
 
-                console.log("Updated Employee: "+ data);
                 axios.put(`${baseURL}/${updatedEmployeeId}`, data)
                 .then(response => 
                 {
@@ -462,6 +457,10 @@ const AddEmployee = () => {
                         <i className="bi bi-check-circle-fill mx-1"></i> {submitButtonValue}
                     </button>}
                     {submitButtonValue === 'Update' &&
+                    <button type="submit" className="btn update-btn btn-warning mt-4 m-2 mb-4">
+                        <i className="bi bi-pencil-square px-1"></i> {submitButtonValue}
+                    </button>}
+                    {submitButtonValue === 'Update Self' &&
                     <button type="submit" className="btn update-btn btn-warning mt-4 m-2 mb-4">
                         <i className="bi bi-pencil-square px-1"></i> {submitButtonValue}
                     </button>}

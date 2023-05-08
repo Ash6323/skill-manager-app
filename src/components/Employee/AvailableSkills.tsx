@@ -32,6 +32,16 @@ const AvailableSkills = () => {
             }
         });
     }
+    const [search, setSearch] = useState('');
+    const filteredSkills = 
+    {
+        list: skills.filter((item) =>item.skillName.toLowerCase().includes(search.toLowerCase())),
+    };
+
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => 
+    {
+        setSearch(event.target.value);
+    };
 
     React.useEffect( () => {
         getSkills();
@@ -55,6 +65,22 @@ const AvailableSkills = () => {
                     <h3>List of Skills</h3>
                 </div>
             </div>
+            <div className="d-flex justify-space-between align-items-center">
+                <div className="mx-4 col-md-3">
+                <input 
+                    list="skill-list" type="text" onChange={handleSearch} placeholder="Search for a Skill"
+                    className="form-control" id="item-search-input">
+                </input>
+                
+                <datalist id="skill-list">
+                    {skills.map((item) => (
+                    <div key={item.id}>
+                        <option value={item.skillName}></option>
+                    </div>
+                    ))}
+                </datalist>
+                </div>                        
+            </div>
             <hr></hr>
             <div className="mt-2">
                 <div className="table-responsive card">
@@ -67,7 +93,7 @@ const AvailableSkills = () => {
                             </tr>
                         </thead>
                         <tbody>
-                        {skills.map((skill,index) => {
+                        {filteredSkills.list.map((skill,index) => {
                             return (
                                 <tr>
                                     <td className='table-fit'>{index+1}</td>

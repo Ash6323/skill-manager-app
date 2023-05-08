@@ -12,7 +12,7 @@ const adminBaseURL = "https://localhost:7247/api/Admin";
 const employeeBaseURL = "https://localhost:7247/api/Employee";
 
 const Profile = () => {
-
+    
     const [user, setUser] = useState<User>({id: "", userName: "", fullName: "", gender: "", phoneNumber: "", email: "",
                                                     profilePictureUrl: "", isActive: 0, street: "", town: "", city: "", zipcode: "", 
                                                     dateOfBirth: "", previousOrganisation: "", previousDesignation: ""});

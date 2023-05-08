@@ -73,20 +73,21 @@ const ViewAllSkills = () => {
             }
         });
     }
+    const [search, setSearch] = useState('');
+    const filteredSkills = 
+    {
+        list: skills.filter((item) =>item.skillName.toLowerCase().includes(search.toLowerCase())),
+    };
+
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => 
+    {
+        setSearch(event.target.value);
+    };
 
     React.useEffect( () => {
         getSkills();
     }, [show, showUpdate]);
     
-    // const handleDeleteClick = (id:any) => {
-    //     // setDeletionCustomerId(id);
-    //     // invokeDeleteModal(true);
-    //     axios.delete(`${baseURL}/${id}`)
-    //     .then(() => 
-    //     {
-    //         getCustomers();
-    //     });
-    // }
     return (
         <>
         <div ref={printRef} className="my-container shadow pb-5" >
@@ -95,7 +96,7 @@ const ViewAllSkills = () => {
                     <button type="submit" className="btn submit-btn btn-success" onClick={handleDownloadPdf}>
                         <i className="bi bi-printer-fill mx-1"></i> Print
                     </button>
-                    <button type="submit" className="btn submit-btn new-skill-btn" onClick={() => setShow(true)}>
+                    <button type="submit" className="btn btn-success new-skill-btn" onClick={() => setShow(true)}>
                         <i className="bi bi-plus-square px-1"></i> Add New
                     </button>
                 </div>
@@ -104,6 +105,22 @@ const ViewAllSkills = () => {
                 <div className="d-flex col justify-content-center">
                     <h3>List of Skills</h3>
                 </div>
+            </div>
+            <div className="d-flex justify-space-between align-items-center">
+                <div className="mx-4 col-md-3">
+                <input 
+                    list="skill-list" type="text" onChange={handleSearch} placeholder="Search for a Skill"
+                    className="form-control" id="item-search-input">
+                </input>
+                
+                <datalist id="skill-list">
+                    {skills.map((item) => (
+                    <div key={item.id}>
+                        <option value={item.skillName}></option>
+                    </div>
+                    ))}
+                </datalist>
+                </div>                        
             </div>
             <hr></hr>
 
@@ -118,7 +135,7 @@ const ViewAllSkills = () => {
                             </tr>
                         </thead>
                         <tbody>
-                        {skills.map((skill,index) => {
+                        {filteredSkills.list.map((skill,index) => {
                             return (
                                 <tr className='hoverable' onClick={() => HandleCardClick(skill.id,skill.skillName,skill.description)}>
                                     <td className='table-fit'>{index+1}</td>

@@ -12,14 +12,11 @@ const baseURL = "https://localhost:7247/api/Employee";
 const ViewAllEmployees = () => {
 
     const [employees, setEmployees] = useState<Employee[]>([]);
-    const [isView, invokeViewModal] = useState(false);
-    const [deletionCustomerId, setDeletionCustomerId] = useState<string>("");
     const navigate = useNavigate();
     
     const getEmployees = () => {
         axios.get(baseURL).then((response) => 
         {
-            console.log("Inside get.then");
             setEmployees(response.data.data);
 
         }).catch(error => {
@@ -37,6 +34,17 @@ const ViewAllEmployees = () => {
             }
         });
     }
+
+    const [search, setSearch] = useState('');
+    const filteredEmployees = 
+    {
+        list: employees.filter((item) =>item.fullName.toLowerCase().includes(search.toLowerCase())),
+    };
+
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => 
+    {
+        setSearch(event.target.value);
+    };
 
     React.useEffect( () => {
         getEmployees();
@@ -57,16 +65,6 @@ const ViewAllEmployees = () => {
             }
         });
     }
-
-    // const handleDeleteClick = (id:any) => {
-    //     // setDeletionCustomerId(id);
-    //     // invokeDeleteModal(true);
-    //     axios.delete(`${baseURL}/${id}`)
-    //     .then(() => 
-    //     {
-    //         getCustomers();
-    //     });
-    // }
     return (
         <>
         <div className="my-container shadow">
@@ -81,6 +79,22 @@ const ViewAllEmployees = () => {
                 <div className="d-flex col justify-content-center">
                     <h3>Employee List</h3>
                 </div>
+            </div>
+            <div className="d-flex justify-space-between align-items-center">
+                <div className="mx-4 col-md-3">
+                <input 
+                    list="employees-list" type="text" onChange={handleSearch} placeholder="Search for an Employee"
+                    className="form-control" id="item-search-input">
+                </input>
+                
+                <datalist id="employees-list">
+                    {employees.map((item) => (
+                    <div key={item.fullName}>
+                        <option value={item.fullName}></option>
+                    </div>
+                    ))}
+                </datalist>
+                </div>                        
             </div>
             <hr></hr>
 
@@ -97,7 +111,7 @@ const ViewAllEmployees = () => {
                         </tr>
                     </thead>
                  <tbody>
-                    {employees.map((employee,index)=>{
+                    {filteredEmployees.list.map((employee,index)=>{
                     return <tr key={index}>
                             <td className="view-info">{index+1}</td>
                             <td className="view-info">{employee.fullName}</td>
@@ -113,12 +127,6 @@ const ViewAllEmployees = () => {
                                                 employee.dateOfBirth,employee.previousOrganisation,employee.previousDesignation)}>
                                     <i className="bi bi-pencil-square px-1"></i> Update
                                 </button>
-                                {/* <button 
-                                    type="button" 
-                                    className="btn btn-danger"
-                                    onClick = {() => handleDeleteClick(id)}
-                                    >Delete
-                                </button> */}
                             </td>
                             </tr>
                         })}
@@ -126,11 +134,6 @@ const ViewAllEmployees = () => {
                 </table>
             </div>
             <ToastContainer />
-            {/* <div>
-                <Modal show={isShow} onHide={() => invokeDeleteModal(false)} contentClassName="modal-container">
-                    <ConfirmDeleteModal deletionCustomerId = {deletionCustomerId} /> 
-                </Modal>
-            </div> */}
         </div>
         </>
     );

@@ -51,7 +51,6 @@ const AdminHomePage = () => {
     const getAllEmployeeSkills = () => {
         axios.get(baseURL).then((response) => 
         {
-            console.log("Inside get.then");
             setAllEmployeeSkills(response.data.data);
 
         }).catch(error => {
@@ -69,6 +68,16 @@ const AdminHomePage = () => {
             }
         });
     }
+    const [search, setSearch] = useState('');
+    const filteredEmployees = 
+    {
+        list: allEmployeeSkills.filter((item) =>item.employeeName.toLowerCase().includes(search.toLowerCase())),
+    };
+
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => 
+    {
+        setSearch(event.target.value);
+    };
 
     React.useEffect( () => {
         getAllEmployeeSkills();
@@ -97,9 +106,25 @@ const AdminHomePage = () => {
                 </div>
             </div>
             <div className="row">
-                <div className="d-flex mt-1 justify-content-center">
+                <div className="d-flex justify-content-center">
                     <h6>(Click on: Employee Name for Skill Report, Particular Skill to Update Expertise)</h6>
                 </div>
+            </div>
+            <div className="d-flex justify-space-between align-items-center">
+                <div className="mx-4 col-md-3">
+                <input 
+                    list="employees-list" type="text" onChange={handleSearch} placeholder="Search for an Employee"
+                    className="form-control" id="item-search-input">
+                </input>
+                
+                <datalist id="employees-list">
+                    {allEmployeeSkills.map((item) => (
+                    <div key={item.employeeId}>
+                        <option value={item.employeeName}></option>
+                    </div>
+                    ))}
+                </datalist>
+                </div>                        
             </div>
             <hr></hr>
             <div className="mt-2">
@@ -113,8 +138,8 @@ const AdminHomePage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                        {allEmployeeSkills.map((item,index) => {
-                            return ( 
+                        {filteredEmployees.list.map((item,index) => {
+                            return (
                             <tr key={index}>
                                 <td className="description">{index+1}</td>
                                 <td className="description hoverable" onClick={() => handleReportClick(item.employeeId, item.employeeName)}>
