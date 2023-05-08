@@ -1,6 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import AvatarImage from '../../res/img_avatar.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -30,11 +32,15 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
         }).catch(error => {
             if(error.response)
             {
-                alert(error.response.data.message);
+                toast.error(error.response.data.message, {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
             else if (error.request)
             {
-                alert("Server Inactive or Busy");
+                toast.error("Server Inactive or Busy", {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
         });
     }
@@ -69,18 +75,21 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
                     </a>
 
                     <a className="d-block link-dark text-decoration-none dropdown-toggle mx-2" id="dropdownUser1"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         <img src={profileImage? profileImage:AvatarImage } width="32" height="32" className="rounded-circle"></img>
                     </a>
                     <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                         <li><a className="dropdown-item" onClick={profileNavigator}>
-                            {userFullName}</a>
+                            <i className="bi bi-person-fill"></i> {userFullName}</a>
                         </li>
                         <li><hr className="dropdown-divider"></hr></li>
-                        <li><a className="dropdown-item" onClick={HandleSignOut}>{signIn}</a></li>
+                        <li><a className="dropdown-item" onClick={HandleSignOut}>
+                            <i className="bi bi-box-arrow-right"></i> {signIn}</a>
+                        </li>
                     </ul>
                 </div>
             </div>
+            <ToastContainer />
         </header></>
     );
 };

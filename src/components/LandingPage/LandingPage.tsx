@@ -58,7 +58,6 @@ const LandingPage = () => {
             if(error.response)
             {
                 setInvalidFlag(true);
-                // alert(error.response.data.title);
             }
             else if (error.request)
             {

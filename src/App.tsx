@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { Routes, Route } from "react-router-dom";
@@ -7,7 +7,7 @@ import AdminParentPage from "./components/Admin/AdminParentPage";
 import EmployeeParentPage from "./components/Employee/EmployeeParentPage";
 import './App.css';
 import axios from 'axios';
-import Loader from './components/Loader/Loader'
+import Loader from './components/Loader/Loader';
 import ProtectedAdmin from './components/ProtectedRouting/ProtectedAdmin';
 import ProtectedEmployee from './components/ProtectedRouting/ProtectedEmployee';
 import ProtectedLandingPage from './components/ProtectedRouting/ProtectedLandingPage';

@@ -1,8 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import { Modal } from "react-bootstrap";
 import AvatarImage from '../../res/img_avatar.png';
 import {User} from '../Data/Entities';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
@@ -28,11 +29,15 @@ const Profile = () => {
         }).catch(error => {
             if(error.response)
             {
-                alert(error.response.data.message);
+                toast.error(error.response.data.message, {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
             else if (error.request)
             {
-                alert("Server Inactive or Busy");
+                toast.error("Server Inactive or Busy", {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
         });
     }
@@ -64,8 +69,7 @@ const Profile = () => {
                         <div className='col-md-6'>
                             <img className="card-img-top card-profile-image mx-5 col-md-6" alt="Profile Image"
                                 // src={user.profilePictureUrl? require(`${ user.profilePictureUrl}`):AvatarImage}
-                                src={user.profilePictureUrl? user.profilePictureUrl: AvatarImage}
-                            />
+                                src={user.profilePictureUrl? user.profilePictureUrl: AvatarImage}/>
                         </div>
                         <div className="col-md-6 text-start">
                         <ul className="list-unstyled mt-5">
@@ -134,7 +138,7 @@ const Profile = () => {
                 </div>
                 </div>
             </div>
-            
+            <ToastContainer />
         </div>
         </>
     );

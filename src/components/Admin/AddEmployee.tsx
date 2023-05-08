@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css';
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import {NewEmployee, UpdateEmployee} from '../Data/Entities';
