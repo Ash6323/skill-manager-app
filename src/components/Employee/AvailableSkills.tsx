@@ -3,6 +3,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import {Skill} from '../Data/Entities';
 import React, {useState} from "react";
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const baseURL = "https://localhost:7247/api/Skill";
 
@@ -18,11 +20,15 @@ const AvailableSkills = () => {
         }).catch(error => {
             if(error.response)
             {
-                alert(error.response.data);
+                toast.error(error.response.data.message, {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
             else if (error.request)
             {
-                alert("Server Inactive or Busy");
+                toast.error("Server Inactive or Busy", {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
         });
     }
@@ -75,6 +81,7 @@ const AvailableSkills = () => {
                 </div>
             </div>
         </div>
+        <ToastContainer />
         </>
     );
 }

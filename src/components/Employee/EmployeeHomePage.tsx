@@ -2,6 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import {EmployeeSkills} from '../Data/Entities';
 import { Modal } from "react-bootstrap";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
@@ -21,11 +23,15 @@ const ViewSkills = () => {
         }).catch(error => {
             if(error.response)
             {
-                alert(error.response.data);
+                toast.error(error.response.data.message, {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
             else if (error.request)
             {
-                alert("Server Inactive or Busy");
+                toast.error("Server Inactive or Busy", {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
         });
     }
@@ -92,6 +98,7 @@ const ViewSkills = () => {
             })
             }   
             </div>
+            <ToastContainer />
         </div>
         </>
     );

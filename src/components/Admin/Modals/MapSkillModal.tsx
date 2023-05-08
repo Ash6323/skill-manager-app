@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
 import {Employee, Skill, EmployeeSkillMap} from '../../Data/Entities';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import { useNavigate } from 'react-router-dom';
 
 const EmployeeBaseURL = "https://localhost:7247/api/Employee";
@@ -42,11 +44,15 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
     }).catch(error => {
       if(error.response)
       {
-        alert(error.response.data);
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.TOP_RIGHT        
+      });
       }
       else if (error.request)
       {
-        alert("Server Inactive or Busy");
+        toast.error("Server Inactive or Busy", {
+          position: toast.POSITION.TOP_RIGHT        
+      });
       }
     });
   }
@@ -58,7 +64,9 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
     }).catch(error => {
       if (error.request)
       {
-          alert("Server Inactive or Busy");
+        toast.error("Server Inactive or Busy", {
+          position: toast.POSITION.TOP_RIGHT        
+      });
       }
     });
   }
@@ -70,7 +78,9 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
     }).catch(error => {
       if (error.request)
       {
-          alert("Server Inactive or Busy");
+        toast.error("Server Inactive or Busy", {
+          position: toast.POSITION.TOP_RIGHT        
+      });
       }
     });
   }
@@ -97,7 +107,9 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
       }
       else if (error.request)
       {
-        alert("Server Inactive or Busy");
+        toast.error("Server Inactive or Busy", {
+          position: toast.POSITION.TOP_RIGHT        
+      });
       }
     });
   } 
@@ -149,6 +161,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
           </button>
         </div>
       </Modal.Body>
+      <ToastContainer />
     </div>
   )
 }

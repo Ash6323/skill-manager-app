@@ -3,6 +3,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import {Skill} from '../Data/Entities';
 import { Modal } from "react-bootstrap";
 import React, {useState} from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
 import AddSkillModal from './Modals/AddSkillModal';
 import UpdateSkillModal from './Modals/UpdateSkillModal';
@@ -59,11 +61,15 @@ const ViewAllSkills = () => {
         }).catch(error => {
             if(error.response)
             {
-                alert(error.response.data);
+                toast.error(error.response.data.message, {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
             else if (error.request)
             {
-                alert("Server Inactive or Busy");
+                toast.error("Server Inactive or Busy", {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
         });
     }
@@ -135,6 +141,7 @@ const ViewAllSkills = () => {
                                         updateSkillDescription={updationSkillDescription}/>
                 </Modal>
             </div>
+            <ToastContainer />
         </div>
         </>
     );

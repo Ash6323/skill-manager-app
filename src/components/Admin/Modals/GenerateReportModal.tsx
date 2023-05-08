@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
 
 const baseURL = "https://localhost:7247/api/Report";
@@ -27,7 +29,9 @@ const GenerateReportModal:React.FC<IModal> = ({ShowReportModal, employeeId, empl
     }).catch(error => {
       if (error.request)
       {
-        alert("Server Inactive or Busy");
+        toast.error("Server Inactive or Busy", {
+          position: toast.POSITION.TOP_RIGHT        
+      });
       }
     });
   } 
@@ -47,6 +51,7 @@ const GenerateReportModal:React.FC<IModal> = ({ShowReportModal, employeeId, empl
           </button>
         </div>
       </Modal.Body>
+      <ToastContainer />
     </div>
   )
 }

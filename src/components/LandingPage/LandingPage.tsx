@@ -3,6 +3,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import axios from 'axios';
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import Navbar from "../Shared/Navbar";
 import Logo from "../../res/Untitled.png";
 import { LoginDTO } from '../Data/Entities';
@@ -60,7 +62,9 @@ const LandingPage = () => {
             }
             else if (error.request)
             {
-                alert("Server Inactive or Busy");
+                toast.error("Server Inactive or Busy", {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
         });
     };
@@ -121,6 +125,7 @@ const LandingPage = () => {
                 </div>
             </div>
         </div>
+        <ToastContainer />
         </>
     )
 }

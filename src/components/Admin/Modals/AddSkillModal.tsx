@@ -3,6 +3,8 @@ import {Modal} from 'react-bootstrap';
 import {Skill} from '../../Data/Entities';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const baseURL = "https://localhost:7247/api/Skill";
 
@@ -39,7 +41,9 @@ const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
     }).catch(error => {
       if (error.request)
       {
-        alert("Server Inactive or Busy");
+        toast.error("Server Inactive or Busy", {
+          position: toast.POSITION.TOP_RIGHT        
+      });
       }
     });
   } 
@@ -65,6 +69,7 @@ const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
           </button>
         </div>
       </Modal.Body>
+      <ToastContainer />
     </div>
   )
 }

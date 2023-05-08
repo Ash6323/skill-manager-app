@@ -4,6 +4,8 @@ import { Modal } from "react-bootstrap";
 import {EmployeeSkills} from '../Data/Entities';
 import React, {useState} from "react";
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import MapSkillModal from './Modals/MapSkillModal';
 import UpdateExpertiseModal from './Modals/UpdateExpertiseModal';
 import GenerateReportModal from './Modals/GenerateReportModal';
@@ -55,15 +57,18 @@ const AdminHomePage = () => {
         }).catch(error => {
             if(error.response)
             {
-                alert(error.response.data);
+                toast.error(error.response.data.data, {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
             else if (error.request)
             {
-                alert("Server Inactive or Busy");
+                toast.error("Server Inactive or Busy", {
+                position: toast.POSITION.TOP_RIGHT        
+                });
             }
         });
     }
-
 
     React.useEffect( () => {
         getAllEmployeeSkills();
@@ -185,6 +190,7 @@ const AdminHomePage = () => {
                     <GenerateReportModal ShowReportModal={closeReportModal} employeeId={reportEmployeeId} employeeName={reportEmployeeName}/>
                 </Modal>
             </div>
+            <ToastContainer />
         </div>
         </>
     )

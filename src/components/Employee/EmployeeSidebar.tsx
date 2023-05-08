@@ -9,8 +9,12 @@ const EmployeeSidebar = () => {
   return (
     <nav id="sidebar">
       <div>
-        <Button className = "sidebar-items" onClick={()=>navigate("../employee/home")}>Home</Button>
-        <Button className = "sidebar-items" onClick={()=>navigate("../employee/skills/view-all")}>What I can Achieve</Button>
+        <Button className = "sidebar-items" onClick={()=>navigate("../employee/home")}>
+          <i className="bi bi-house-fill px-1"></i> Home
+        </Button>
+        <Button className = "sidebar-items" onClick={()=>navigate("../employee/skills/view-all")}>
+          <i className="bi bi-question-circle-fill px-1"></i> What I can Achieve
+        </Button>
       </div>
     </nav>
   );

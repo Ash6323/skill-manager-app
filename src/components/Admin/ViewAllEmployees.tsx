@@ -1,6 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import {Employee} from '../Data/Entities';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
@@ -23,11 +25,15 @@ const ViewAllEmployees = () => {
         }).catch(error => {
             if(error.response)
             {
-                alert(error.response.data);
+                toast.error(error.response.data.data, {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
             else if (error.request)
             {
-                alert("Server Inactive or Busy");
+                toast.error("Server Inactive or Busy", {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
         });
     }
@@ -119,6 +125,7 @@ const ViewAllEmployees = () => {
                  </tbody>
                 </table>
             </div>
+            <ToastContainer />
             {/* <div>
                 <Modal show={isShow} onHide={() => invokeDeleteModal(false)} contentClassName="modal-container">
                     <ConfirmDeleteModal deletionCustomerId = {deletionCustomerId} /> 

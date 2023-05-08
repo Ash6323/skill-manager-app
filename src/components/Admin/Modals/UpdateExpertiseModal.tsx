@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
 import {EmployeeSkillMap} from '../../Data/Entities';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const employeeSkillBaseURL = "https://localhost:7247/api/EmployeeSkill";
 const skillBaseURL = "https://localhost:7247/api/Skill";
@@ -38,19 +40,24 @@ const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmploye
   }, []);
 
   const updateExpertise = () => {
-    axios.put(employeeSkillBaseURL, newExpertise).then((response) =>
+    axios.put(`${employeeSkillBaseURL}/${updatedEmployeeId}`, newExpertise)
+    .then((response) =>
     {
-        console.log(response.data);
-        setDefaultValue();
-        handleClose();
+      console.log(response.data);
+      setDefaultValue();
+      handleClose();
     }).catch(error => {
         if(error.response)
         {
-            alert(error.response.data.data);
+          toast.error(error.response.data.data, {
+            position: toast.POSITION.TOP_RIGHT        
+        });
         }
         else if (error.request)
         {
-            alert("Server Inactive or Busy");
+          toast.error("Server Inactive or Busy", {
+            position: toast.POSITION.TOP_RIGHT        
+        });
         }
     });
   }
@@ -92,6 +99,7 @@ const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmploye
           </button>
         </div>
       </Modal.Body>
+      <ToastContainer />
     </div>
   )
 }

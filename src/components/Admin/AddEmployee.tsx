@@ -1,5 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import {NewEmployee, UpdateEmployee} from '../Data/Entities';
@@ -45,7 +47,9 @@ const AddEmployee = () => {
         }).catch(error => {
             if (error.request)
             {
-                alert("Server Inactive or Busy");
+                toast.error("Server Inactive or Busy", {
+                    position: toast.POSITION.TOP_RIGHT        
+                });
             }
         });
     }
@@ -135,7 +139,9 @@ const AddEmployee = () => {
                     }
                     else if (error.request)
                     {
-                        alert("Server Inactive or Busy");
+                        toast.error("Server Inactive or Busy", {
+                            position: toast.POSITION.TOP_RIGHT        
+                        });
                     }
                 });
             }
@@ -159,7 +165,9 @@ const AddEmployee = () => {
                     }
                     else if (error.request)
                     {
-                      alert("Server Inactive or Busy");
+                        toast.error("Server Inactive or Busy", {
+                            position: toast.POSITION.TOP_RIGHT        
+                        });
                     }
                   });
                 setDefaultValues();
@@ -182,11 +190,15 @@ const AddEmployee = () => {
                 }).catch(error => {
                     if(error.response)
                     {
-                      alert(error.response.data.message);
+                        toast.error(error.response.data.message, {
+                            position: toast.POSITION.TOP_RIGHT        
+                        });
                     }
                     else if (error.request)
                     {
-                      alert("Server Inactive or Busy");
+                        toast.error("Server Inactive or Busy", {
+                            position: toast.POSITION.TOP_RIGHT        
+                        });
                     }
                   });
                 setDefaultValues();
@@ -455,6 +467,7 @@ const AddEmployee = () => {
                     </button>}
                 </form>
             </div>
+            <ToastContainer />
         </div>
       </>
     );

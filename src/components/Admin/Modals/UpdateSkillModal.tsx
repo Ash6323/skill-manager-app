@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import {Skill} from '../../Data/Entities';
 import axios from 'axios';
 
@@ -21,6 +23,7 @@ const UpdateSkillModal:React.FC<IModal> = ({ShowUpdateModal, updateSkillId, upda
     setUpdatedSkill({id: updateSkillId, skillName: updateSkillName, description: updateSkillDescription});
   }, []);
 
+    
   const setDefaultValue = () => {
     setUpdatedSkill({id:0, skillName:"", description:""});
   }
@@ -35,6 +38,7 @@ const UpdateSkillModal:React.FC<IModal> = ({ShowUpdateModal, updateSkillId, upda
   };
 
   const updateSkill = () => {
+    console.log("inside updateskill");
     console.log(updatedSkill);
     
     axios.put(baseURL, updatedSkill)
@@ -46,7 +50,9 @@ const UpdateSkillModal:React.FC<IModal> = ({ShowUpdateModal, updateSkillId, upda
     }).catch(error => {
       if (error.request)
       {
-        alert("Server Inactive or Busy");
+        toast.error("Server Inactive or Busy", {
+          position: toast.POSITION.TOP_RIGHT        
+      });
       }
     });
   } 
@@ -73,6 +79,7 @@ const UpdateSkillModal:React.FC<IModal> = ({ShowUpdateModal, updateSkillId, upda
           </button>
         </div>
       </Modal.Body>
+      <ToastContainer />
     </div>
   )
 }
