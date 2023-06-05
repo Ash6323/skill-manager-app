@@ -67,9 +67,15 @@ const ViewAllSkills = () => {
             }
             else if (error.request)
             {
-                toast.error("Server Inactive or Busy", {
-                    position: toast.POSITION.TOP_RIGHT        
-                });
+                if (error.response.status == 403 || error.response.status == 401) {
+                    toast.error("Unauthorized", {
+                      position: toast.POSITION.TOP_RIGHT,
+                    });
+                  } else {
+                    toast.error("Server Inactive or Busy", {
+                      position: toast.POSITION.TOP_RIGHT,
+                    });
+                  }
             }
         });
     }
