@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import axios from 'axios';
-import React, {useState} from "react";
+import {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
@@ -28,7 +28,7 @@ const LandingPage = () => {
         }
         else
             delete axios.defaults.headers.common["Authorization"];
-     }
+    }
 
     const login = async () => {
 
@@ -40,17 +40,14 @@ const LandingPage = () => {
             setAuthToken(response.data.token);
 
             localStorage.setItem("User", JSON.stringify(response.data));
-            console.log("Local Storage: " + localStorage.getItem("User"));
             const user = JSON.parse(localStorage.getItem("User") || '{}');
 
             if(user.role === "Admin")
             {
-                console.log("Role: " + user.role);
                 navigate("admin/home");
             }
             else if(user.role === "Employee")
             {
-                console.log("Role: " + user.role);
                 navigate("employee/home");
             }
         }
