@@ -52,7 +52,6 @@ const AdminHomePage = () => {
         axios.get(baseURL).then((response) => 
         {
             setAllEmployeeSkills(response.data.data);
-
         }).catch(error => {
             if(error.response)
             {
@@ -66,11 +65,11 @@ const AdminHomePage = () => {
                     toast.error("Unauthorized", {
                       position: toast.POSITION.TOP_RIGHT,
                     });
-                  } else {
-                    toast.error("Server Inactive or Busy", {
-                      position: toast.POSITION.TOP_RIGHT,
-                    });
-                  }
+                } else {
+                toast.error("Server Inactive or Busy", {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+                }
             }
         });
     }

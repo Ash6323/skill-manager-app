@@ -16,33 +16,30 @@ function App() {
   const [loading, setLoading] = useState(false);
   const user = JSON.parse(localStorage.getItem("User") || "{}");
 
-  useEffect(() => {
-    axios.interceptors.request.use(
-      function (config) {
-        setLoading(true);
-        const token = localStorage.getItem("accessToken");
-        if (token) {
-          config.headers["Authorization"] = `Bearer ${token}`;
-        }
-        return config;
-      },
-      function (error) {
-        setLoading(false);
-        return Promise.reject(error);
-      }
-    );
+  axios.interceptors.request.use(
+    config => {
+      setLoading(true);
+      const token = localStorage.getItem("accessToken");
+      console.log(token);
+      config.headers["Authorization"] = `Bearer ${token}`;
+      return config;
+    },
+    function (error) {
+      setLoading(false);
+      return Promise.reject(error);
+    }
+  );
 
-    axios.interceptors.response.use(
-      function (response) {
-        setLoading(false);
-        return response;
-      },
-      function (error) {
-        setLoading(false);
-        return Promise.reject(error);
-      }
-    );
-  }, []);
+  axios.interceptors.response.use(
+    response => {
+      setLoading(false);
+      return response;
+    },
+    function (error) {
+      setLoading(false);
+      return Promise.reject(error);
+    }
+  );
 
   return (
     <div className="App">

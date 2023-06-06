@@ -21,11 +21,11 @@ const Profile = () => {
  
     const getUser = () => {
         const url = userProps.role=="Admin"? adminBaseURL : employeeBaseURL;
+        console.log(`${url}/${userProps.userId}`);
         axios.get(`${url}/${userProps.userId}`).then((response) => 
         {
             console.log(response.data.data);
             setUser(response.data.data);
-
         }).catch(error => {
             if(error.response)
             {
@@ -39,11 +39,11 @@ const Profile = () => {
                     toast.error("Unauthorized", {
                       position: toast.POSITION.TOP_RIGHT,
                     });
-                  } else {
-                    toast.error("Server Inactive or Busy", {
-                      position: toast.POSITION.TOP_RIGHT,
-                    });
-                  }
+                } else {
+                toast.error("Server Inactive or Busy", {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+                }
             }
         });
     }

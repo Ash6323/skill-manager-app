@@ -143,7 +143,9 @@ const ViewAllSkills = () => {
                         <tbody>
                         {filteredSkills.list.map((skill,index) => {
                             return (
-                                <tr className='hoverable' onClick={() => HandleCardClick(skill.id,skill.skillName,skill.description)}>
+                                <tr className='hoverable' 
+                                    key={index}
+                                    onClick={() => HandleCardClick(skill.id,skill.skillName,skill.description)}>
                                     <td className='table-fit'>{index+1}</td>
                                     <td className='table-fit'>{skill.skillName}</td>
                                     <td className='skill-table-cell'>{skill.description}</td>
