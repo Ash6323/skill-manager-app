@@ -43,7 +43,6 @@ const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmploye
     axios.put(`${employeeSkillBaseURL}/${updatedEmployeeId}`, newExpertise)
     .then((response) =>
     {
-      console.log(response.data);
       setDefaultValue();
       handleClose();
     }).catch(error => {
@@ -76,7 +75,7 @@ const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmploye
       if (error.request)
       {
         toast.error("Server Inactive or Busy", {
-          position: toast.POSITION.TOP_RIGHT        
+          position: toast.POSITION.TOP_RIGHT
       });
       }
     });

@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import GenerateReportModal from '../Admin/Modals/GenerateReportModal';
 
 const baseURL = "https://localhost:7247/api/EmployeeSkill";
 
@@ -14,7 +15,17 @@ const ViewSkills = () => {
 
     const [skills, setSkills] = useState<EmployeeSkills>();
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
-    const navigate = useNavigate();
+    const [reportShow, setReportShow] = useState(false);
+    const [reportEmployeeId, setReportEmployeeId] = useState<string>(userProps.userId);
+    const [reportEmployeeName, setReportEmployeeName] = useState<string>(userProps.userFullName);
+
+    const closeReportModal = (showValue : boolean) =>
+    {
+        setReportShow(showValue);
+    }
+    const handleReportClick = () => {
+        setReportShow(true);
+    }
 
     const getSkills = () => {
         axios.get(`${baseURL}/${userProps.userId}`).then((response) => 
@@ -33,11 +44,12 @@ const ViewSkills = () => {
                     toast.error("Unauthorized", {
                       position: toast.POSITION.TOP_RIGHT,
                     });
-                  } else {
+                } 
+                else {
                     toast.error("Server Inactive or Busy", {
                       position: toast.POSITION.TOP_RIGHT,
                     });
-                  }
+                }
             }
         });
     }
@@ -50,12 +62,17 @@ const ViewSkills = () => {
         <>
         <div className="my-container shadow pb-5" >
         <div className="row">
-            <div className="d-flex px-4 justify-content-end col-md-12">
+            <div className="d-flex px-4 col-md-6">
                 <span className="badge rounded-pill border border-4 basic">Basic</span>
                 <span className="badge rounded-pill border border-4 novice">Novice</span>
                 <span className="badge rounded-pill border border-4 intermediate">Intermediate</span>
                 <span className="badge rounded-pill border border-4 advanced">Advanced</span>
                 <span className="badge rounded-pill border border-4 expert">Expert</span>
+            </div>
+            <div className="d-flex justify-content-end mb-2 col-md-6">
+                <button type="submit" className="btn submit-btn map-emp-btn" onClick={handleReportClick}>
+                    <i className="bi bi-printer-fill px-1"></i> Generate Report
+                </button>
             </div>
         </div>
         <div className="row">
@@ -102,7 +119,10 @@ const ViewSkills = () => {
                     </div>
                 )
             })
-            }   
+            } 
+            <Modal show={reportShow} onHide={() => setReportShow(false)} contentClassName="modal-container">
+                <GenerateReportModal ShowReportModal={closeReportModal} employeeId={reportEmployeeId} employeeName={reportEmployeeName}/>
+            </Modal>  
             </div>
             <ToastContainer />
         </div>
