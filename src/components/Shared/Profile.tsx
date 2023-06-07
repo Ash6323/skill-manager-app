@@ -21,10 +21,8 @@ const Profile = () => {
  
     const getUser = () => {
         const url = userProps.role=="Admin"? adminBaseURL : employeeBaseURL;
-        console.log(`${url}/${userProps.userId}`);
         axios.get(`${url}/${userProps.userId}`).then((response) => 
         {
-            console.log(response.data.data);
             setUser(response.data.data);
         }).catch(error => {
             if(error.response)
@@ -74,8 +72,7 @@ const Profile = () => {
                     <div className="container row mt-5">
                         <div className='col-md-6'>
                             <img className="card-img-top card-profile-image mx-5 col-md-6" alt="Profile Image"
-                                // src={user.profilePictureUrl? require(`${ user.profilePictureUrl}`):AvatarImage}
-                                src={user.profilePictureUrl? user.profilePictureUrl: AvatarImage}/>
+                                src={user.profilePictureUrl? `https://localhost:7247${user.profilePictureUrl}`: AvatarImage}/>
                         </div>
                         <div className="col-md-6 text-start">
                         <ul className="list-unstyled mt-5">

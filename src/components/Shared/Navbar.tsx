@@ -27,7 +27,6 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
         const url = userProps.role=="Admin"? adminBaseURL : employeeBaseURL;
         axios.get(`${url}/${userProps.userId}`).then((response) => 
         {
-            console.log(response.data.data);
             setProfileImage(response.data.data.profilePictureUrl);
         }).catch(error => {
             if(error.response)
@@ -76,7 +75,9 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
 
                     <a className="d-block link-dark text-decoration-none dropdown-toggle mx-2" id="dropdownUser1"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src={profileImage? profileImage:AvatarImage } width="32" height="32" className="rounded-circle"></img>
+                        <img src={profileImage? `https://localhost:7247${profileImage}`: AvatarImage } 
+                                width="32" height="32" className="rounded-circle">
+                        </img>
                     </a>
                     <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                         <li><a className="dropdown-item" onClick={profileNavigator}>

@@ -152,8 +152,8 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
                   onChange={HandleChange} >
               <option value= "Select-Expertise" disabled>Select Expertise</option>
               {expertises.map((expertise, index) => {
-              return (<option key= {index} value={ expertise }>
-                          {expertise}
+              return (<option key= {index} value={ index }>
+                        {expertise}
                       </option>);
               })}
           </select>

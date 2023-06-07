@@ -5,7 +5,6 @@ import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
-import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import GenerateReportModal from '../Admin/Modals/GenerateReportModal';
 
@@ -16,8 +15,8 @@ const ViewSkills = () => {
     const [skills, setSkills] = useState<EmployeeSkills>();
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
     const [reportShow, setReportShow] = useState(false);
-    const [reportEmployeeId, setReportEmployeeId] = useState<string>(userProps.userId);
-    const [reportEmployeeName, setReportEmployeeName] = useState<string>(userProps.userFullName);
+    const reportEmployeeId = userProps.userId;
+    const reportEmployeeName = userProps.userFullName;
 
     const closeReportModal = (showValue : boolean) =>
     {
@@ -87,7 +86,7 @@ const ViewSkills = () => {
                 return (
                     <div className="col-sm-3 mt-2">
                         <div className="card">
-                            <div className="card-body skill-card">
+                            <div className="card-body">
                                 <h5 className="card-title">Skill No. {index+1}</h5>
                                 {skill.expertise === 0 &&  
                                     <span className="badge rounded-pill border border-4 basic">
