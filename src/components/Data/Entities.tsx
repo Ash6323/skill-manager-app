@@ -59,7 +59,7 @@ export interface Skill {
 export interface SkillExpertise {
     id: number,
     skillName: string,
-    expertise: string,
+    expertise: number,
 }
 export interface EmployeeSkills {
     employeeId: string,
@@ -69,7 +69,7 @@ export interface EmployeeSkills {
 export interface EmployeeSkillMap {
     employeeId: string,
     skillId: number,
-    expertise: string,
+    expertise: number,
 }
 export interface UpdateEmployee {
     firstName: string,

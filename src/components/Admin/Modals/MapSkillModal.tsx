@@ -15,14 +15,14 @@ interface IModal {
 
 const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
 
-  const [newSkill, setNewSkill] = useState<EmployeeSkillMap>({employeeId:"", skillId:0, expertise:""});
+  const [newSkill, setNewSkill] = useState<EmployeeSkillMap>({employeeId:"", skillId:0, expertise:-1});
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [skills, setSkills] = useState<Skill[]>([]);
-  const [expertises, setExpertises] = useState<string[]>([]);
+  const [expertises, setExpertises] = useState<number[]>([]);
   const [show, setShow] = useState<boolean>(false);
 
   const setDefaultValue = () => {
-    setNewSkill({employeeId:"", skillId:0, expertise:""});
+    setNewSkill({employeeId:"", skillId:0, expertise:-1});
   }
 
   const HandleChange = (e:any) =>{
@@ -151,7 +151,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
                   defaultValue="Select-Expertise"
                   onChange={HandleChange} >
               <option value= "Select-Expertise" disabled>Select Expertise</option>
-              {expertises.map((expertise, index) => { 
+              {expertises.map((expertise, index) => {
               return (<option key= {index} value={ expertise }>
                           {expertise}
                       </option>);
@@ -160,7 +160,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
         </div>
         <div className="d-flex justify-content-center">
           <button type="submit" className="btn btn-success mt-3 px-4" 
-                  onClick={addSkill} disabled={newSkill.employeeId == "" || newSkill.skillId == 0 || newSkill.expertise == ""}>
+                  onClick={addSkill} disabled={newSkill.employeeId == "" || newSkill.skillId == 0 || newSkill.expertise == -1}>
             <i className="bi bi-person-fill-up"></i> Add
           </button>
         </div>

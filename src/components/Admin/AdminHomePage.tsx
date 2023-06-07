@@ -20,7 +20,7 @@ const AdminHomePage = () => {
     const [reportShow, setReportShow] = useState(false);
     const [updationEmployeeId, setUpdationEmployeeId] = useState<string>("");
     const [updationSkillId, setUpdationSkillId] = useState<number>(0);
-    const [updationExpertise, setUpdationExpertise] = useState<string>("");
+    const [updationExpertise, setUpdationExpertise] = useState<number>(-1);
     const [reportEmployeeId, setReportEmployeeId] = useState<string>("");
     const [reportEmployeeName, setReportEmployeeName] = useState<string>("");
 
@@ -36,7 +36,7 @@ const AdminHomePage = () => {
     {
         setReportShow(showValue);
     }
-    const handleExpertiseClick = (employeeId: string, skillId: number, skillExpertise: string) => {
+    const handleExpertiseClick = (employeeId: string, skillId: number, skillExpertise: number) => {
         setUpdationEmployeeId(employeeId);
         setUpdationSkillId(skillId);
         setUpdationExpertise(skillExpertise);
@@ -153,7 +153,7 @@ const AdminHomePage = () => {
                                 <td>
                                 <React.Fragment key={index}>
                                         {item.employeeSkills.map((skill, index) => {
-                                            if(skill.expertise==="Basic")
+                                            if(skill.expertise===0)
                                             return (
                                                 <td key = {index}>  
                                                     <span className="badge rounded-pill border border-4 basic hoverable"
@@ -162,7 +162,7 @@ const AdminHomePage = () => {
                                                     </span>
                                                 </td>
                                             )
-                                            else if(skill.expertise==="Novice")
+                                            else if(skill.expertise===1)
                                             return (
                                                 <td key = {index}>      
                                                     <span className="badge rounded-pill border border-4 novice hoverable"
@@ -171,7 +171,7 @@ const AdminHomePage = () => {
                                                     </span>
                                                 </td>
                                             )
-                                            else if(skill.expertise==="Intermediate")
+                                            else if(skill.expertise===2)
                                             return (
                                                 <td key = {index}>      
                                                     <span className="badge rounded-pill border border-4 intermediate hoverable"
@@ -180,7 +180,7 @@ const AdminHomePage = () => {
                                                     </span>
                                                 </td>
                                             )
-                                            else if(skill.expertise==="Advanced")
+                                            else if(skill.expertise===3)
                                             return (
                                                 <td key = {index}>      
                                                     <span className="badge rounded-pill border border-4 advanced hoverable"
@@ -189,7 +189,7 @@ const AdminHomePage = () => {
                                                     </span>
                                                 </td>
                                             )
-                                            else if(skill.expertise==="Expert")
+                                            else if(skill.expertise===4)
                                             return (
                                                 <td key = {index}>      
                                                     <span className="badge rounded-pill border border-4 expert hoverable"

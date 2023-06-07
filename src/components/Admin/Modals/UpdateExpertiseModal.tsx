@@ -12,17 +12,17 @@ interface IModal {
   ShowUpdateModal: (show: boolean) => void;
   updatedEmployeeId: string,
   updatedSkillId: number,
-  updatedExpertise: string,
+  updatedExpertise: number,
 }
 
 const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeId, updatedSkillId, updatedExpertise}) => {
 
-  const [newExpertise, setNewExpertise] = useState<EmployeeSkillMap>({employeeId:"", skillId:0, expertise:""});
+  const [newExpertise, setNewExpertise] = useState<EmployeeSkillMap>({employeeId:"", skillId:0, expertise:-1});
   const [expertises, setExpertises] = useState<string[]>([]);
   const [show, setShow] = useState<boolean>(false);
 
   const setDefaultValue = () => {
-    setNewExpertise({employeeId:"", skillId:0, expertise:""});
+    setNewExpertise({employeeId:"", skillId:0, expertise:-1});
   }
 
   const HandleChange = (e:any) =>{
@@ -93,9 +93,9 @@ const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmploye
                   defaultValue="Select-Expertise"
                   onChange={HandleChange} >
               <option value= "Select-Expertise" disabled>Select New Expertise</option>
-              {expertises.map((expertise, index) => { 
-              return (<option key= {index} value={ expertise } disabled={expertise == updatedExpertise}>
-                          {expertise}
+              {expertises.map((expertise, index) => {
+              return (<option key= {index} value={ index } disabled={index == updatedExpertise}>
+                        {expertise}
                       </option>);
               })}
           </select>

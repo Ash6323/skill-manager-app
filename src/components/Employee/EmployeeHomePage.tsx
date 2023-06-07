@@ -72,27 +72,27 @@ const ViewSkills = () => {
                         <div className="card">
                             <div className="card-body skill-card">
                                 <h5 className="card-title">Skill No. {index+1}</h5>
-                                {skill.expertise === 'Basic' &&  
+                                {skill.expertise === 0 &&  
                                     <span className="badge rounded-pill border border-4 basic">
                                         {skill.skillName}
                                     </span>
                                 }  
-                                {skill.expertise === 'Novice' &&  
+                                {skill.expertise === 1 &&  
                                     <span className="badge rounded-pill border border-4 novice">
                                         {skill.skillName}
                                     </span>
                                 }
-                                {skill.expertise === 'Intermediate' &&  
+                                {skill.expertise === 2 &&  
                                     <span className="badge rounded-pill border border-4 intermediate">
                                         {skill.skillName}
                                     </span>
                                 }
-                                {skill.expertise === 'Advanced' &&  
+                                {skill.expertise === 3 &&  
                                     <span className="badge rounded-pill border border-4 advanced">
                                         {skill.skillName}
                                     </span>
                                 }
-                                {skill.expertise === 'Expert' &&  
+                                {skill.expertise === 4 &&  
                                     <span className="badge rounded-pill border border-4 expert">
                                         {skill.skillName}
                                     </span>

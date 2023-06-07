@@ -20,7 +20,6 @@ function App() {
     config => {
       setLoading(true);
       const token = localStorage.getItem("accessToken");
-      console.log(token);
       config.headers["Authorization"] = `Bearer ${token}`;
       return config;
     },
