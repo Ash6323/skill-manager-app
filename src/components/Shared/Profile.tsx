@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
+import {Modal} from 'react-bootstrap';
 import AvatarImage from '../../res/img_avatar.png';
 import {User} from '../Data/Entities';
 import { ToastContainer, toast } from 'react-toastify';
@@ -7,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import PictureUploadModal from '../Admin/Modals/PictureUploadModal';
 
 const adminBaseURL = "https://localhost:7247/api/Admin";
 const employeeBaseURL = "https://localhost:7247/api/Employee";
@@ -16,8 +18,17 @@ const Profile = () => {
     const [user, setUser] = useState<User>({id: "", userName: "", fullName: "", gender: "", phoneNumber: "", email: "",
                                                     profilePictureUrl: "", isActive: 0, street: "", town: "", city: "", zipcode: "", 
                                                     dateOfBirth: "", previousOrganisation: "", previousDesignation: ""});
+    const [profileImageShow, setProfileImageShow] = useState(false);
     const navigate = useNavigate();
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
+
+    const closeProfileModal = (showValue : boolean) =>
+    {
+        setProfileImageShow(showValue);
+    }
+    const handlePictureClick = () => {
+        setProfileImageShow(true);
+    }
  
     const getUser = () => {
         const url = userProps.role=="Admin"? adminBaseURL : employeeBaseURL;
@@ -62,7 +73,7 @@ const Profile = () => {
 
     React.useEffect( () => {
         getUser();
-    }, []);
+    }, [profileImageShow]);
     
     return (
         <>
@@ -71,8 +82,11 @@ const Profile = () => {
                 <div className="card shadow-2-strong card-registration col-md-9">
                     <div className="container row mt-5">
                         <div className='col-md-6'>
-                            <img className="card-img-top card-profile-image mx-5 col-md-6" alt="Profile Image"
+                            <img id="photo" className="card-img-top card-profile-image mx-5 col-md-6" alt="Profile Image"
                                 src={user.profilePictureUrl? `https://localhost:7247${user.profilePictureUrl}`: AvatarImage}/>
+                            <label className="-label" onClick={handlePictureClick}>
+                                <span><i className="bi bi-camera-fill"></i> Change Image</span>
+                            </label>
                         </div>
                         <div className="col-md-6 text-start">
                         <ul className="list-unstyled mt-5">
@@ -140,6 +154,9 @@ const Profile = () => {
                     </div>
                 </div>
                 </div>
+                <Modal show={profileImageShow} onHide={() => setProfileImageShow(false)} contentClassName="modal-container">
+                    <PictureUploadModal ShowProfileModal={closeProfileModal}/>
+                </Modal>
             </div>
             <ToastContainer />
         </div>
