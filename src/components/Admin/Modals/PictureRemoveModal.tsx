@@ -7,34 +7,22 @@ import 'react-toastify/dist/ReactToastify.css'
 const profileImageBaseURL = "https://localhost:7247/api/ProfileImage";
 
 interface IModal {
-  ShowProfileModal: (show: boolean) => void;
+  ShowPhotoRemoveModal: (show: boolean) => void;
 }
 
-const PictureUploadModal: React.FC<IModal> = ({ShowProfileModal}) => {
+const PictureRemoveModal: React.FC<IModal> = ({ShowPhotoRemoveModal}) => {
 
   const [show, setShow] = useState<boolean>(false);
-  const [image, setImage] = useState<string>("");
   const userProps = JSON.parse(localStorage.getItem("User") || '{}');
   const userId = userProps.userId;
 
   const handleClose = () => {
-    ShowProfileModal(false);
+    ShowPhotoRemoveModal(false);
   };
 
-  const onImageChange = (e:any) => {
-    setImage(e.target.files[0]);
-  }
+  const RemovePhoto = () => {
 
-  const config = {
-    headers: { 'content-type': 'multipart/form-data' }
-  }
-
-  const updatePhoto = () => {
-    const formData = new FormData();
-    formData.append("UserId", userId);
-    formData.append("Image", image);
-
-    axios.post(profileImageBaseURL, formData, config)
+    axios.delete(`${profileImageBaseURL}/${userId}`)
     .then((response) =>
     {
       handleClose();
@@ -63,15 +51,12 @@ const PictureUploadModal: React.FC<IModal> = ({ShowProfileModal}) => {
   return (
     <div>
       <Modal.Header closeButton onClick={() => setShow(false)}>
-        <Modal.Title>Update Profile Picture</Modal.Title>
+        <Modal.Title>Remove Profile Picture?</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className='d-flex justify-content-center'>
-          <input type="file" accept="image/png, image/jpeg" onChange={onImageChange} />
-        </div>
         <div className="d-flex justify-content-center">
-          <button type="submit" className="btn update-btn btn-warning mt-3 px-4" onClick={updatePhoto}>
-            <i className="bi bi-pencil-square px-1"></i> Update
+          <button type="submit" className="btn btn-danger mt-3 px-4" onClick={RemovePhoto}>
+            <i className="bi bi-trash-fill"></i> Delete
           </button>
         </div>
       </Modal.Body>
@@ -79,4 +64,4 @@ const PictureUploadModal: React.FC<IModal> = ({ShowProfileModal}) => {
     </div>
   )
 }
-export default PictureUploadModal;
+export default PictureRemoveModal;

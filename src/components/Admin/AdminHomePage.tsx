@@ -110,11 +110,7 @@ const AdminHomePage = () => {
                     <h3>Employee Skill List</h3>
                 </div>
             </div>
-            <div className="row">
-                <div className="d-flex justify-content-center">
-                    <h6>(Click on: Employee Name for Skill Report, Particular Skill to Update Expertise)</h6>
-                </div>
-            </div>
+
             <div className="d-flex justify-space-between align-items-center">
                 <div className="mx-4 col-md-3">
                 <input 
@@ -131,8 +127,10 @@ const AdminHomePage = () => {
                 </datalist>
                 </div>                        
             </div>
+            
             <hr></hr>
             <div className="mt-2">
+            <h6>Click on: Employee Name for Skill Report, Particular Skill to Update Expertise</h6>
                 <div className="table-responsive card">
                     <table className="table table-bordered table-striped ">
                         <thead className="table-dark">

@@ -226,6 +226,10 @@ a {
   overflow-y: auto;
   height: 88vh;
 }
+.row {
+  margin-right: 0px;
+  margin-left: -15px;
+}
 .table-responsive {
   margin-top: 2%;
   margin-left: 2%;

@@ -9,6 +9,7 @@ import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import PictureUploadModal from '../Admin/Modals/PictureUploadModal';
+import PictureRemoveModal from '../Admin/Modals/PictureRemoveModal';
 
 const adminBaseURL = "https://localhost:7247/api/Admin";
 const employeeBaseURL = "https://localhost:7247/api/Employee";
@@ -19,6 +20,7 @@ const Profile = () => {
                                                     profilePictureUrl: "", isActive: 0, street: "", town: "", city: "", zipcode: "", 
                                                     dateOfBirth: "", previousOrganisation: "", previousDesignation: ""});
     const [profileImageShow, setProfileImageShow] = useState(false);
+    const [imageRemoveShow, setImageRemoveShow] = useState(false);
     const navigate = useNavigate();
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
 
@@ -26,8 +28,16 @@ const Profile = () => {
     {
         setProfileImageShow(showValue);
     }
-    const handlePictureClick = () => {
+    const closePhotoRemoveModal = (showValue : boolean) =>
+    {
+        setImageRemoveShow(showValue);
+    }
+
+    const handlePhotoEditClick = () => {
         setProfileImageShow(true);
+    }
+    const handlePhotoRemoveClick = () => {
+        setImageRemoveShow(true);
     }
  
     const getUser = () => {
@@ -73,7 +83,7 @@ const Profile = () => {
 
     React.useEffect( () => {
         getUser();
-    }, [profileImageShow]);
+    }, [profileImageShow, imageRemoveShow]);
     
     return (
         <>
@@ -84,8 +94,11 @@ const Profile = () => {
                         <div className='col-md-6'>
                             <img id="photo" className="card-img-top card-profile-image mx-5 col-md-6" alt="Profile Image"
                                 src={user.profilePictureUrl? `https://localhost:7247${user.profilePictureUrl}`: AvatarImage}/>
-                            <label className="-label" onClick={handlePictureClick}>
-                                <span><i className="bi bi-camera-fill"></i> Change Image</span>
+                            <label className="-label" onClick={handlePhotoEditClick}>
+                                <span className="text-warning"><i className="bi bi-camera-fill text-warning"></i> Edit Photo</span>
+                            </label>
+                            <label className="-label" onClick={handlePhotoRemoveClick}>
+                                /<span className="text-danger"><i className="bi bi-trash-fill text-danger"></i> Remove</span>
                             </label>
                         </div>
                         <div className="col-md-6 text-start">
@@ -156,6 +169,9 @@ const Profile = () => {
                 </div>
                 <Modal show={profileImageShow} onHide={() => setProfileImageShow(false)} contentClassName="modal-container">
                     <PictureUploadModal ShowProfileModal={closeProfileModal}/>
+                </Modal>
+                <Modal show={imageRemoveShow} onHide={() => setImageRemoveShow(false)} contentClassName="modal-container">
+                    <PictureRemoveModal ShowPhotoRemoveModal={closePhotoRemoveModal}/>
                 </Modal>
             </div>
             <ToastContainer />
