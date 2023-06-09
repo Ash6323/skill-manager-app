@@ -7,7 +7,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import MapSkillModal from './Modals/MapSkillModal';
-import UpdateExpertiseModal from './Modals/UpdateExpertiseModal';
+import UpdateExpertiseModal from './Modals/EmployeeSkillModal';
 import GenerateReportModal from './Modals/GenerateReportModal';
 
 const baseURL = "https://localhost:7247/api/EmployeeSkill";
@@ -127,10 +127,10 @@ const AdminHomePage = () => {
                 </datalist>
                 </div>                        
             </div>
-            
+
             <hr></hr>
             <div className="mt-2">
-            <h6>Click on: Employee Name for Skill Report, Particular Skill to Update Expertise</h6>
+            <h6>Click: Employee Name for Skill Report || Click: Particular Skill to Update Expertise/Remove Skill</h6>
                 <div className="table-responsive card">
                     <table className="table table-bordered table-striped ">
                         <thead className="table-dark">

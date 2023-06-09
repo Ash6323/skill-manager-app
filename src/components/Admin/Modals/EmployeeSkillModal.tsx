@@ -15,7 +15,7 @@ interface IModal {
   updatedExpertise: number,
 }
 
-const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeId, updatedSkillId, updatedExpertise}) => {
+const EmployeeSkillModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeId, updatedSkillId, updatedExpertise}) => {
 
   const [newExpertise, setNewExpertise] = useState<EmployeeSkillMap>({employeeId:"", skillId:0, expertise:-1});
   const [expertises, setExpertises] = useState<string[]>([]);
@@ -25,7 +25,7 @@ const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmploye
     setNewExpertise({employeeId:"", skillId:0, expertise:-1});
   }
 
-  const HandleChange = (e:any) =>{
+  const handleChange = (e:any) =>{
     const {name,value} = e.target;
     setNewExpertise({...newExpertise, [name]:value})
   }
@@ -41,6 +41,34 @@ const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmploye
 
   const updateExpertise = () => {
     axios.put(`${employeeSkillBaseURL}/${updatedEmployeeId}`, newExpertise)
+    .then((response) =>
+    {
+      setDefaultValue();
+      handleClose();
+    }).catch(error => {
+        if(error.response)
+        {
+          toast.error(error.response.data.data, {
+            position: toast.POSITION.TOP_RIGHT        
+        });
+        }
+        else if (error.request)
+        {
+          if (error.response.status == 403 || error.response.status == 401) {
+            toast.error("Unauthorized", {
+              position: toast.POSITION.TOP_RIGHT,
+            });
+          } else {
+            toast.error("Server Inactive or Busy", {
+              position: toast.POSITION.TOP_RIGHT,
+            });
+          }
+        }
+    });
+  }
+
+  const removeSkill = () => {
+    axios.delete(`${employeeSkillBaseURL}/${updatedEmployeeId}/${updatedSkillId}`)
     .then((response) =>
     {
       setDefaultValue();
@@ -84,13 +112,13 @@ const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmploye
   return (
     <div>
       <Modal.Header closeButton onClick={() => setShow(false)}>
-        <Modal.Title>Update Employee Expertise</Modal.Title>
+        <Modal.Title>Employee Skill</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className='d-flex justify-content-center'>
           <select required id = "expertise-dropdown" className="input-item-details" name="expertise"
                   defaultValue="Select-Expertise"
-                  onChange={HandleChange} >
+                  onChange={handleChange} >
               <option value= "Select-Expertise" disabled>Select New Expertise</option>
               {expertises.map((expertise, index) => {
               return (<option key= {index} value={ index } disabled={index == updatedExpertise}>
@@ -100,9 +128,12 @@ const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmploye
           </select>
         </div>
         <div className="d-flex justify-content-center">
-          <button type="submit" className="btn update-btn btn-warning mt-3 px-4" 
-                  onClick={updateExpertise}>
-                  <i className="bi bi-pencil-square px-1"></i> Update
+          <button type="submit" className="btn update-btn btn-warning mt-3 px-3" 
+                  onClick={updateExpertise} disabled={newExpertise.expertise == updatedExpertise}>
+            <i className="bi bi-pencil-square"></i> Update Expertise
+          </button>
+          <button type="submit" className="btn btn-danger mt-3 px-3" onClick={removeSkill}>
+            <i className="bi bi-trash-fill"></i> Remove Skill
           </button>
         </div>
       </Modal.Body>
@@ -110,4 +141,4 @@ const UpdateExpertiseModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmploye
     </div>
   )
 }
-export default UpdateExpertiseModal;
+export default EmployeeSkillModal;
