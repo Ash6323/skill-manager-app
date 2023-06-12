@@ -23,7 +23,7 @@ const AddEmployee = () => {
     const [validUsernameFlag, setValidUserNameFlag] = useState<boolean>(false);
     const [validPhoneFlag, setValidPhoneFlag] = useState<boolean>(false);
     const [validEmailFlag, setValidEmailFlag] = useState<boolean>(false);
-    const [validPasswordFlag, setValidPasswordFlag] = useState<boolean>(false);
+    // const [validPasswordFlag, setValidPasswordFlag] = useState<boolean>(false);
     const [validStreetFlag, setValidStreetFlag] = useState<boolean>(false);
     const [validTownFlag, setValidTownFlag] = useState<boolean>(false);
     const [validCityFlag, setValidCityFlag] = useState<boolean>(false);
@@ -47,11 +47,11 @@ const AddEmployee = () => {
                     toast.error("Unauthorized", {
                       position: toast.POSITION.TOP_RIGHT,
                     });
-                  } else {
-                    toast.error("Server Inactive or Busy", {
-                      position: toast.POSITION.TOP_RIGHT,
-                    });
-                  }
+                } else {
+                toast.error("Server Inactive or Busy", {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+                }
             }
         });
     }
@@ -127,7 +127,7 @@ const AddEmployee = () => {
         {
             if(submitButtonValue === "Submit")
             {
-                axios.post(`${baseUrl}Employee`, newEmployee)
+                axios.post(`${baseUrl}Auth/EmployeeRegistration`, newEmployee)
                 .then(response => 
                 {
                     console.log(response.data);
@@ -136,7 +136,10 @@ const AddEmployee = () => {
                 }).catch(error => {
                     if(error.response)
                     {
-                        setValidPasswordFlag(true);
+                        // setValidPasswordFlag(true);
+                        toast.error(error.response.data.message, {
+                            position: toast.POSITION.TOP_RIGHT        
+                        });
                     }
                     else if (error.request)
                     {
@@ -152,7 +155,7 @@ const AddEmployee = () => {
                     phoneNumber:newEmployee.phoneNumber,email:newEmployee.email,profilePictureUrl:"",street:newEmployee.street,
                     town:newEmployee.town,city:newEmployee.city,zipcode:newEmployee.zipcode,dateOfBirth:newEmployee.dateOfBirth});
 
-                axios.put(`${`${baseUrl}Admin`}/${updatedEmployeeId}`, data)
+                axios.put(`${baseUrl}Admin/${updatedEmployeeId}`, data)
                 .then(response => 
                 {
                     navigate("../profile");
@@ -178,7 +181,7 @@ const AddEmployee = () => {
                     phoneNumber:newEmployee.phoneNumber,email:newEmployee.email,profilePictureUrl:"",street:newEmployee.street,
                     town:newEmployee.town,city:newEmployee.city,zipcode:newEmployee.zipcode,dateOfBirth:newEmployee.dateOfBirth});
 
-                axios.put(`${`${baseUrl}Employee`}/${updatedEmployeeId}`, data)
+                axios.put(`${baseUrl}Employee/${updatedEmployeeId}`, data)
                 .then(response => 
                 {
                     if(location.state != null && location.state.type === "Update")
@@ -316,8 +319,9 @@ const AddEmployee = () => {
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
                         <div className='col-md-4'>
-                            {validPasswordFlag ? <p className="text-danger font-weight-bold text-sm">
-                            Invalid Entry. Please Try Again</p> : null}
+                            {/* {validPasswordFlag ? <p className="text-danger font-weight-bold text-sm">
+                            Invalid Entry. Please Try Again</p> : null} */}
+                            {null}
                         </div>
                     </div>
                     <div className="row g-3 input-row">
@@ -399,21 +403,21 @@ const AddEmployee = () => {
                             Invalid Entry. Please Try Again</p> : null}
                         </div>
                     </div>
-                    {submitButtonValue != 'Update' && <div className="row g-3 input-row">
+                    {submitButtonValue != 'Update' && 
+                    <div className="row g-3 input-row">
                         <label className="col-md-2">
                             Date of Birth
                         </label>
                         <input type="date" name="dateOfBirth" value={newEmployee.dateOfBirth}
-                        className="input-item-details col-md-4" onChange={HandleChange} />
+                            className="input-item-details col-md-4" onChange={HandleChange} />
                         <label className="col-md-2">
                             Gender
                         </label>
                         <select required id = "gender-dropdown" className="input-item-details col-md-4" name="gender"
-                                defaultValue="Select-Gender" 
-                                onChange={HandleChange} >
+                                defaultValue="Select-Gender" onChange={HandleChange} >
                             <option value= "Select-Gender" disabled>Select Gender</option>
                             {genders.map((gender, index) => { 
-                            return (<option key= {index} value={ newEmployee.gender }>
+                            return (<option key= {index} value={ gender }>
                                         {gender}
                                     </option>);
                             })}
