@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
 import {EmployeeSkillMap} from '../../Data/Entities';
 import axios from 'axios';
+import baseUrl from '../../../config/ApiBaseUrl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -40,7 +41,7 @@ const EmployeeSkillModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeI
   }, []);
 
   const updateExpertise = () => {
-    axios.put(`${employeeSkillBaseURL}/${updatedEmployeeId}`, newExpertise)
+    axios.put(`${baseUrl}EmployeeSkill/${updatedEmployeeId}`, newExpertise)
     .then((response) =>
     {
       setDefaultValue();
@@ -68,7 +69,7 @@ const EmployeeSkillModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeI
   }
 
   const removeSkill = () => {
-    axios.delete(`${employeeSkillBaseURL}/${updatedEmployeeId}/${updatedSkillId}`)
+    axios.delete(`${baseUrl}EmployeeSkill/${updatedEmployeeId}/${updatedSkillId}`)
     .then((response) =>
     {
       setDefaultValue();
@@ -96,7 +97,7 @@ const EmployeeSkillModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeI
   }
 
   const getExpertise = () => {
-    axios.get(`${skillBaseURL}/Expertise`).then((response) => 
+    axios.get(`${baseUrl}Skill/Expertise`).then((response) => 
     {
       setExpertises(response.data.data);
     }).catch(error => {

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
 import axios from 'axios';
+import baseUrl from '../../../config/ApiBaseUrl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-
-const profileImageBaseURL = "https://localhost:7247/api/ProfileImage";
 
 interface IModal {
   ShowPhotoRemoveModal: (show: boolean) => void;
@@ -22,7 +21,7 @@ const PictureRemoveModal: React.FC<IModal> = ({ShowPhotoRemoveModal}) => {
 
   const RemovePhoto = () => {
 
-    axios.delete(`${profileImageBaseURL}/${userId}`)
+    axios.delete(`${baseUrl}ProfileImage/${userId}`)
     .then((response) =>
     {
       handleClose();

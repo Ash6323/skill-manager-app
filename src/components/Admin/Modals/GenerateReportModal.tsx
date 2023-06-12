@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
+import baseUrl from '../../../config/ApiBaseUrl';
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
-
-const baseURL = "https://localhost:7247/api/Report";
 
 interface IModal {
   ShowReportModal: (showUpdate: boolean) => void;
@@ -21,7 +20,7 @@ const GenerateReportModal:React.FC<IModal> = ({ShowReportModal, employeeId, empl
   };
 
   const getReport = () => {
-    axios.get(`${baseURL}/${employeeId}`, {responseType: 'blob'})
+    axios.get(`${baseUrl}Report/${employeeId}`, {responseType: 'blob'})
     .then(response => 
     {
       window.open(URL.createObjectURL(response.data));

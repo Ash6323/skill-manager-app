@@ -6,8 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-
-const baseURL = "https://localhost:7247/api/Employee";
+import baseUrl from '../../config/ApiBaseUrl';
 
 const ViewAllEmployees = () => {
 
@@ -15,7 +14,7 @@ const ViewAllEmployees = () => {
     const navigate = useNavigate();
     
     const getEmployees = () => {
-        axios.get(baseURL).then((response) => 
+        axios.get(`${baseUrl}Employee`).then((response) => 
         {
             setEmployees(response.data.data);
 

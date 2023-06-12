@@ -8,8 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../Shared/Navbar";
 import Logo from "../../res/Untitled.png";
 import { LoginDTO } from "../Data/Entities";
-
-const authBaseURL = "https://localhost:7247/api/Auth/login";
+import baseUrl from '../../config/ApiBaseUrl';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -32,7 +31,7 @@ const LandingPage = () => {
 
   const login = async () => {
     axios
-      .post(authBaseURL, userDetails)
+      .post(`${baseUrl}Auth/login`, userDetails)
       .then((response) => {
         if (response.data.token) {
           localStorage.setItem("accessToken", response.data.token);

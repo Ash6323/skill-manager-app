@@ -2,15 +2,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import baseUrl from '../../config/ApiBaseUrl';
 import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import {NewEmployee, UpdateAdmin, UpdateEmployee} from '../Data/Entities';
 import axios from 'axios';
 import {useLocation} from 'react-router-dom';
-
-const baseURL = "https://localhost:7247/api/Employee";
-const adminBaseURL = "https://localhost:7247/api/Admin";
-const genderEnumURL = "https://localhost:7247/api/Employee/Gender";
 
 const AddEmployee = () => {
 
@@ -40,7 +37,7 @@ const AddEmployee = () => {
     const location = useLocation();
 
     const getGenders = () => {
-        axios.get(genderEnumURL).then((response) => 
+        axios.get(`${baseUrl}Employee/Gender`).then((response) => 
         {
             setGenders(response.data.data);
         }).catch(error => {
@@ -130,7 +127,7 @@ const AddEmployee = () => {
         {
             if(submitButtonValue === "Submit")
             {
-                axios.post(baseURL, newEmployee)
+                axios.post(`${baseUrl}Employee`, newEmployee)
                 .then(response => 
                 {
                     console.log(response.data);
@@ -155,7 +152,7 @@ const AddEmployee = () => {
                     phoneNumber:newEmployee.phoneNumber,email:newEmployee.email,profilePictureUrl:"",street:newEmployee.street,
                     town:newEmployee.town,city:newEmployee.city,zipcode:newEmployee.zipcode,dateOfBirth:newEmployee.dateOfBirth});
 
-                axios.put(`${adminBaseURL}/${updatedEmployeeId}`, data)
+                axios.put(`${`${baseUrl}Admin`}/${updatedEmployeeId}`, data)
                 .then(response => 
                 {
                     navigate("../profile");
@@ -181,7 +178,7 @@ const AddEmployee = () => {
                     phoneNumber:newEmployee.phoneNumber,email:newEmployee.email,profilePictureUrl:"",street:newEmployee.street,
                     town:newEmployee.town,city:newEmployee.city,zipcode:newEmployee.zipcode,dateOfBirth:newEmployee.dateOfBirth});
 
-                axios.put(`${baseURL}/${updatedEmployeeId}`, data)
+                axios.put(`${`${baseUrl}Employee`}/${updatedEmployeeId}`, data)
                 .then(response => 
                 {
                     if(location.state != null && location.state.type === "Update")

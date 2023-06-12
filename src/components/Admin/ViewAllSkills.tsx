@@ -8,10 +8,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
 import AddSkillModal from './Modals/AddSkillModal';
 import UpdateSkillModal from './Modals/UpdateSkillModal';
+import baseUrl from '../../config/ApiBaseUrl';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-
-const baseURL = "https://localhost:7247/api/Skill";
 
 const ViewAllSkills = () => {
 
@@ -54,7 +53,7 @@ const ViewAllSkills = () => {
     }
 
     const getSkills = () => {
-        axios.get(baseURL).then((response) => 
+        axios.get(`${baseUrl}Skill`).then((response) => 
         {
             setSkills(response.data.data);
 

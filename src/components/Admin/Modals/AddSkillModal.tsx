@@ -1,11 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState} from 'react';
 import {Modal} from 'react-bootstrap';
 import {Skill} from '../../Data/Entities';
 import axios from 'axios';
+import baseUrl from '../../../config/ApiBaseUrl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-
-const baseURL = "https://localhost:7247/api/Skill";
 
 interface IModal {
   ShowModal: (show: boolean) => void;
@@ -30,7 +29,7 @@ const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
   };
 
   const addSkill = () => {
-    axios.post(baseURL, newSkill)
+    axios.post(`${baseUrl}Skill`, newSkill)
     .then(response => 
     {
       console.log(response.data);

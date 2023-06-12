@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
 import {Employee, Skill, EmployeeSkillMap} from '../../Data/Entities';
 import axios from 'axios';
+import baseUrl from '../../../config/ApiBaseUrl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-
-const EmployeeBaseURL = "https://localhost:7247/api/Employee";
-const employeeSkillBaseURL = "https://localhost:7247/api/EmployeeSkill";
-const skillBaseURL = "https://localhost:7247/api/Skill";
 
 interface IModal {
   ShowModal: (show: boolean) => void;
@@ -35,7 +32,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
   };
 
   const getEmployees = () => {
-    axios.get(EmployeeBaseURL).then((response) => 
+    axios.get(`${baseUrl}Employee`).then((response) => 
     {
       setEmployees(response.data.data);
 
@@ -62,7 +59,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
   }
 
   const getSkills = () => {
-    axios.get(skillBaseURL).then((response) => 
+    axios.get(`${baseUrl}Skill`).then((response) => 
     {
       setSkills(response.data.data);
     }).catch(error => {
@@ -76,7 +73,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
   }
 
   const getExpertise = () => {
-    axios.get(`${skillBaseURL}/Expertise`).then((response) => 
+    axios.get(`${baseUrl}Skill/Expertise`).then((response) => 
     {
       setExpertises(response.data.data);
     }).catch(error => {
@@ -96,7 +93,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
   }, []);
 
   const addSkill = () => {
-    axios.post(employeeSkillBaseURL, newSkill)
+    axios.post(`${baseUrl}EmployeeSkill`, newSkill)
     .then(response => 
     {
       console.log(response.data);

@@ -4,13 +4,12 @@ import { Modal } from "react-bootstrap";
 import {EmployeeSkills} from '../Data/Entities';
 import React, {useState} from "react";
 import axios from 'axios';
+import baseUrl from '../../config/ApiBaseUrl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import MapSkillModal from './Modals/MapSkillModal';
 import UpdateExpertiseModal from './Modals/EmployeeSkillModal';
 import GenerateReportModal from './Modals/GenerateReportModal';
-
-const baseURL = "https://localhost:7247/api/EmployeeSkill";
 
 const AdminHomePage = () => {
 
@@ -49,7 +48,7 @@ const AdminHomePage = () => {
     }
 
     const getAllEmployeeSkills = () => {
-        axios.get(baseURL).then((response) => 
+        axios.get(`${baseUrl}EmployeeSkill`).then((response) => 
         {
             setAllEmployeeSkills(response.data.data);
         }).catch(error => {

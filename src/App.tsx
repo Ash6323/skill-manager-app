@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "./App.css";
@@ -14,7 +14,6 @@ import ProtectedLandingPage from "./components/ProtectedRouting/ProtectedLanding
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const user = JSON.parse(localStorage.getItem("User") || "{}");
 
   axios.interceptors.request.use(
     config => {

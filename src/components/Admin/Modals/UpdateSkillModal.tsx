@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import baseUrl from '../../../config/ApiBaseUrl';
 import { Skill } from "../../Data/Entities";
 import axios from "axios";
-
-const baseURL = "https://localhost:7247/api/Skill";
 
 interface IModal {
   ShowUpdateModal: (showUpdate: boolean) => void;
@@ -50,7 +49,7 @@ const UpdateSkillModal: React.FC<IModal> = ({
 
   const updateSkill = () => {
     axios
-      .put(`${baseURL}/${updateSkillId}`, updatedSkill)
+      .put(`${baseUrl}Skill/${updateSkillId}`, updatedSkill)
       .then((response) => {
         setDefaultValue();
         handleClose();

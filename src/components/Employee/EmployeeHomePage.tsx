@@ -6,9 +6,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
 import axios from 'axios';
+import baseUrl from '../../config/ApiBaseUrl';
 import GenerateReportModal from '../Admin/Modals/GenerateReportModal';
-
-const baseURL = "https://localhost:7247/api/EmployeeSkill";
 
 const ViewSkills = () => {
 
@@ -27,7 +26,7 @@ const ViewSkills = () => {
     }
 
     const getSkills = () => {
-        axios.get(`${baseURL}/${userProps.userId}`).then((response) => 
+        axios.get(`${baseUrl}EmployeeSkill/${userProps.userId}`).then((response) => 
         {
             setSkills(response.data.data);
         }).catch(error => {

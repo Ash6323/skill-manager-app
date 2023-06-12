@@ -3,17 +3,16 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import {Skill} from '../Data/Entities';
 import React, {useState} from "react";
 import axios from 'axios';
+import baseUrl from '../../config/ApiBaseUrl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-
-const baseURL = "https://localhost:7247/api/Skill";
 
 const AvailableSkills = () => {
 
     const [skills, setSkills] = useState<Skill[]>([]);
     
     const getSkills = () => {
-        axios.get(baseURL).then((response) => 
+        axios.get(`${baseUrl}Skill`).then((response) => 
         {
             setSkills(response.data.data);
 

@@ -7,14 +7,11 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import IXBanner from '../../res/IX-banner.png';
+import baseUrl from '../../config/ApiBaseUrl';
 
 interface IProfile {
     userFullName: string,
 }
-
-const adminBaseURL = "https://localhost:7247/api/Admin";
-const employeeBaseURL = "https://localhost:7247/api/Employee";
-
 
 const Navbar: React.FC<IProfile> = ({userFullName}) => {
 
@@ -24,7 +21,7 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
     const navigate = useNavigate();
 
     const getUser = () => {
-        const url = userProps.role=="Admin"? adminBaseURL : employeeBaseURL;
+        const url = userProps.role=="Admin"? `${baseUrl}Admin` : `${baseUrl}Employee`;
         axios.get(`${url}/${userProps.userId}`).then((response) => 
         {
             setProfileImage(response.data.data.profilePictureUrl);
@@ -75,7 +72,7 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
 
                     <a className="d-block link-dark text-decoration-none dropdown-toggle mx-2" id="dropdownUser1"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src={profileImage? `https://localhost:7247${profileImage}`: AvatarImage } 
+                        <img src={profileImage? `https://employee-skill-manager2.azurewebsites.net/${profileImage}`: AvatarImage } 
                                 width="32" height="32" className="rounded-circle">
                         </img>
                     </a>

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
 import axios from 'axios';
+import baseUrl from '../../../config/ApiBaseUrl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-
-const profileImageBaseURL = "https://localhost:7247/api/ProfileImage";
 
 interface IModal {
   ShowProfileModal: (show: boolean) => void;
@@ -34,7 +33,7 @@ const PictureUploadModal: React.FC<IModal> = ({ShowProfileModal}) => {
     formData.append("UserId", userId);
     formData.append("Image", image);
 
-    axios.post(profileImageBaseURL, formData, config)
+    axios.post(`${baseUrl}ProfileImage`, formData, config)
     .then((response) =>
     {
       handleClose();
