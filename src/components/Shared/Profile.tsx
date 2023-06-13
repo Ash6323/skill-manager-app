@@ -39,7 +39,7 @@ const Profile = () => {
     }
  
     const getUser = () => {
-        const url = userProps.role=="Admin"? `${baseUrl}Admin` : `${baseUrl}Employee`;
+        const url = userProps.role === "Admin"? `${baseUrl}Admin` : `${baseUrl}Employee`;
         axios.get(`${url}/${userProps.userId}`).then((response) => 
         {
             setUser(response.data.data);
@@ -52,7 +52,7 @@ const Profile = () => {
             }
             else if (error.request)
             {
-                if (error.response.status == 403 || error.response.status == 401) {
+                if (error.response.status === 403 || error.response.status === 401) {
                     toast.error("Unauthorized", {
                       position: toast.POSITION.TOP_RIGHT,
                     });
@@ -85,7 +85,7 @@ const Profile = () => {
     
     return (
         <>
-        <div className="my-container shadow ">
+        <div className="my-container shadow">
             <div className="container d-flex justify-content-center mt-4">
                 <div className="card shadow-2-strong card-registration col-md-9">
                     <div className="container row mt-5">
