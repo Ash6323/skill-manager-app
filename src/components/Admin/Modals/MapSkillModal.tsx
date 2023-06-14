@@ -45,7 +45,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
       }
       else if (error.request)
       {
-        if (error.response.status == 403 || error.response.status == 401) {
+        if (error.response.status === 403 || error.response.status === 401) {
           toast.error("Unauthorized", {
             position: toast.POSITION.TOP_RIGHT,
           });
@@ -156,7 +156,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
         </div>
         <div className="d-flex justify-content-center">
           <button type="submit" className="btn btn-success mt-3 px-4" 
-                  onClick={addSkill} disabled={newSkill.employeeId == "" || newSkill.skillId == 0 || newSkill.expertise == -1}>
+                  onClick={addSkill} disabled={newSkill.employeeId === "" || newSkill.skillId === 0 || newSkill.expertise === -1}>
             <i className="bi bi-person-fill-up"></i> Add
           </button>
         </div>

@@ -60,7 +60,7 @@ const AdminHomePage = () => {
             }
             else if (error.request)
             {
-                if (error.response.status == 403 || error.response.status == 401) {
+                if (error.response.status === 403 || error.response.status === 401) {
                     toast.error("Unauthorized", {
                       position: toast.POSITION.TOP_RIGHT,
                     });

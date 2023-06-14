@@ -38,7 +38,7 @@ const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
     }).catch(error => {
       if (error.request)
       {
-        if (error.response.status == 403 || error.response.status == 401) {
+        if (error.response.status === 403 || error.response.status === 401) {
           toast.error("Unauthorized", {
             position: toast.POSITION.TOP_RIGHT,
           });
@@ -67,7 +67,7 @@ const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
         </div>
         <div className="d-flex justify-content-center">
           <button type="submit" className="btn btn-success mt-3 px-4" 
-                  onClick={addSkill} disabled = {newSkill.skillName == "" || newSkill.description == ""}>
+                  onClick={addSkill} disabled = {newSkill.skillName === "" || newSkill.description === ""}>
             <i className="bi bi-plus-square mx-1"></i> Add
           </button>
         </div>

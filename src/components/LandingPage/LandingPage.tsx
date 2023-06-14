@@ -67,13 +67,11 @@ const LandingPage = () => {
             <div className="col-lg-6">
               <div className="card1 pb-5">
                 <div className="row">
-                  <img src={Logo} className="logo"></img>
+                  <img src={Logo} className="logo" alt="incubxperts-logo"></img>
                 </div>
                 <div className="row px-3 justify-content-center mt-4 mb-5 border-line">
                   <img
-                    src="https://i.imgur.com/uNGdWHi.png"
-                    className="image"
-                  ></img>
+                    src="https://i.imgur.com/uNGdWHi.png" className="image" alt="landing-page-image"></img>
                 </div>
               </div>
             </div>
@@ -98,8 +96,6 @@ const LandingPage = () => {
                     onChange={handleChange}
                   ></input>
                 </div>
-                {/* {invalidFlag ? <p className="text-danger font-weight-bold text-sm">
-                                            Invalid Credentials. Please Try Again</p> : null} */}
                 <div className="row">
                   <label className="mt-2 mb-2">
                     <h6 className="mb-0 text-md">Password</h6>
@@ -112,21 +108,12 @@ const LandingPage = () => {
                     onChange={handleChange}
                   ></input>
                 </div>
-                {/* {invalidFlag ? (
-                  <p className="text-danger font-weight-bold text-sm">
-                    Invalid Credentials. Please Try Again
-                  </p>
-                ) : null} */}
                 <div className="row mt-3 mb-3">
                   <button
-                    type="submit"
-                    className="btn btn-blue text-center"
-                    disabled={
-                      userDetails.Username == "" || userDetails.Password == ""
-                    }
-                    onClick={login}
-                  >
-                    Login
+                    type="submit" className="btn btn-blue text-center"
+                    disabled={userDetails.Username === "" || userDetails.Password === ""}
+                    onClick={login}>
+                      Login
                   </button>
                 </div>
               </div>

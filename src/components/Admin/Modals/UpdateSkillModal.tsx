@@ -32,7 +32,7 @@ const UpdateSkillModal: React.FC<IModal> = ({
       skillName: updateSkillName,
       description: updateSkillDescription,
     });
-  }, []);
+  });
 
   const setDefaultValue = () => {
     setUpdatedSkill({ id: 0, skillName: "", description: "" });
@@ -55,7 +55,7 @@ const UpdateSkillModal: React.FC<IModal> = ({
       })
       .catch((error) => {
         if (error.request) {
-          if (error.response.status == 403 || error.response.status == 401) {
+          if (error.response.status === 403 || error.response.status === 401) {
             toast.error("Unauthorized", {
               position: toast.POSITION.TOP_RIGHT,
             });

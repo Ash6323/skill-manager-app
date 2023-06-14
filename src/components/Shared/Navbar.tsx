@@ -21,7 +21,7 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
     const navigate = useNavigate();
 
     const getUser = () => {
-        const url = userProps.role=="Admin"? `${baseUrl}Admin` : `${baseUrl}Employee`;
+        const url = userProps.role==="Admin"? `${baseUrl}Admin` : `${baseUrl}Employee`;
         axios.get(`${url}/${userProps.userId}`).then((response) => 
         {
             setProfileImage(response.data.data.profilePictureUrl);
@@ -54,7 +54,7 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
             setSignIn("Sign Out");
             getUser();
         }
-    },[]);
+    });
 
     const HandleSignOut = () => {
         localStorage.clear();
@@ -67,13 +67,13 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
             <div className="container-fluid">
                 <div className="d-flex flex-wrap justify-content-between">
                     <a className="d-flex align-items-center text-dark text-decoration-none">
-                        <img className="ix-banner" src={IXBanner}></img>
+                        <img className="ix-banner" src={IXBanner} alt="IX-banner-image"></img>
                     </a>
 
                     <a className="d-block link-dark text-decoration-none dropdown-toggle mx-2" id="dropdownUser1"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <img src={profileImage? `https://employee-skill-manager2.azurewebsites.net/${profileImage}`: AvatarImage } 
-                                width="32" height="32" className="rounded-circle">
+                                width="32" height="32" className="rounded-circle" alt="user-image">
                         </img>
                     </a>
                     <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">

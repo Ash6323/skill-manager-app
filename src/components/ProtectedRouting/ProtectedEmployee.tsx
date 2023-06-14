@@ -7,10 +7,10 @@ interface IProtected {
 const ProtectedEmployee: React.FC<IProtected> = ({ children }) => {
 
   const user = JSON.parse(localStorage.getItem("User") || "{}");
-  if (!user.token && user.role != "Employee") {
+  if (!user.token && user.role !== "Employee") {
     return <Navigate to="/" />;
   }
-  if(user.role != "Employee") {
+  if(user.role !== "Employee") {
     return <Navigate to="/" />;
   }
   

@@ -90,7 +90,7 @@ const Profile = () => {
                 <div className="card shadow-2-strong card-registration col-md-9">
                     <div className="container row mt-5">
                         <div className='col-md-6'>
-                            <img id="photo" className="card-img-top card-profile-image mx-5 col-md-6" alt="Profile Image"
+                            <img id="photo" className="card-img-top card-profile-image mx-5 col-md-6" alt="Profile-Image"
                                 src={user.profilePictureUrl? `https://employee-skill-manager2.azurewebsites.net/${user.profilePictureUrl}`: AvatarImage}/>
                             <label className="-label" onClick={handlePhotoEditClick}>
                                 <span className="text-warning"><i className="bi bi-camera-fill text-warning"></i> Edit Photo</span>

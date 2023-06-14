@@ -6,9 +6,6 @@ import baseUrl from '../../../config/ApiBaseUrl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 
-const employeeSkillBaseURL = "https://localhost:7247/api/EmployeeSkill";
-const skillBaseURL = "https://localhost:7247/api/Skill";
-
 interface IModal {
   ShowUpdateModal: (show: boolean) => void;
   updatedEmployeeId: string,
@@ -55,7 +52,7 @@ const EmployeeSkillModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeI
         }
         else if (error.request)
         {
-          if (error.response.status == 403 || error.response.status == 401) {
+          if (error.response.status === 403 || error.response.status === 401) {
             toast.error("Unauthorized", {
               position: toast.POSITION.TOP_RIGHT,
             });
@@ -83,7 +80,7 @@ const EmployeeSkillModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeI
         }
         else if (error.request)
         {
-          if (error.response.status == 403 || error.response.status == 401) {
+          if (error.response.status === 403 || error.response.status === 401) {
             toast.error("Unauthorized", {
               position: toast.POSITION.TOP_RIGHT,
             });
