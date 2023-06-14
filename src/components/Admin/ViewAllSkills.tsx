@@ -13,9 +13,7 @@ import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
 const ViewAllSkills = () => {
-
     const printRef = React.useRef<HTMLInputElement>(null);
-
     const handleDownloadPdf = async () => {
         const element = printRef.current;
         const canvas = await html2canvas(element!);
@@ -27,7 +25,7 @@ const ViewAllSkills = () => {
         const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
     
         pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        pdf.save('Report.pdf');
+        pdf.save('Skill-Report.pdf');
       };
 
     const [skills, setSkills] = useState<Skill[]>([]);
@@ -56,7 +54,6 @@ const ViewAllSkills = () => {
         axios.get(`${baseUrl}Skill`).then((response) => 
         {
             setSkills(response.data.data);
-
         }).catch(error => {
             if(error.response)
             {
@@ -74,7 +71,7 @@ const ViewAllSkills = () => {
                     toast.error("Server Inactive or Busy", {
                       position: toast.POSITION.TOP_RIGHT,
                     });
-                  }
+                }
             }
         });
     }
