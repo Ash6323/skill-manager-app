@@ -130,7 +130,6 @@ const AddEmployee = () => {
                 axios.post(`${baseUrl}Auth/EmployeeRegistration`, newEmployee)
                 .then(response => 
                 {
-                    console.log(response.data);
                     setDefaultValues();
                     navigate("../employees/view-all");
                 }).catch(error => {

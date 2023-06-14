@@ -48,8 +48,7 @@ const UpdateSkillModal: React.FC<IModal> = ({
   };
 
   const updateSkill = () => {
-    axios
-      .put(`${baseUrl}Skill/${updateSkillId}`, updatedSkill)
+    axios.put(`${baseUrl}Skill/${updateSkillId}`, updatedSkill)
       .then((response) => {
         setDefaultValue();
         handleClose();
@@ -60,13 +59,14 @@ const UpdateSkillModal: React.FC<IModal> = ({
             toast.error("Unauthorized", {
               position: toast.POSITION.TOP_RIGHT,
             });
-          } else {
+          } 
+          else {
             toast.error("Server Inactive or Busy", {
               position: toast.POSITION.TOP_RIGHT,
             });
           }
         }
-      });
+    });
   };
 
   return (

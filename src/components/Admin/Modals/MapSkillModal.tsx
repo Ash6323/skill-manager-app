@@ -96,7 +96,6 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
     axios.post(`${baseUrl}EmployeeSkill`, newSkill)
     .then(response => 
     {
-      console.log(response.data);
       setDefaultValue();
       handleClose();
     }).catch(error => {
