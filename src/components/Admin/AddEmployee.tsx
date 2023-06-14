@@ -320,6 +320,7 @@ const AddEmployee = () => {
                                 {validUsernameFlag ? <p className="text-danger font-weight-bold text-sm">
                                 Invalid Entry. Please Try Again</p> : null}
                             </div>
+                            <div className='col-md-2'></div>
                             <div className='col-md-4'>
                                 {validPasswordFlag ? <p className="text-danger font-weight-bold text-sm">
                                 Invalid Entry. Please Try Again</p> : null}
