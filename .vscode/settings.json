@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/b5eb6825-998e-45f8-bd64-1ce48d1776dd/resourceGroups/Employee_Skill_Manager/providers/Microsoft.Web/sites/employee-skill-manager/subscriptions/b5eb6825-998e-45f8-bd64-1ce48d1776dd/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/skillmanageapp",
+    "appService.deploySubpath": "build"
+}
