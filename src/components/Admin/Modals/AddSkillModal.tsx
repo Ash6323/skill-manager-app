@@ -1,8 +1,7 @@
 import React, { useState} from 'react';
 import {Modal} from 'react-bootstrap';
 import {Skill} from '../../Data/Entities';
-import axios from 'axios';
-import baseUrl from '../../../config/ApiBaseUrl';
+import useHttp from "../../../Config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -12,6 +11,7 @@ interface IModal {
 
 const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
 
+  const {axiosInstance, loading} = useHttp();
   const [newSkill, setNewSkill] = useState<Skill>({id:0, skillName:"",description:""});
   const [show, setShow] = useState<boolean>(false);
 
@@ -29,7 +29,7 @@ const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
   };
 
   const addSkill = () => {
-    axios.post(`${baseUrl}Skill`, newSkill)
+    axiosInstance.post(`Skill`, newSkill)
     .then(response => 
     {
       console.log(response.data);

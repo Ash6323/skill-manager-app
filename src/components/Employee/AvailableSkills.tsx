@@ -2,17 +2,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import {Skill} from '../Data/Entities';
 import React, {useState} from "react";
-import axios from 'axios';
-import baseUrl from '../../config/ApiBaseUrl';
+import useHttp from "../../Config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import Loader from '../Loaders/Loader';
 
 const AvailableSkills = () => {
 
+    const {axiosInstance, loading} = useHttp();
     const [skills, setSkills] = useState<Skill[]>([]);
     
     const getSkills = () => {
-        axios.get(`${baseUrl}Skill`).then((response) => 
+        axiosInstance.get(`Skill`).then((response) => 
         {
             setSkills(response.data.data);
 
@@ -54,6 +55,7 @@ const AvailableSkills = () => {
     
     return (
         <>
+        {loading ? <Loader /> : ""}
         <div className="my-container shadow pb-5" >
             <div className="row mb-3">
                 <div className="d-flex px-4 col-md-12">

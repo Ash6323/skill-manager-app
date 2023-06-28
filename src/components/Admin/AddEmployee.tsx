@@ -2,16 +2,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import baseUrl from '../../config/ApiBaseUrl';
 import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import {NewEmployee, UpdateAdmin, UpdateEmployee} from '../Data/Entities';
-import axios from 'axios';
+import useHttp from "../../Config/https";
 import {useLocation} from 'react-router-dom';
+import Loader from '../Loaders/Loader';
 
 const AddEmployee = () => {
 
     const navigate = useNavigate();
+    const {axiosInstance, loading} = useHttp();
     const [newEmployee,setNewEmployee]=useState<NewEmployee>
                                     ({firstName:"",lastName: "",username:"",phoneNumber:"",email:"",password:"",gender:"",
                                     street:"",town:"",city:"",zipcode:"",dateOfBirth:"",previousOrganisation:"",previousDesignation:""});
@@ -37,7 +38,7 @@ const AddEmployee = () => {
     const location = useLocation();
 
     const getGenders = () => {
-        axios.get(`${baseUrl}Employee/Gender`).then((response) => 
+        axiosInstance.get(`Employee/Gender`).then((response) => 
         {
             setGenders(response.data.data);
         }).catch(error => {
@@ -127,7 +128,7 @@ const AddEmployee = () => {
         {
             if(submitButtonValue === "Submit")
             {
-                axios.post(`${baseUrl}Auth/EmployeeRegistration`, newEmployee)
+                axiosInstance.post(`Auth/EmployeeRegistration`, newEmployee)
                 .then(response => 
                 {
                     setDefaultValues();
@@ -154,7 +155,7 @@ const AddEmployee = () => {
                     gender:newEmployee.gender,phoneNumber:newEmployee.phoneNumber,email:newEmployee.email,profilePictureUrl:"",street:newEmployee.street,
                     town:newEmployee.town,city:newEmployee.city,zipcode:newEmployee.zipcode,dateOfBirth:newEmployee.dateOfBirth});
 
-                axios.put(`${baseUrl}Admin/${updatedEmployeeId}`, data)
+                axiosInstance.put(`Admin/${updatedEmployeeId}`, data)
                 .then(response => 
                 {
                     navigate("../profile");
@@ -180,7 +181,7 @@ const AddEmployee = () => {
                     phoneNumber:newEmployee.phoneNumber,email:newEmployee.email,profilePictureUrl:"",street:newEmployee.street,
                     town:newEmployee.town,city:newEmployee.city,zipcode:newEmployee.zipcode,dateOfBirth:newEmployee.dateOfBirth});
 
-                axios.put(`${baseUrl}Employee/${updatedEmployeeId}`, data)
+                axiosInstance.put(`Employee/${updatedEmployeeId}`, data)
                 .then(response => 
                 {
                     if(location.state != null && location.state.type === "Update")
@@ -261,6 +262,7 @@ const AddEmployee = () => {
    
     return (
       <>
+        {loading ? <Loader /> : ""}
         <div className="my-container shadow">
             <h3>{formHeading}</h3>
             <hr></hr>

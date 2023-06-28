@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
 import {EmployeeSkillMap} from '../../Data/Entities';
-import axios from 'axios';
-import baseUrl from '../../../config/ApiBaseUrl';
+import useHttp from "../../../Config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import Loader from '../../Loaders/Loader';
 
 interface IModal {
   ShowUpdateModal: (show: boolean) => void;
@@ -15,6 +15,7 @@ interface IModal {
 
 const EmployeeSkillModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeId, updatedSkillId, updatedExpertise}) => {
 
+  const {axiosInstance, loading} = useHttp();
   const [newExpertise, setNewExpertise] = useState<EmployeeSkillMap>({employeeId:"", skillId:0, expertise:-1});
   const [expertises, setExpertises] = useState<string[]>([]);
   const [show, setShow] = useState<boolean>(false);
@@ -38,7 +39,7 @@ const EmployeeSkillModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeI
   }, []);
 
   const updateExpertise = () => {
-    axios.put(`${baseUrl}EmployeeSkill/${updatedEmployeeId}`, newExpertise)
+    axiosInstance.put(`EmployeeSkill/${updatedEmployeeId}`, newExpertise)
     .then((response) =>
     {
       setDefaultValue();
@@ -66,7 +67,7 @@ const EmployeeSkillModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeI
   }
 
   const removeSkill = () => {
-    axios.delete(`${baseUrl}EmployeeSkill/${updatedEmployeeId}/${updatedSkillId}`)
+    axiosInstance.delete(`EmployeeSkill/${updatedEmployeeId}/${updatedSkillId}`)
     .then((response) =>
     {
       setDefaultValue();
@@ -94,7 +95,7 @@ const EmployeeSkillModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeI
   }
 
   const getExpertise = () => {
-    axios.get(`${baseUrl}Skill/Expertise`).then((response) => 
+    axiosInstance.get(`Skill/Expertise`).then((response) => 
     {
       setExpertises(response.data.data);
     }).catch(error => {
@@ -109,6 +110,7 @@ const EmployeeSkillModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeI
 
   return (
     <div>
+      {loading ? <Loader /> : ""}
       <Modal.Header closeButton onClick={() => setShow(false)}>
         <Modal.Title>Employee Skill</Modal.Title>
       </Modal.Header>

@@ -1,9 +1,8 @@
-import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "./App.css";
-import axios from "axios";
-import Loader from "./components/Loader/Loader";
+import useHttp from "./Config/https";
+import Loader from "./components/Loaders/Loader";
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage";
 import AdminParentPage from "./components/Admin/AdminParentPage";
@@ -13,32 +12,9 @@ import ProtectedEmployee from "./components/ProtectedRouting/ProtectedEmployee";
 import ProtectedLandingPage from "./components/ProtectedRouting/ProtectedLandingPage";
 
 function App() {
-  const [loading, setLoading] = useState(false);
-
-  axios.interceptors.request.use(
-    config => {
-      setLoading(true);
-      const token = localStorage.getItem("accessToken");
-      config.headers["Authorization"] = `Bearer ${token}`;
-      return config;
-    },
-    function (error) {
-      setLoading(false);
-      return Promise.reject(error);
-    }
-  );
-
-  axios.interceptors.response.use(
-    response => {
-      setLoading(false);
-      return response;
-    },
-    function (error) {
-      setLoading(false);
-      return Promise.reject(error);
-    }
-  );
-
+  
+  const {axiosInstance, loading} = useHttp();
+  
   return (
     <div className="App">
       {loading ? <Loader /> : ""}

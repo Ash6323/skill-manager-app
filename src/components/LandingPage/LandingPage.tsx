@@ -1,6 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -8,10 +7,13 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../Shared/Navbar";
 import Logo from "../../res/Untitled.png";
 import { LoginDTO } from "../Data/Entities";
-import baseUrl from '../../config/ApiBaseUrl';
+import useHttp from "../../Config/https";
+import Loader from "../Loaders/LandingPageLoader";
 
 const LandingPage = () => {
+
   const navigate = useNavigate();
+  const {axiosInstance, loading} = useHttp();
   const [userDetails, setUserDetails] = useState<LoginDTO>({
     Username: "",
     Password: "",
@@ -25,13 +27,14 @@ const LandingPage = () => {
 
   const setAuthToken = (token: string) => {
     if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    } else delete axios.defaults.headers.common["Authorization"];
+      axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } 
+    else 
+      delete axiosInstance.defaults.headers.common["Authorization"];
   };
 
   const login = async () => {
-    axios
-      .post(`${baseUrl}Auth/login`, userDetails)
+    axiosInstance.post(`Auth/login`, userDetails)
       .then((response) => {
         if (response.data.token) {
           localStorage.setItem("accessToken", response.data.token);
@@ -42,7 +45,8 @@ const LandingPage = () => {
 
           if (user.role === "Admin") {
             navigate("admin/home");
-          } else if (user.role === "Employee") {
+          } 
+          else if (user.role === "Employee") {
             navigate("employee/home");
           }
         }
@@ -61,6 +65,7 @@ const LandingPage = () => {
   return (
     <>
       <Navbar userFullName="Anonymous" />
+      {loading ? <Loader /> : ""}
       <div className="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto login-card-body">
         <div className="card card0 border-0">
           <div className="row d-flex">
@@ -71,7 +76,8 @@ const LandingPage = () => {
                 </div>
                 <div className="row px-3 justify-content-center mt-4 mb-5 border-line">
                   <img
-                    src="https://i.imgur.com/uNGdWHi.png" className="image" alt="landing-page-image"></img>
+                    src="https://i.imgur.com/uNGdWHi.png" className="image" alt="landing-page-image">
+                  </img>
                 </div>
               </div>
             </div>

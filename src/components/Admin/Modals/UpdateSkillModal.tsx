@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import baseUrl from '../../../config/ApiBaseUrl';
+import useHttp from "../../../Config/https";
 import { Skill } from "../../Data/Entities";
-import axios from "axios";
+import Loader from "../../Loaders/Loader";
 
 interface IModal {
   ShowUpdateModal: (showUpdate: boolean) => void;
@@ -13,25 +13,14 @@ interface IModal {
   updateSkillDescription: string;
 }
 
-const UpdateSkillModal: React.FC<IModal> = ({
-  ShowUpdateModal,
-  updateSkillId,
-  updateSkillName,
-  updateSkillDescription,
-}) => {
-  const [updatedSkill, setUpdatedSkill] = useState<Skill>({
-    id: 0,
-    skillName: "",
-    description: "",
-  });
+const UpdateSkillModal: React.FC<IModal> = ({ShowUpdateModal, updateSkillId, updateSkillName, updateSkillDescription,}) => {
+  
+  const [updatedSkill, setUpdatedSkill] = useState<Skill>({id: 0, skillName: "", description: "",});
+  const {axiosInstance, loading} = useHttp();
   const [show, setShow] = useState<boolean>(false);
 
   React.useEffect(() => {
-    setUpdatedSkill({
-      id: updateSkillId,
-      skillName: updateSkillName,
-      description: updateSkillDescription,
-    });
+    setUpdatedSkill({id: updateSkillId, skillName: updateSkillName, description: updateSkillDescription,});
   });
 
   const setDefaultValue = () => {
@@ -48,7 +37,7 @@ const UpdateSkillModal: React.FC<IModal> = ({
   };
 
   const updateSkill = () => {
-    axios.put(`${baseUrl}Skill/${updateSkillId}`, updatedSkill)
+    axiosInstance.put(`Skill/${updateSkillId}`, updatedSkill)
       .then((response) => {
         setDefaultValue();
         handleClose();
@@ -71,6 +60,7 @@ const UpdateSkillModal: React.FC<IModal> = ({
 
   return (
     <div>
+      {loading ? <Loader /> : ""}
       <Modal.Header closeButton onClick={() => setShow(false)}>
         <Modal.Title>Update Skill</Modal.Title>
       </Modal.Header>

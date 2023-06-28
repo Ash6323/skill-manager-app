@@ -3,16 +3,17 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { Modal } from "react-bootstrap";
 import {EmployeeSkills} from '../Data/Entities';
 import React, {useState} from "react";
-import axios from 'axios';
-import baseUrl from '../../config/ApiBaseUrl';
+import useHttp from "../../Config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import MapSkillModal from './Modals/MapSkillModal';
 import UpdateExpertiseModal from './Modals/EmployeeSkillModal';
 import GenerateReportModal from './Modals/GenerateReportModal';
+import Loader from '../Loaders/Loader';
 
 const AdminHomePage = () => {
 
+    const {axiosInstance, loading} = useHttp();
     const [allEmployeeSkills, setAllEmployeeSkills] = useState<EmployeeSkills[]>([]);
     const [show, setShow] = useState(false);
     const [updateShow, setUpdateShow] = useState(false);
@@ -48,7 +49,7 @@ const AdminHomePage = () => {
     }
 
     const getAllEmployeeSkills = () => {
-        axios.get(`${baseUrl}EmployeeSkill`).then((response) => 
+        axiosInstance.get(`EmployeeSkill`).then((response) => 
         {
             setAllEmployeeSkills(response.data.data);
         }).catch(error => {
@@ -89,6 +90,7 @@ const AdminHomePage = () => {
 
     return (
         <>
+        {loading ? <Loader /> : ""}
         <div className="my-container shadow">
             <div className="row">
                 <div className="d-flex px-4 col-md-6">

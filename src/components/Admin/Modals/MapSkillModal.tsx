@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
 import {Employee, Skill, EmployeeSkillMap} from '../../Data/Entities';
-import axios from 'axios';
-import baseUrl from '../../../config/ApiBaseUrl';
+import useHttp from "../../../Config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import Loader from '../../Loaders/Loader';
 
 interface IModal {
   ShowModal: (show: boolean) => void;
@@ -12,6 +12,7 @@ interface IModal {
 
 const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
 
+  const {axiosInstance, loading} = useHttp();
   const [newSkill, setNewSkill] = useState<EmployeeSkillMap>({employeeId:"", skillId:0, expertise:-1});
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [skills, setSkills] = useState<Skill[]>([]);
@@ -32,7 +33,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
   };
 
   const getEmployees = () => {
-    axios.get(`${baseUrl}Employee`).then((response) => 
+    axiosInstance.get(`Employee`).then((response) => 
     {
       setEmployees(response.data.data);
 
@@ -59,7 +60,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
   }
 
   const getSkills = () => {
-    axios.get(`${baseUrl}Skill`).then((response) => 
+    axiosInstance.get(`Skill`).then((response) => 
     {
       setSkills(response.data.data);
     }).catch(error => {
@@ -73,7 +74,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
   }
 
   const getExpertise = () => {
-    axios.get(`${baseUrl}Skill/Expertise`).then((response) => 
+    axiosInstance.get(`Skill/Expertise`).then((response) => 
     {
       setExpertises(response.data.data);
     }).catch(error => {
@@ -93,7 +94,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
   }, []);
 
   const addSkill = () => {
-    axios.post(`${baseUrl}EmployeeSkill`, newSkill)
+    axiosInstance.post(`EmployeeSkill`, newSkill)
     .then(response => 
     {
       setDefaultValue();
@@ -116,6 +117,7 @@ const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
 
   return (
     <div>
+      {loading ? <Loader /> : ""}
       <Modal.Header closeButton onClick={() => setShow(false)}>
         <Modal.Title>Map Skill to Employee</Modal.Title>
       </Modal.Header>

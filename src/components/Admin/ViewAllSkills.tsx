@@ -5,14 +5,17 @@ import { Modal } from "react-bootstrap";
 import React, {useState} from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import axios from 'axios';
+import useHttp from "../../Config/https";
 import AddSkillModal from './Modals/AddSkillModal';
 import UpdateSkillModal from './Modals/UpdateSkillModal';
-import baseUrl from '../../config/ApiBaseUrl';
+import baseUrl from '../../Config/ApiBaseUrl';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import Loader from '../Loaders/Loader';
 
 const ViewAllSkills = () => {
+
+    const {axiosInstance, loading} = useHttp();
     const printRef = React.useRef<HTMLInputElement>(null);
     const handleDownloadPdf = async () => {
         const element = printRef.current;
@@ -51,7 +54,7 @@ const ViewAllSkills = () => {
     }
 
     const getSkills = () => {
-        axios.get(`${baseUrl}Skill`).then((response) => 
+        axiosInstance.get(`${baseUrl}Skill`).then((response) => 
         {
             setSkills(response.data.data);
         }).catch(error => {
@@ -92,6 +95,7 @@ const ViewAllSkills = () => {
     
     return (
         <>
+        {loading ? <Loader /> : ""}
         <div ref={printRef} className="my-container shadow pb-5" >
             <div className="row">
                 <div className="d-flex justify-content-end">

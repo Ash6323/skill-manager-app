@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
-import axios from 'axios';
-import baseUrl from '../../../config/ApiBaseUrl';
+import useHttp from "../../../Config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import Loader from '../../Loaders/Loader';
 
 interface IModal {
   ShowProfileModal: (show: boolean) => void;
@@ -11,6 +11,7 @@ interface IModal {
 
 const PictureUploadModal: React.FC<IModal> = ({ShowProfileModal}) => {
 
+  const {axiosInstance, loading} = useHttp();
   const [show, setShow] = useState<boolean>(false);
   const [image, setImage] = useState<string>("");
   const userProps = JSON.parse(localStorage.getItem("User") || '{}');
@@ -33,7 +34,7 @@ const PictureUploadModal: React.FC<IModal> = ({ShowProfileModal}) => {
     formData.append("UserId", userId);
     formData.append("Image", image);
 
-    axios.post(`${baseUrl}ProfileImage`, formData, config)
+    axiosInstance.post(`ProfileImage`, formData, config)
     .then((response) =>
     {
       handleClose();
@@ -61,6 +62,7 @@ const PictureUploadModal: React.FC<IModal> = ({ShowProfileModal}) => {
 
   return (
     <div>
+      {loading ? <Loader /> : ""}
       <Modal.Header closeButton onClick={() => setShow(false)}>
         <Modal.Title>Update Profile Picture</Modal.Title>
       </Modal.Header>

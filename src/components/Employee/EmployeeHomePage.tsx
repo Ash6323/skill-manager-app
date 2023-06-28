@@ -5,12 +5,13 @@ import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
-import axios from 'axios';
-import baseUrl from '../../config/ApiBaseUrl';
+import useHttp from "../../Config/https";
 import GenerateReportModal from '../Admin/Modals/GenerateReportModal';
+import Loader from '../Loaders/Loader';
 
 const ViewSkills = () => {
 
+    const {axiosInstance, loading} = useHttp();
     const [skills, setSkills] = useState<EmployeeSkills>();
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
     const [reportShow, setReportShow] = useState(false);
@@ -26,7 +27,7 @@ const ViewSkills = () => {
     }
 
     const getSkills = () => {
-        axios.get(`${baseUrl}EmployeeSkill/${userProps.userId}`).then((response) => 
+        axiosInstance.get(`EmployeeSkill/${userProps.userId}`).then((response) => 
         {
             setSkills(response.data.data);
         }).catch(error => {
@@ -58,6 +59,7 @@ const ViewSkills = () => {
     
     return (
         <>
+        {loading ? <Loader /> : ""}
         <div className="my-container shadow pb-5" >
         <div className="row">
             <div className="d-flex px-4 col-md-6">

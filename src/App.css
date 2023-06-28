@@ -13,7 +13,7 @@
   --submit-btn-color: #4c49ea;
   --update-btn-color: #ebbf2e;
   --reset-list-btn-color: #d4d4dd;
-  --sidebar-color: #7386D5; 
+  --sidebar-color: #7386D5;
   --sidebar-buttons-color: #6d7fcc;
   --sidebar-buttons-hover: #3f5ac8;
 }
@@ -26,14 +26,23 @@
 .App-link {
   color: #61dafb;
 }
-
-.my-spinner {
+.landing-page-spinner {
   display: flex;
   position: fixed;
   justify-content: center;
   align-items: center;
   height: 100%;
   width: 100%;
+  z-index: 1;
+  backdrop-filter: blur(2px);
+}
+.my-spinner {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+  width: 80%;
   z-index: 1;
   backdrop-filter: blur(2px);
 }

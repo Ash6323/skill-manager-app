@@ -5,9 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import IXBanner from '../../res/IX-banner.png';
-import baseUrl from '../../config/ApiBaseUrl';
+import useHttp from "../../Config/https";
 
 interface IProfile {
     userFullName: string,
@@ -17,12 +16,13 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
 
     const [signIn, setSignIn] = useState<string>("Sign In"); 
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
-    const [profileImage, setProfileImage] = useState<string>(); 
+    const [profileImage, setProfileImage] = useState<string>();
+    const { axiosInstance } = useHttp(); 
     const navigate = useNavigate();
 
     const getUser = () => {
-        const url = userProps.role==="Admin"? `${baseUrl}Admin` : `${baseUrl}Employee`;
-        axios.get(`${url}/${userProps.userId}`).then((response) => 
+        const url = userProps.role==="Admin"? `Admin` : `Employee`;
+        axiosInstance.get(`${url}/${userProps.userId}`).then((response) => 
         {
             setProfileImage(response.data.data.profilePictureUrl);
         }).catch(error => {
@@ -72,8 +72,9 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
 
                     <a className="d-block link-dark text-decoration-none dropdown-toggle mx-2" id="dropdownUser1"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src={profileImage? `https://employee-skill-manager2.azurewebsites.net/${profileImage}`: AvatarImage } 
+                        <img src={profileImage? `https://localhost:7247/${profileImage}`: AvatarImage } 
                                 width="32" height="32" className="rounded-circle" alt="user-image">
+                            {/* `https://employee-skill-manager2.azurewebsites.net/ */}
                         </img>
                     </a>
                     <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">

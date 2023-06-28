@@ -5,16 +5,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
-import baseUrl from '../../config/ApiBaseUrl';
+import useHttp from "../../Config/https";
+import Loader from '../Loaders/Loader';
 
 const ViewAllEmployees = () => {
 
+    const {axiosInstance, loading} = useHttp();
     const [employees, setEmployees] = useState<Employee[]>([]);
     const navigate = useNavigate();
     
     const getEmployees = () => {
-        axios.get(`${baseUrl}Employee`).then((response) => 
+        axiosInstance.get(`Employee`).then((response) => 
         {
             setEmployees(response.data.data);
 
@@ -71,7 +72,8 @@ const ViewAllEmployees = () => {
         });
     }
     return (
-        <>
+        <>    
+        {loading ? <Loader /> : ""}
         <div className="my-container shadow">
             <div className="row">
                 <div className="d-flex justify-content-end">
@@ -102,9 +104,9 @@ const ViewAllEmployees = () => {
                 </div>                        
             </div>
             <hr></hr>
-
             <div className="table-responsive card">
                 <table className="table table-bordered table-striped ">
+                
                     <thead className="table-dark">
                         <tr>
                             <th scope="col">S.No.</th>

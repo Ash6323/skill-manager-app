@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
-import axios from 'axios';
-import baseUrl from '../../../config/ApiBaseUrl';
+import useHttp from "../../../Config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import Loader from '../../Loaders/Loader';
 
 interface IModal {
   ShowPhotoRemoveModal: (show: boolean) => void;
@@ -11,6 +11,7 @@ interface IModal {
 
 const PictureRemoveModal: React.FC<IModal> = ({ShowPhotoRemoveModal}) => {
 
+  const {axiosInstance, loading} = useHttp();
   const [show, setShow] = useState<boolean>(false);
   const userProps = JSON.parse(localStorage.getItem("User") || '{}');
   const userId = userProps.userId;
@@ -21,7 +22,7 @@ const PictureRemoveModal: React.FC<IModal> = ({ShowPhotoRemoveModal}) => {
 
   const RemovePhoto = () => {
 
-    axios.delete(`${baseUrl}ProfileImage/${userId}`)
+    axiosInstance.delete(`ProfileImage/${userId}`)
     .then((response) =>
     {
       handleClose();
@@ -49,6 +50,7 @@ const PictureRemoveModal: React.FC<IModal> = ({ShowPhotoRemoveModal}) => {
 
   return (
     <div>
+      {loading ? <Loader /> : ""}
       <Modal.Header closeButton onClick={() => setShow(false)}>
         <Modal.Title>Remove Profile Picture?</Modal.Title>
       </Modal.Header>

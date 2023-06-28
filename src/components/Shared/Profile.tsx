@@ -7,10 +7,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
-import baseUrl from '../../config/ApiBaseUrl';
+import useHttp from "../../Config/https";
 import PictureUploadModal from '../Admin/Modals/PictureUploadModal';
 import PictureRemoveModal from '../Admin/Modals/PictureRemoveModal';
+import Loader from '../Loaders/Loader';
 
 const Profile = () => {
     
@@ -19,6 +19,7 @@ const Profile = () => {
                                                     dateOfBirth: "", previousOrganisation: "", previousDesignation: ""});
     const [profileImageShow, setProfileImageShow] = useState(false);
     const [imageRemoveShow, setImageRemoveShow] = useState(false);
+    const {axiosInstance, loading} = useHttp();
     const navigate = useNavigate();
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
 
@@ -39,8 +40,8 @@ const Profile = () => {
     }
  
     const getUser = () => {
-        const url = userProps.role === "Admin"? `${baseUrl}Admin` : `${baseUrl}Employee`;
-        axios.get(`${url}/${userProps.userId}`).then((response) => 
+        const url = userProps.role === "Admin"? `Admin` : `Employee`;
+        axiosInstance.get(`${url}/${userProps.userId}`).then((response) => 
         {
             setUser(response.data.data);
         }).catch(error => {
@@ -86,12 +87,14 @@ const Profile = () => {
     return (
         <>
         <div className="my-container shadow">
+            {loading ? <Loader /> : ""}
             <div className="container d-flex justify-content-center mt-4">
                 <div className="card shadow-2-strong card-registration col-md-9">
                     <div className="container row mt-5">
                         <div className='col-md-6'>
                             <img id="photo" className="card-img-top card-profile-image mx-5 col-md-6" alt="Profile-Image"
-                                src={user.profilePictureUrl? `https://employee-skill-manager2.azurewebsites.net/${user.profilePictureUrl}`: AvatarImage}/>
+                                // src={user.profilePictureUrl? `https://employee-skill-manager2.azurewebsites.net/${user.profilePictureUrl}`: AvatarImage}/>
+                                src={user.profilePictureUrl? `https://localhost:7247/${user.profilePictureUrl}`: AvatarImage}/>
                             <label className="-label" onClick={handlePhotoEditClick}>
                                 <span className="text-warning"><i className="bi bi-camera-fill text-warning"></i> Edit Photo</span>
                             </label>

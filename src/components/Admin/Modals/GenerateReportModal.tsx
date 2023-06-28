@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
-import baseUrl from '../../../config/ApiBaseUrl';
+import useHttp from "../../../Config/https";
 import 'react-toastify/dist/ReactToastify.css'
-import axios from 'axios';
+import Loader from '../../Loaders/Loader';
 
 interface IModal {
   ShowReportModal: (showUpdate: boolean) => void;
@@ -13,6 +13,7 @@ interface IModal {
 
 const GenerateReportModal:React.FC<IModal> = ({ShowReportModal, employeeId, employeeName}) => {
 
+  const {axiosInstance, loading} = useHttp();
   const [show, setShow] = useState<boolean>(false);
 
   const handleClose = () => {
@@ -20,7 +21,7 @@ const GenerateReportModal:React.FC<IModal> = ({ShowReportModal, employeeId, empl
   };
 
   const getReport = () => {
-    axios.get(`${baseUrl}Report/${employeeId}`, {responseType: 'blob'})
+    axiosInstance.get(`Report/${employeeId}`, {responseType: 'blob'})
     .then(response => 
     {
       window.open(URL.createObjectURL(response.data));
@@ -43,6 +44,7 @@ const GenerateReportModal:React.FC<IModal> = ({ShowReportModal, employeeId, empl
 
   return (
     <div>
+      {loading ? <Loader /> : ""}
       <Modal.Header closeButton onClick={() => setShow(false)}>
         <Modal.Title>Employee Skill Report</Modal.Title>
       </Modal.Header>
