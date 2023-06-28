@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { Routes, Route } from "react-router-dom";
-import Navbar from "../common/Navbar";
-import AdminSidebar from "./AdminSidebar";
+import Navbar from "../../components/common/Navbar";
+import AdminSidebar from "../../components/admin/AdminSidebar";
 import ViewAllEmployees from "./ViewAllEmployees";
 import AddEmployee from './AddEmployee';
 import ViewAllSkills from "./ViewAllSkills";

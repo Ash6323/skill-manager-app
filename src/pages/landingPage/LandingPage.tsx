@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Navbar from "../common/Navbar";
-import Logo from "../../res/Untitled.png";
-import { LoginDTO } from "../data/Entities";
+import Navbar from "../../components/common/Navbar";
+import Logo from "../../assets/images/IX-logo-2.png";
+import { LoginDTO } from "../../data/Entities";
 import useHttp from "../../config/https";
-import Loader from "../loaders/LandingPageLoader";
+import Loader from "../../components/loaders/LandingPageLoader";
 
 const LandingPage = () => {
 

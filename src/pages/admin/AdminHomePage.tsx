@@ -1,15 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { Modal } from "react-bootstrap";
-import {EmployeeSkills} from '../data/Entities';
+import {EmployeeSkills} from '../../data/Entities';
 import React, {useState} from "react";
 import useHttp from "../../config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import MapSkillModal from './modals/MapSkillModal';
-import UpdateExpertiseModal from './modals/EmployeeSkillModal';
-import GenerateReportModal from './modals/GenerateReportModal';
-import Loader from '../loaders/Loader';
+import MapSkillModal from '../../components/modals/MapSkillModal';
+import UpdateExpertiseModal from '../../components/modals/EmployeeSkillModal';
+import GenerateReportModal from '../../components/modals/GenerateReportModal';
+import Loader from '../../components/loaders/Loader';
 
 const AdminHomePage = () => {
 

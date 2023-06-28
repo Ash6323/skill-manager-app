@@ -1,61 +1,22 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import {Skill} from '../data/Entities';
-import { Modal } from "react-bootstrap";
+import {Skill} from '../../data/Entities';
 import React, {useState} from "react";
+import useHttp from "../../config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import useHttp from "../../config/https";
-import AddSkillModal from './modals/AddSkillModal';
-import UpdateSkillModal from './modals/UpdateSkillModal';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
-import Loader from '../loaders/Loader';
+import Loader from '../../components/loaders/Loader';
 
-const ViewAllSkills = () => {
+const AvailableSkills = () => {
 
     const {axiosInstance, loading} = useHttp();
-    const printRef = React.useRef<HTMLInputElement>(null);
-    const handleDownloadPdf = async () => {
-        const element = printRef.current;
-        const canvas = await html2canvas(element!);
-        const data = canvas.toDataURL('image/png');
-    
-        const pdf = new jsPDF();
-        const imgProperties = pdf.getImageProperties(data);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
-    
-        pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        pdf.save('Skill-Report.pdf');
-      };
-
     const [skills, setSkills] = useState<Skill[]>([]);
-    const [show, setShow] = useState(false);
-    const [showUpdate, setShowUpdate] = useState(false);
-    const [updationSkillId, setUpdationSkillId] = useState<number>(0);
-    const [updationSkillName, setUpdationSkillName] = useState<string>("");
-    const [updationSkillDescription, setUpdationSkillDescription] = useState<string>("");
     
-    const closeModal = (showValue : boolean) =>
-    {
-      setShow(showValue);
-    }
-    const closeUpdateModal = (showValue : boolean) =>
-    {
-      setShowUpdate(showValue);
-    }
-    const HandleCardClick = (skillId: number, skillName: string, skillDescription: string) => {
-        setUpdationSkillId(skillId);
-        setUpdationSkillName(skillName);
-        setUpdationSkillDescription(skillDescription);
-        setShowUpdate(true);
-    }
-
     const getSkills = () => {
         axiosInstance.get(`Skill`).then((response) => 
         {
             setSkills(response.data.data);
+
         }).catch(error => {
             if(error.response)
             {
@@ -73,7 +34,7 @@ const ViewAllSkills = () => {
                     toast.error("Server Inactive or Busy", {
                       position: toast.POSITION.TOP_RIGHT,
                     });
-                }
+                  }
             }
         });
     }
@@ -90,20 +51,20 @@ const ViewAllSkills = () => {
 
     React.useEffect( () => {
         getSkills();
-    }, [show, showUpdate]);
+    }, []);
     
     return (
         <>
         {loading ? <Loader /> : ""}
-        <div ref={printRef} className="my-container shadow pb-5" >
-            <div className="row">
-                <div className="d-flex justify-content-end">
-                    <button type="submit" className="btn submit-btn btn-success" onClick={handleDownloadPdf}>
-                        <i className="bi bi-printer-fill mx-1"></i> Print
-                    </button>
-                    <button type="submit" className="btn btn-success new-skill-btn" onClick={() => setShow(true)}>
-                        <i className="bi bi-plus-square px-1"></i> Add New
-                    </button>
+        <div className="my-container shadow pb-5" >
+            <div className="row mb-3">
+                <div className="d-flex px-4 col-md-12">
+                    <h5 className='align-middle px-2'>Expertise Levels:</h5>
+                    <span className="badge rounded-pill border border-4 basic">Basic</span>
+                    <span className="badge rounded-pill border border-4 novice">Novice</span>
+                    <span className="badge rounded-pill border border-4 intermediate">Intermediate</span>
+                    <span className="badge rounded-pill border border-4 advanced">Advanced</span>
+                    <span className="badge rounded-pill border border-4 expert">Expert</span>
                 </div>
             </div>
             <div className="row">
@@ -128,7 +89,6 @@ const ViewAllSkills = () => {
                 </div>                        
             </div>
             <hr></hr>
-
             <div className="mt-2">
                 <div className="table-responsive card">
                     <table className="table table-bordered table-striped">
@@ -142,9 +102,7 @@ const ViewAllSkills = () => {
                         <tbody>
                         {filteredSkills.list.map((skill,index) => {
                             return (
-                                <tr className='hoverable' 
-                                    key={index}
-                                    onClick={() => HandleCardClick(skill.id,skill.skillName,skill.description)}>
+                                <tr>
                                     <td className='table-fit'>{index+1}</td>
                                     <td className='table-fit'>{skill.skillName}</td>
                                     <td className='skill-table-cell'>{skill.description}</td>
@@ -155,19 +113,9 @@ const ViewAllSkills = () => {
                     </table>
                 </div>
             </div>
-            <div>
-                <Modal show={show} onHide={() => setShow(false)} contentClassName="modal-container">
-                    <AddSkillModal ShowModal={closeModal}/>
-                </Modal>
-                <Modal show={showUpdate} onHide={() => setShowUpdate(false)} contentClassName="modal-container">
-                    <UpdateSkillModal ShowUpdateModal={closeUpdateModal} 
-                                        updateSkillId={updationSkillId} updateSkillName={updationSkillName} 
-                                        updateSkillDescription={updationSkillDescription}/>
-                </Modal>
-            </div>
-            <ToastContainer />
         </div>
+        <ToastContainer />
         </>
     );
 }
-export default ViewAllSkills;
+export default AvailableSkills;

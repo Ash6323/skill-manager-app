@@ -1,11 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import AvatarImage from '../../res/img_avatar.png';
+import AvatarImage from '../../assets/images/img_avatar.png';
+import IXBanner from '../../assets/images/IX-banner.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import IXBanner from '../../res/IX-banner.png';
 import useHttp from "../../config/https";
 
 interface IProfile {

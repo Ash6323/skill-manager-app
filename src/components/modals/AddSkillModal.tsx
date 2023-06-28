@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import {Modal} from 'react-bootstrap';
 import {Skill} from '../../data/Entities';
-import useHttp from "../../../config/https";
+import useHttp from "../../config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 

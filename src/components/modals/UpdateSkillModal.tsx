@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import useHttp from "../../../config/https";
-import { Skill } from "../../data/Entities";
-import Loader from "../../loaders/Loader";
+import useHttp from "../../config/https";
+import { Skill } from '../../data/Entities';
+import Loader from "../loaders/Loader";
 
 interface IModal {
   ShowUpdateModal: (showUpdate: boolean) => void;

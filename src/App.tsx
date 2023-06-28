@@ -4,12 +4,12 @@ import "./App.css";
 import useHttp from "./config/https";
 import Loader from "./components/loaders/Loader";
 import { Routes, Route } from "react-router-dom";
-import LandingPage from "./components/landingPage/LandingPage";
-import AdminParentPage from "./components/Admin/AdminParentPage";
-import EmployeeParentPage from "./components/employee/EmployeeParentPage";
-import ProtectedAdmin from "./components/protectedRouting/ProtectedAdmin";
-import ProtectedEmployee from "./components/protectedRouting/ProtectedEmployee";
-import ProtectedLandingPage from "./components/protectedRouting/ProtectedLandingPage";
+import LandingPage from "./pages/landingPage/LandingPage";
+import AdminParentPage from "./pages/admin/AdminParentPage";
+import EmployeeParentPage from "./pages/employee/EmployeeParentPage";
+import ProtectedAdmin from "./protectedRouting/ProtectedAdmin";
+import ProtectedEmployee from "./protectedRouting/ProtectedEmployee";
+import ProtectedLandingPage from "./protectedRouting/ProtectedLandingPage";
 
 function App() {
   

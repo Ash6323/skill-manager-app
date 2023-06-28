@@ -1,16 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import {Modal} from 'react-bootstrap';
-import AvatarImage from '../../res/img_avatar.png';
-import {User} from '../data/Entities';
+import AvatarImage from '../../assets/images/img_avatar.png';
+import {User} from '../../data/Entities';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import useHttp from "../../config/https";
-import PictureUploadModal from '../Admin/modals/PictureUploadModal';
-import PictureRemoveModal from '../Admin/modals/PictureRemoveModal';
-import Loader from '../loaders/Loader';
+import PictureUploadModal from '../../components/modals/PictureUploadModal';
+import PictureRemoveModal from '../../components/modals/PictureRemoveModal';
+import Loader from '../../components/loaders/Loader';
 
 const Profile = () => {
     
