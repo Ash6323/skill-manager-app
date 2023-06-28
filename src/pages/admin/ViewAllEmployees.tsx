@@ -44,7 +44,9 @@ const ViewAllEmployees = () => {
     const [search, setSearch] = useState('');
     const filteredEmployees = 
     {
-        list: employees.filter((item) =>item.fullName.toLowerCase().includes(search.toLowerCase())),
+        list: employees.filter((item) =>item.fullName.toLowerCase().includes(search.toLowerCase()) || 
+            item.email.toLowerCase().includes(search.toLowerCase()) || item.phoneNumber.toLowerCase().includes(search.toLowerCase()) ||
+            item.gender.toLowerCase().includes(search.toLowerCase())),
     };
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => 

@@ -41,7 +41,8 @@ const AvailableSkills = () => {
     const [search, setSearch] = useState('');
     const filteredSkills = 
     {
-        list: skills.filter((item) =>item.skillName.toLowerCase().includes(search.toLowerCase())),
+        list: skills.filter((item) =>item.skillName.toLowerCase().includes(search.toLowerCase()) || 
+            item.description.toLowerCase().includes(search.toLowerCase())),
     };
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => 
@@ -80,8 +81,8 @@ const AvailableSkills = () => {
                 </input>
                 
                 <datalist id="skill-list">
-                    {skills.map((item) => (
-                    <div key={item.id}>
+                    {skills.map((item, index) => (
+                    <div key={index}>
                         <option value={item.skillName}></option>
                     </div>
                     ))}
@@ -102,7 +103,7 @@ const AvailableSkills = () => {
                         <tbody>
                         {filteredSkills.list.map((skill,index) => {
                             return (
-                                <tr>
+                                <tr key= {index}>
                                     <td className='table-fit'>{index+1}</td>
                                     <td className='table-fit'>{skill.skillName}</td>
                                     <td className='skill-table-cell'>{skill.description}</td>

@@ -80,7 +80,8 @@ const ViewAllSkills = () => {
     const [search, setSearch] = useState('');
     const filteredSkills = 
     {
-        list: skills.filter((item) =>item.skillName.toLowerCase().includes(search.toLowerCase())),
+        list: skills.filter((item) =>item.skillName.toLowerCase().includes(search.toLowerCase()) || 
+            item.description.toLowerCase().includes(search.toLowerCase())),
     };
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => 

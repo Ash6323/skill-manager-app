@@ -30,7 +30,6 @@ const ViewSkills = () => {
         axiosInstance.get(`EmployeeSkill/${userProps.userId}`).then((response) => 
         {
             setSkills(response.data.data);
-            console.log(response.data.data)
         }).catch(error => {
             if(error.response)
             {
@@ -86,7 +85,7 @@ const ViewSkills = () => {
         <div className="row mx-4 mt-2">
             {skills?.employeeSkills.map((skill,index) => {
                 return (
-                    <div className="col-sm-3 mt-2">
+                    <div key={index} className="col-sm-3 mt-2">
                         <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title">Skill No. {index+1}</h5>

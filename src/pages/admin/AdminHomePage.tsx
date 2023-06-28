@@ -76,7 +76,8 @@ const AdminHomePage = () => {
     const [search, setSearch] = useState('');
     const filteredEmployees = 
     {
-        list: allEmployeeSkills.filter((item) =>item.employeeName.toLowerCase().includes(search.toLowerCase())),
+        list: allEmployeeSkills.filter((item) => item.employeeName.toLowerCase().includes(search.toLowerCase()) || 
+        item.employeeSkills.some(skill => skill.skillName.toLowerCase().includes(search.toLowerCase()) ) ),
     };
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => 
@@ -149,53 +150,53 @@ const AdminHomePage = () => {
                                 <td className="description hoverable" onClick={() => handleReportClick(item.employeeId, item.employeeName)}>
                                     {item.employeeName}
                                 </td>
-                                <td>
+                                <td className='text-start'>
                                 <React.Fragment key={index}>
                                         {item.employeeSkills.map((skill, index) => {
                                             if(skill.expertise===0)
                                             return (
-                                                <td key = {index}>  
+                                                <span key = {index}>
                                                     <span className="badge rounded-pill border border-4 basic hoverable"
-                                                            onClick={() => handleExpertiseClick(item.employeeId, skill.id, skill.expertise)}>
+                                                            onClick = {() => handleExpertiseClick(item.employeeId, skill.id, skill.expertise)}>
                                                         {skill.skillName}
                                                     </span>
-                                                </td>
+                                                </span>
                                             )
                                             else if(skill.expertise===1)
                                             return (
-                                                <td key = {index}>      
+                                                <span key = {index}>      
                                                     <span className="badge rounded-pill border border-4 novice hoverable"
                                                             onClick={() => handleExpertiseClick(item.employeeId, skill.id, skill.expertise)}>
                                                         {skill.skillName}
                                                     </span>
-                                                </td>
+                                                </span>
                                             )
                                             else if(skill.expertise===2)
                                             return (
-                                                <td key = {index}>      
+                                                <span key = {index}>      
                                                     <span className="badge rounded-pill border border-4 intermediate hoverable"
                                                             onClick={() => handleExpertiseClick(item.employeeId, skill.id, skill.expertise)}>
                                                         {skill.skillName}
                                                     </span>
-                                                </td>
+                                                </span>
                                             )
                                             else if(skill.expertise===3)
                                             return (
-                                                <td key = {index}>      
+                                                <span key = {index}>      
                                                     <span className="badge rounded-pill border border-4 advanced hoverable"
                                                             onClick={() => handleExpertiseClick(item.employeeId, skill.id, skill.expertise)}>
                                                         {skill.skillName}
                                                     </span>
-                                                </td>
+                                                </span>
                                             )
                                             else if(skill.expertise===4)
                                             return (
-                                                <td key = {index}>      
+                                                <span key = {index}>      
                                                     <span className="badge rounded-pill border border-4 expert hoverable"
                                                             onClick={() => handleExpertiseClick(item.employeeId, skill.id, skill.expertise)}>
                                                         {skill.skillName}
                                                     </span>
-                                                </td>
+                                                </span>
                                             )
                                         })}
                                     </React.Fragment>
