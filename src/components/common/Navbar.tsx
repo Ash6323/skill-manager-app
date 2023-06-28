@@ -54,7 +54,7 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
             setSignIn("Sign Out");
             getUser();
         }
-    });
+    },[]);
 
     const HandleSignOut = () => {
         localStorage.clear();

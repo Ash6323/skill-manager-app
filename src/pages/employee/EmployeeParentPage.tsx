@@ -16,7 +16,7 @@ const EmployeeParentPage = () => {
 
     useEffect( () => {
         setUserName(user.userFullName);
-    });
+    }, []);
 
     return (
         <>

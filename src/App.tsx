@@ -13,11 +13,8 @@ import ProtectedLandingPage from "./protectedRouting/ProtectedLandingPage";
 
 function App() {
   
-  const {axiosInstance, loading} = useHttp();
-  
   return (
     <div className="App">
-      {loading ? <Loader /> : ""}
       <div className="row">
         <Routes>
           <Route

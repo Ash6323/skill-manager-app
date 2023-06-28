@@ -4,6 +4,7 @@ import {Skill} from '../../data/Entities';
 import useHttp from "../../config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import Loader from '../loaders/Loader';
 
 interface IModal {
   ShowModal: (show: boolean) => void;
@@ -53,6 +54,7 @@ const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
 
   return (
     <div>
+      {loading ? <Loader /> : ""}
       <Modal.Header closeButton onClick={() => setShow(false)}>
         <Modal.Title>Add New Skill</Modal.Title>
       </Modal.Header>

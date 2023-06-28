@@ -30,6 +30,7 @@ const ViewSkills = () => {
         axiosInstance.get(`EmployeeSkill/${userProps.userId}`).then((response) => 
         {
             setSkills(response.data.data);
+            console.log(response.data.data)
         }).catch(error => {
             if(error.response)
             {
@@ -55,7 +56,7 @@ const ViewSkills = () => {
 
     React.useEffect( () => {
         getSkills();
-    });
+    },[]);
     
     return (
         <>

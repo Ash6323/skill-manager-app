@@ -10,7 +10,7 @@ const ProtectedAdmin: React.FC<IProtected> = ({ children }) => {
   if (!user.token) {
     return <Navigate to="/" />;
   }
-  if(user.role != "Admin") {
+  if(user.role !== "Admin") {
     return <Navigate to="/" />;
   }
 

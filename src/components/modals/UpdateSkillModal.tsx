@@ -21,7 +21,7 @@ const UpdateSkillModal: React.FC<IModal> = ({ShowUpdateModal, updateSkillId, upd
 
   React.useEffect(() => {
     setUpdatedSkill({id: updateSkillId, skillName: updateSkillName, description: updateSkillDescription,});
-  });
+  },[]);
 
   const setDefaultValue = () => {
     setUpdatedSkill({ id: 0, skillName: "", description: "" });
