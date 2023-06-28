@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import Navbar from "../Shared/Navbar";
+import Navbar from "../common/Navbar";
 import EmployeeSidebar from "./EmployeeSidebar";
 import { useEffect, useState } from 'react';
 import {Routes, Route} from 'react-router-dom';
-import Profile from '../Shared/Profile';
+import Profile from '../common/Profile';
 import EmployeeHomePage from './EmployeeHomePage';
 import AvailableSkills from './AvailableSkills';
 import AddEmployee from '../Admin/AddEmployee';

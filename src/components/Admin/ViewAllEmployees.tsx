@@ -1,12 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import {Employee} from '../Data/Entities';
+import {Employee} from '../data/Entities';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
-import useHttp from "../../Config/https";
-import Loader from '../Loaders/Loader';
+import useHttp from "../../config/https";
+import Loader from '../loaders/Loader';
 
 const ViewAllEmployees = () => {
 

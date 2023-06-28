@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import IXBanner from '../../res/IX-banner.png';
-import useHttp from "../../Config/https";
+import useHttp from "../../config/https";
 
 interface IProfile {
     userFullName: string,

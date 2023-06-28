@@ -1,17 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import {Skill} from '../Data/Entities';
+import {Skill} from '../data/Entities';
 import { Modal } from "react-bootstrap";
 import React, {useState} from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import useHttp from "../../Config/https";
-import AddSkillModal from './Modals/AddSkillModal';
-import UpdateSkillModal from './Modals/UpdateSkillModal';
-import baseUrl from '../../Config/ApiBaseUrl';
+import useHttp from "../../config/https";
+import AddSkillModal from './modals/AddSkillModal';
+import UpdateSkillModal from './modals/UpdateSkillModal';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-import Loader from '../Loaders/Loader';
+import Loader from '../loaders/Loader';
 
 const ViewAllSkills = () => {
 
@@ -54,7 +53,7 @@ const ViewAllSkills = () => {
     }
 
     const getSkills = () => {
-        axiosInstance.get(`${baseUrl}Skill`).then((response) => 
+        axiosInstance.get(`Skill`).then((response) => 
         {
             setSkills(response.data.data);
         }).catch(error => {

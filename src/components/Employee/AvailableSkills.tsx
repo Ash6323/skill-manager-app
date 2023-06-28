@@ -1,11 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import {Skill} from '../Data/Entities';
+import {Skill} from '../data/Entities';
 import React, {useState} from "react";
-import useHttp from "../../Config/https";
+import useHttp from "../../config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import Loader from '../Loaders/Loader';
+import Loader from '../loaders/Loader';
 
 const AvailableSkills = () => {
 

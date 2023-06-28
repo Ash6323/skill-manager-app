@@ -4,10 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import {NewEmployee, UpdateAdmin, UpdateEmployee} from '../Data/Entities';
-import useHttp from "../../Config/https";
+import {NewEmployee, UpdateAdmin, UpdateEmployee} from '../data/Entities';
+import useHttp from "../../config/https";
 import {useLocation} from 'react-router-dom';
-import Loader from '../Loaders/Loader';
+import Loader from '../loaders/Loader';
 
 const AddEmployee = () => {
 

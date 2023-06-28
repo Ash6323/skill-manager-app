@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
-import {EmployeeSkillMap} from '../../Data/Entities';
-import useHttp from "../../../Config/https";
+import {EmployeeSkillMap} from '../../data/Entities';
+import useHttp from "../../../config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import Loader from '../../Loaders/Loader';
+import Loader from '../../loaders/Loader';
 
 interface IModal {
   ShowUpdateModal: (show: boolean) => void;

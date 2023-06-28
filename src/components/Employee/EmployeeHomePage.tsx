@@ -1,13 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import {EmployeeSkills} from '../Data/Entities';
+import {EmployeeSkills} from '../data/Entities';
 import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
-import useHttp from "../../Config/https";
-import GenerateReportModal from '../Admin/Modals/GenerateReportModal';
-import Loader from '../Loaders/Loader';
+import useHttp from "../../config/https";
+import GenerateReportModal from '../Admin/modals/GenerateReportModal';
+import Loader from '../loaders/Loader';
 
 const ViewSkills = () => {
 

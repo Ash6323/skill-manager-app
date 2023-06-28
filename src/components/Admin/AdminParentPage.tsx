@@ -1,14 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { Routes, Route } from "react-router-dom";
-import Navbar from "../Shared/Navbar";
+import Navbar from "../common/Navbar";
 import AdminSidebar from "./AdminSidebar";
 import ViewAllEmployees from "./ViewAllEmployees";
 import AddEmployee from './AddEmployee';
 import ViewAllSkills from "./ViewAllSkills";
 import { useEffect, useState } from 'react';
 import AdminHomePage from './AdminHomePage';
-import Profile from '../Shared/Profile';
+import Profile from '../common/Profile';
 
 const AdminParentPage = () => {
 

@@ -1,15 +1,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "./App.css";
-import useHttp from "./Config/https";
-import Loader from "./components/Loaders/Loader";
+import useHttp from "./config/https";
+import Loader from "./components/loaders/Loader";
 import { Routes, Route } from "react-router-dom";
-import LandingPage from "./components/LandingPage/LandingPage";
+import LandingPage from "./components/landingPage/LandingPage";
 import AdminParentPage from "./components/Admin/AdminParentPage";
-import EmployeeParentPage from "./components/Employee/EmployeeParentPage";
-import ProtectedAdmin from "./components/ProtectedRouting/ProtectedAdmin";
-import ProtectedEmployee from "./components/ProtectedRouting/ProtectedEmployee";
-import ProtectedLandingPage from "./components/ProtectedRouting/ProtectedLandingPage";
+import EmployeeParentPage from "./components/employee/EmployeeParentPage";
+import ProtectedAdmin from "./components/protectedRouting/ProtectedAdmin";
+import ProtectedEmployee from "./components/protectedRouting/ProtectedEmployee";
+import ProtectedLandingPage from "./components/protectedRouting/ProtectedLandingPage";
 
 function App() {
   

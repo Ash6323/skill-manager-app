@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
-import useHttp from "../../../Config/https";
+import useHttp from "../../../config/https";
 import 'react-toastify/dist/ReactToastify.css'
-import Loader from '../../Loaders/Loader';
+import Loader from '../../loaders/Loader';
 
 interface IModal {
   ShowReportModal: (showUpdate: boolean) => void;
