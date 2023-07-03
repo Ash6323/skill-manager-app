@@ -16,7 +16,6 @@ const AvailableSkills = () => {
         axiosInstance.get(`Skill`).then((response) => 
         {
             setSkills(response.data.data);
-
         }).catch(error => {
             if(error.response)
             {
@@ -30,11 +29,12 @@ const AvailableSkills = () => {
                     toast.error("Unauthorized", {
                       position: toast.POSITION.TOP_RIGHT,
                     });
-                  } else {
+                } 
+                else {
                     toast.error("Server Inactive or Busy", {
                       position: toast.POSITION.TOP_RIGHT,
                     });
-                  }
+                }
             }
         });
     }
