@@ -38,6 +38,8 @@ const LandingPage = () => {
       .then((response) => {
         if (response.data.token) {
           localStorage.setItem("accessToken", response.data.token);
+          localStorage.setItem("refreshToken", response.data.refreshToken);
+
           setAuthToken(response.data.token);
 
           localStorage.setItem("User", JSON.stringify(response.data));
