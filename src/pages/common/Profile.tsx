@@ -93,8 +93,8 @@ const Profile = () => {
                     <div className="container row mt-5">
                         <div className='col-md-6'>
                             <img id="photo" className="card-img-top card-profile-image mx-5 col-md-6" alt="Profile-Image"
-                                // src={user.profilePictureUrl? `https://employee-skill-manager2.azurewebsites.net/${user.profilePictureUrl}`: AvatarImage}/>
-                                src={user.profilePictureUrl? `https://localhost:7247/${user.profilePictureUrl}`: AvatarImage}/>
+                                src={user.profilePictureUrl? `https://employee-skill-manager2.azurewebsites.net/${user.profilePictureUrl}`: AvatarImage}/>
+                                {/* src={user.profilePictureUrl? `https://localhost:7247/${user.profilePictureUrl}`: AvatarImage}/> */}
                             <label className="-label" onClick={handlePhotoEditClick}>
                                 <span className="text-warning"><i className="bi bi-camera-fill text-warning"></i> Edit Photo</span>
                             </label>

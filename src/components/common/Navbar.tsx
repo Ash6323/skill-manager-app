@@ -72,9 +72,10 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
 
                     <a className="d-block link-dark text-decoration-none dropdown-toggle mx-2" id="dropdownUser1"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src={profileImage? `https://localhost:7247/${profileImage}`: AvatarImage } 
+                        <img src={profileImage? `https://employee-skill-manager2.azurewebsites.net/${profileImage}`: AvatarImage } 
                                 width="32" height="32" className="rounded-circle" alt="user-image">
-                            {/* `https://employee-skill-manager2.azurewebsites.net/ */}
+                            {/* `https://localhost:7247/${profileImage} */}
+                            
                         </img>
                     </a>
                     <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">

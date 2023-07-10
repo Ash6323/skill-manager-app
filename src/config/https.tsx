@@ -5,7 +5,8 @@ const useHttp = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const axiosInstance = axios.create({
-    baseURL: "https://localhost:7247/api/",
+    baseURL: "https://employee-skill-manager2.azurewebsites.net/api/",
+    // baseURL: "https://localhost:7247/api/",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
   });
 
@@ -16,7 +17,8 @@ let isRefreshing = false;
     failedQueue.forEach((prom: any) => {
       if (error) {
         prom.reject(error);
-      } else {
+      } 
+      else {
         prom.resolve(token);
       }
     });
@@ -35,12 +37,13 @@ let isRefreshing = false;
       );
       const { accessToken, refreshToken } = response.data.data;
 
-      // Store the new tokens in local storage
+      // Storing the new tokens in local storage
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
 
       return accessToken;
-    } catch (error) {
+    } 
+    catch (error) {
       throw error;
     }
   };
