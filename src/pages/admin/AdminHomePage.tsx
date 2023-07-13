@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { Modal } from "react-bootstrap";
-import {EmployeeSkills} from '../../data/Entities';
+import {EmployeeSkills} from '../../constants/Entities';
 import React, {useState} from "react";
 import useHttp from "../../config/https";
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,6 +10,8 @@ import MapSkillModal from '../../components/modals/MapSkillModal';
 import UpdateExpertiseModal from '../../components/modals/EmployeeSkillModal';
 import GenerateReportModal from '../../components/modals/GenerateReportModal';
 import Loader from '../../components/loaders/Loader';
+
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 const AdminHomePage = () => {
 
@@ -23,6 +25,8 @@ const AdminHomePage = () => {
     const [updationExpertise, setUpdationExpertise] = useState<number>(-1);
     const [reportEmployeeId, setReportEmployeeId] = useState<string>("");
     const [reportEmployeeName, setReportEmployeeName] = useState<string>("");
+
+    const toastMessage = useAppSelector(state => state.skill.toastMessage)
 
     const closeModal = (showValue : boolean) =>
     {
@@ -109,7 +113,7 @@ const AdminHomePage = () => {
             </div>
             <div className="row">
                 <div className="d-flex mt-2 justify-content-center">
-                    <h3>Employee Skill List</h3>
+                    <h3>Employee Skill List- {toastMessage}</h3>
                 </div>
             </div>
 

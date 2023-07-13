@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import {Skill} from '../../data/Entities';
+import {Skill} from '../../constants/Entities';
 import React, {useState} from "react";
 import useHttp from "../../config/https";
 import { ToastContainer, toast } from 'react-toastify';

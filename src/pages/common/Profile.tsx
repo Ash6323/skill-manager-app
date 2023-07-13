@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import {Modal} from 'react-bootstrap';
 import AvatarImage from '../../assets/images/img_avatar.png';
-import {User} from '../../data/Entities';
+import {User} from '../../constants/Entities';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
@@ -93,8 +93,8 @@ const Profile = () => {
                     <div className="container row mt-5">
                         <div className='col-md-6'>
                             <img id="photo" className="card-img-top card-profile-image mx-5 col-md-6" alt="Profile-Image"
-                                src={user.profilePictureUrl? `https://employee-skill-manager2.azurewebsites.net/${user.profilePictureUrl}`: AvatarImage}/>
-                                {/* src={user.profilePictureUrl? `https://localhost:7247/${user.profilePictureUrl}`: AvatarImage}/> */}
+                                // src={user.profilePictureUrl? `https://employee-skill-manager2.azurewebsites.net/${user.profilePictureUrl}`: AvatarImage}/>
+                                src={user.profilePictureUrl? `https://localhost:7247/${user.profilePictureUrl}`: AvatarImage}/>
                             <label className="-label" onClick={handlePhotoEditClick}>
                                 <span className="text-warning"><i className="bi bi-camera-fill text-warning"></i> Edit Photo</span>
                             </label>

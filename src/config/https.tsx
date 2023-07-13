@@ -5,8 +5,8 @@ const useHttp = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const axiosInstance = axios.create({
-    baseURL: "https://employee-skill-manager2.azurewebsites.net/api/",
-    // baseURL: "https://localhost:7247/api/",
+    // baseURL: "https://employee-skill-manager2.azurewebsites.net/api/",
+    baseURL: "https://localhost:7247/api/",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
   });
 

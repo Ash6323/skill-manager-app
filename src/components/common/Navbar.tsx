@@ -22,7 +22,7 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
 
     const getUser = () => {
         const url = userProps.role==="Admin"? `Admin` : `Employee`;
-        axiosInstance.get(`${url}/${userProps.userId}`).then((response) => 
+        axiosInstance.get(`${url}/${userProps.userId}`).then((response) =>
         {
             setProfileImage(response.data.data.profilePictureUrl);
         }).catch(error => {
@@ -35,14 +35,14 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
             else if (error.request)
             {
                 toast.error("Server Inactive or Busy", {
-                    position: toast.POSITION.TOP_RIGHT        
+                    position: toast.POSITION.TOP_RIGHT
                 });
             }
         });
     }
 
-    const profileNavigator = ()=> {
-        if(userFullName === "Anonymous")
+    const profileNavigator = () => {
+        if (userFullName === "Anonymous")
             navigate("/");
         else
             navigate("profile");
@@ -72,9 +72,9 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
 
                     <a className="d-block link-dark text-decoration-none dropdown-toggle mx-2" id="dropdownUser1"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src={profileImage? `https://employee-skill-manager2.azurewebsites.net/${profileImage}`: AvatarImage } 
+                        <img src={profileImage? `https://localhost:7247/${profileImage}`: AvatarImage } 
                                 width="32" height="32" className="rounded-circle" alt="user-image">
-                            {/* `https://localhost:7247/${profileImage} */}
+                            {/* `https://employee-skill-manager2.azurewebsites.net/${profileImage} */}
                             
                         </img>
                     </a>

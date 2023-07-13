@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useHttp from "../../config/https";
-import { Skill } from '../../data/Entities';
+import { Skill } from '../../constants/Entities';
 import Loader from "../loaders/Loader";
 
 interface IModal {

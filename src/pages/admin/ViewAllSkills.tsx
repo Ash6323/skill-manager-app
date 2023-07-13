@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import {Skill} from '../../data/Entities';
+import {Skill} from '../../constants/Entities';
 import { Modal } from "react-bootstrap";
 import React, {useState} from "react";
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,30 +12,22 @@ import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import Loader from '../../components/loaders/Loader';
 
+import { skillFetched } from '../../features/skill/skillSlice'
+import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import toastMessages from '../../constants/toastMessages'
+
 const ViewAllSkills = () => {
 
     const {axiosInstance, loading} = useHttp();
-    const printRef = React.useRef<HTMLInputElement>(null);
-    const handleDownloadPdf = async () => {
-        const element = printRef.current;
-        const canvas = await html2canvas(element!);
-        const data = canvas.toDataURL('image/png');
-    
-        const pdf = new jsPDF();
-        const imgProperties = pdf.getImageProperties(data);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
-    
-        pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        pdf.save('Skill-Report.pdf');
-      };
-
     const [skills, setSkills] = useState<Skill[]>([]);
     const [show, setShow] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
     const [updationSkillId, setUpdationSkillId] = useState<number>(0);
     const [updationSkillName, setUpdationSkillName] = useState<string>("");
     const [updationSkillDescription, setUpdationSkillDescription] = useState<string>("");
+    
+    const toastMessage = useAppSelector(state => state.skill.toastMessage);
+    const dispatch = useAppDispatch();
     
     const closeModal = (showValue : boolean) =>
     {
@@ -49,14 +41,17 @@ const ViewAllSkills = () => {
         setUpdationSkillId(skillId);
         setUpdationSkillName(skillName);
         setUpdationSkillDescription(skillDescription);
-        setShowUpdate(true);
+        setShowUpdate(true);        
     }
 
     const getSkills = () => {
-        axiosInstance.get(`Skill`).then((response) => 
+        axiosInstance.get(`Skill`)
+        .then((response) => 
         {
             setSkills(response.data.data);
-        }).catch(error => {
+            dispatch(skillFetched(toastMessages.skill_data_fetch.success));
+        })
+        .catch(error => {
             if(error.response)
             {
                 toast.error(error.response.data.message, {
@@ -69,7 +64,8 @@ const ViewAllSkills = () => {
                     toast.error("Unauthorized", {
                       position: toast.POSITION.TOP_RIGHT,
                     });
-                  } else {
+                } 
+                else {
                     toast.error("Server Inactive or Busy", {
                       position: toast.POSITION.TOP_RIGHT,
                     });
@@ -77,6 +73,22 @@ const ViewAllSkills = () => {
             }
         });
     }
+
+    const printRef = React.useRef<HTMLInputElement>(null);
+    const handleDownloadPdf = async () => {
+        const element = printRef.current;
+        const canvas = await html2canvas(element!);
+        const data = canvas.toDataURL('image/png');
+    
+        const pdf = new jsPDF();
+        const imgProperties = pdf.getImageProperties(data);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+    
+        pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('Skill-Report.pdf');
+    };
+
     const [search, setSearch] = useState('');
     const filteredSkills = 
     {
@@ -109,7 +121,7 @@ const ViewAllSkills = () => {
             </div>
             <div className="row">
                 <div className="d-flex col justify-content-center">
-                    <h3>List of Skills</h3>
+                    <h3>List of Skills - {toastMessage}</h3>
                 </div>
             </div>
             <div className="d-flex justify-space-between align-items-center">

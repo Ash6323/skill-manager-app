@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../../components/common/Navbar";
 import Logo from "../../assets/images/IX-logo-2.png";
-import { LoginDTO } from "../../data/Entities";
+import { LoginDTO } from "../../constants/Entities";
 import useHttp from "../../config/https";
 import Loader from "../../components/loaders/LandingPageLoader";
 
