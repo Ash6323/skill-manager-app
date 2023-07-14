@@ -7,6 +7,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useHttp from "../../config/https";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchUser } from "../../features/user/userSlice";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 interface IProfile {
     userFullName: string,
@@ -17,11 +20,14 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
     const [signIn, setSignIn] = useState<string>("Sign In"); 
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
     const [profileImage, setProfileImage] = useState<string>();
-    const { axiosInstance } = useHttp(); 
+    const { axiosInstance } = useHttp();
     const navigate = useNavigate();
 
+    const user = useAppSelector(state => state.user);
+    const dispatch = useAppDispatch();
+
     const getUser = () => {
-        const url = userProps.role==="Admin"? `Admin` : `Employee`;
+        const url = userProps.role === "Admin" ? `Admin` : `Employee`;
         axiosInstance.get(`${url}/${userProps.userId}`).then((response) =>
         {
             setProfileImage(response.data.data.profilePictureUrl);
@@ -29,7 +35,7 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
             if(error.response)
             {
                 toast.error(error.response.data.message, {
-                    position: toast.POSITION.TOP_RIGHT        
+                    position: toast.POSITION.TOP_RIGHT
                 });
             }
             else if (error.request)
@@ -52,9 +58,21 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
         if(localStorage.getItem("User") != null)
         {
             setSignIn("Sign Out");
-            getUser();
+            // getUser();
+            dispatch(fetchUser());
         }
     },[]);
+
+    const userRole = userProps.role === "Admin" ? `Admin` : `Employee`;
+    const fetchUser = createAsyncThunk('user/fetchUser', () => {
+        return axiosInstance
+            .get(`${userRole}/${userProps.userId}`)
+            .then(response => console.log("response.data.data",response.data.data))
+    
+        // return axios
+        // .get(`https://localhost:7247/api/${userRole}/${userProps.userId}`)
+        // .then(response => response.data.data)
+    })
 
     const HandleSignOut = () => {
         localStorage.clear();
@@ -72,15 +90,18 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
 
                     <a className="d-block link-dark text-decoration-none dropdown-toggle mx-2" id="dropdownUser1"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src={profileImage? `https://localhost:7247/${profileImage}`: AvatarImage } 
-                                width="32" height="32" className="rounded-circle" alt="user-image">
+                        {/* <img src={profileImage? `https://localhost:7247/${profileImage}`: AvatarImage } */}
+                        {/* <img src={user.user.profilePictureUrl? `https://localhost:7247/${user.user.profilePictureUrl}`: AvatarImage } */}
+                                {/* width="32" height="32" className="rounded-circle" alt="user-image"> */}
                             {/* `https://employee-skill-manager2.azurewebsites.net/${profileImage} */}
-                            
-                        </img>
+                        {/* </img> */}
                     </a>
                     <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                        <li><a className="dropdown-item" onClick={profileNavigator}>
-                            <i className="bi bi-person-fill"></i> {userFullName}</a>
+                        <li>
+                            <a className="dropdown-item" onClick={profileNavigator}>
+                                {/* <i className="bi bi-person-fill"></i> {userFullName} */}
+                                <i className="bi bi-person-fill"></i> {user.user.fullName}
+                            </a>
                         </li>
                         <li><hr className="dropdown-divider"></hr></li>
                         <li><a className="dropdown-item" onClick={HandleSignOut}>
@@ -89,7 +110,8 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
                     </ul>
                 </div>
             </div>
-            <ToastContainer />
+            {user.error ? <ToastContainer /> : null}
+            {/* <ToastContainer /> */}
         </header></>
     );
 };

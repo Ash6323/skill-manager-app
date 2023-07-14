@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import skillReducer from '../features/skill/skillSlice';
+import userReducer from '../features/user/userSlice';
 
 const store = configureStore({
     reducer: {
-        skill: skillReducer
+        skill: skillReducer,
+        user: userReducer
     }
 })
 

@@ -10,7 +10,7 @@ const useHttp = () => {
     headers: { "Content-Type": "application/json", Accept: "application/json" },
   });
 
-let isRefreshing = false;
+  let isRefreshing = false;
   let failedQueue: any[] = [];
 
   const processQueue = (error: any, token: string | null = null) => {
@@ -27,14 +27,11 @@ let isRefreshing = false;
 
   const refreshToken = async () => {
     try {
-      console.log("Refresh Token api was called");
-      const response = await axiosInstance.post(
-        `Auth/RefreshToken`,
-        {
-          accessToken: localStorage.getItem("accessToken"),
-          refreshToken: localStorage.getItem("refreshToken"),
-        }
-      );
+      console.log("Refresh Token API was called");
+      const response = await axiosInstance.post(`Auth/RefreshToken`, {
+        accessToken: localStorage.getItem("accessToken"),
+        refreshToken: localStorage.getItem("refreshToken"),
+      });
       const { accessToken, refreshToken } = response.data.data;
 
       // Storing the new tokens in local storage
@@ -75,7 +72,6 @@ let isRefreshing = false;
       setLoading(false);
       if (error.response.status === 401 && !originalRequest._retry) {
         if (isRefreshing) {
-
           // Token refresh is already in progress, add the request to the queue
           try {
             const token = await new Promise((resolve, reject) => {
@@ -83,11 +79,11 @@ let isRefreshing = false;
             });
             originalRequest.headers["Authorization"] = "Bearer " + token;
             return await axiosInstance(originalRequest);
-          } catch (err) {
+          }
+          catch (err) {
             return await Promise.reject(err);
           }
         }
-
         originalRequest._retry = true;
         isRefreshing = true;
 
@@ -107,12 +103,9 @@ let isRefreshing = false;
             });
         });
       }
-
       return Promise.reject(error);
     }
   );
-
   return { axiosInstance, loading };
 };
-
 export default useHttp;
