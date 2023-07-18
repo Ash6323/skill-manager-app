@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useHttp from "../../config/https";
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { fetchUser, logout } from "../../features/user/userSlice";
+import { login, logout } from "../../features/user/userSlice";
 import Users from '../../constants/enums';
 
 interface IProfile {
@@ -20,6 +20,7 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
     const axiosInstance = useHttp();
     const navigate = useNavigate();
     const user = useAppSelector(state => state.user);
+    console.log('user',user)
     const dispatch = useAppDispatch();
     const [signIn, setSignIn] = useState<string>("Sign In"); 
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
@@ -29,7 +30,8 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
         const apiEndpoint = userProps.role === Users.Admin ? Users.Admin : Users.Employee;
         axiosInstance.get(`${apiEndpoint}/${userProps.userId}`).then((response) =>
         {
-            setProfileImage(response.data.data.profilePictureUrl);
+            // setProfileImage(response.data.data.profilePictureUrl);
+            dispatch(login(response.data.data))
         }).catch(error => {
             if(error.response)
             {
@@ -56,9 +58,9 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
     useEffect( () => {
         if(localStorage.getItem("User") != null)
         {
-            // getUser();            
+            getUser();            
             setSignIn("Sign Out");
-            dispatch(fetchUser());
+            // dispatch(fetchUser());
         }
     },[]);
 

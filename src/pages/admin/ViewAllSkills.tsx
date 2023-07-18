@@ -41,7 +41,7 @@ const ViewAllSkills = () => {
         setUpdationSkillId(skillId);
         setUpdationSkillName(skillName);
         setUpdationSkillDescription(skillDescription);
-        setShowUpdate(true);        
+        setShowUpdate(true);
     }
 
     const getSkills = () => {

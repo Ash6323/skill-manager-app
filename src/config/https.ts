@@ -3,6 +3,7 @@ import { loaderActive, loaderInactive } from "../features/loader/loaderSlice";
 import { useAppDispatch } from '../store/hooks';
 
 const useHttp = () => {
+  
   const dispatch = useAppDispatch();
   // const [loading, setLoading] = useState<boolean>(false);
   const axiosInstance = axios.create({
@@ -40,7 +41,7 @@ const useHttp = () => {
       localStorage.setItem("refreshToken", refreshToken);
 
       return accessToken;
-    } 
+    }
     catch (error) {
       throw error;
     }
