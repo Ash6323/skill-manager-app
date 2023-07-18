@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import {Modal} from 'react-bootstrap';
 import AvatarImage from '../../assets/images/img_avatar.png';
-import {User} from '../../constants/Entities';
+import {User} from '../../constants/entities';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
@@ -11,6 +11,7 @@ import useHttp from "../../config/https";
 import PictureUploadModal from '../../components/modals/PictureUploadModal';
 import PictureRemoveModal from '../../components/modals/PictureRemoveModal';
 import Loader from '../../components/loaders/Loader';
+import { useAppSelector } from '../../store/hooks';
 
 const Profile = () => {
     
@@ -19,7 +20,8 @@ const Profile = () => {
                                                     dateOfBirth: "", previousOrganisation: "", previousDesignation: ""});
     const [profileImageShow, setProfileImageShow] = useState(false);
     const [imageRemoveShow, setImageRemoveShow] = useState(false);
-    const {axiosInstance, loading} = useHttp();
+    const loading = useAppSelector(state => state.loader.loading);
+    const axiosInstance = useHttp();
     const navigate = useNavigate();
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
 

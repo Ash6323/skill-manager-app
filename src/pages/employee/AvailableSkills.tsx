@@ -1,15 +1,17 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import {Skill} from '../../constants/Entities';
+import {Skill} from '../../constants/entities';
 import React, {useState} from "react";
 import useHttp from "../../config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import Loader from '../../components/loaders/Loader';
+import { useAppSelector } from '../../store/hooks';
 
 const AvailableSkills = () => {
 
-    const {axiosInstance, loading} = useHttp();
+    const loading = useAppSelector(state => state.loader.loading);
+    const axiosInstance = useHttp();
     const [skills, setSkills] = useState<Skill[]>([]);
     
     const getSkills = () => {

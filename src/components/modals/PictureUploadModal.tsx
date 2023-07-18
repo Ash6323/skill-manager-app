@@ -4,6 +4,7 @@ import useHttp from "../../config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import Loader from '../loaders/Loader';
+import { useAppSelector } from '../../store/hooks';
 
 interface IModal {
   ShowProfileModal: (show: boolean) => void;
@@ -11,7 +12,8 @@ interface IModal {
 
 const PictureUploadModal: React.FC<IModal> = ({ShowProfileModal}) => {
 
-  const {axiosInstance, loading} = useHttp();
+  const loading = useAppSelector(state => state.loader.loading);
+  const axiosInstance = useHttp();
   const [show, setShow] = useState<boolean>(false);
   const [image, setImage] = useState<string>("");
   const userProps = JSON.parse(localStorage.getItem("User") || '{}');

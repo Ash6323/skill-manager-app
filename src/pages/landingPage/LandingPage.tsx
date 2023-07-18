@@ -6,14 +6,17 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../../components/common/Navbar";
 import Logo from "../../assets/images/IX-logo-2.png";
-import { LoginDTO } from "../../constants/Entities";
+import { LoginDTO } from '../../constants/entities';
 import useHttp from "../../config/https";
+import { useAppSelector } from '../../store/hooks';
 import Loader from "../../components/loaders/LandingPageLoader";
+import Users from '../../constants/enums';
 
 const LandingPage = () => {
 
   const navigate = useNavigate();
-  const {axiosInstance, loading} = useHttp();
+  const loading = useAppSelector(state => state.loader.loading);
+  const axiosInstance = useHttp();
   const [userDetails, setUserDetails] = useState<LoginDTO>({
     Username: "",
     Password: "",
@@ -45,10 +48,10 @@ const LandingPage = () => {
           localStorage.setItem("User", JSON.stringify(response.data));
           const user = JSON.parse(localStorage.getItem("User") || "{}");
 
-          if (user.role === "Admin") {
+          if (user.role === Users.Admin) {
             navigate("admin/home");
           } 
-          else if (user.role === "Employee") {
+          else if (user.role === Users.Employee) {
             navigate("employee/home");
           }
         }
@@ -66,7 +69,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <Navbar userFullName="Anonymous" />
+      <Navbar userFullName = {Users.Anonymous} />
       {loading ? <Loader /> : ""}
       <div className="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto login-card-body">
         <div className="card card0 border-0">

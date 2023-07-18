@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
-import {Employee, Skill, EmployeeSkillMap} from '../../constants/Entities';
+import {Employee, Skill, EmployeeSkillMap} from '../../constants/entities';
 import useHttp from "../../config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import Loader from '../loaders/Loader';
+import { useAppSelector } from '../../store/hooks';
 
 interface IModal {
   ShowModal: (show: boolean) => void;
@@ -12,7 +13,8 @@ interface IModal {
 
 const MapSkillModal: React.FC<IModal> = ({ShowModal}) => {
 
-  const {axiosInstance, loading} = useHttp();
+  const loading = useAppSelector(state => state.loader.loading);
+  const axiosInstance = useHttp();
   const [newSkill, setNewSkill] = useState<EmployeeSkillMap>({employeeId:"", skillId:0, expertise:-1});
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [skills, setSkills] = useState<Skill[]>([]);

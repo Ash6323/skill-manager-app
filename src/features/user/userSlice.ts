@@ -1,6 +1,7 @@
 import https from "../../config/https";
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../../constants/Entities';
+import { User } from '../../constants/entities';
+import Users from '../../constants/enums';
 
 interface InitialState {
     user: User,
@@ -32,8 +33,8 @@ const initialState: InitialState = {
 
 const fetchUser = createAsyncThunk('user/fetchUser', async () => {
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
-    const userRole = userProps.role === "Admin" ? `Admin` : `Employee`;
-    const { axiosInstance } = https();
+    const userRole = userProps.role === Users.Admin ? Users.Admin : Users.Employee;
+    const axiosInstance = https();
     return await axiosInstance
             .get(`${userRole}/${userProps.userId}`)
             .then(response => response.data.data)
@@ -50,15 +51,15 @@ const userSlice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(fetchUser.fulfilled, (state, action: PayloadAction<User>) => {
-            state.user = action.payload
-            state.loading = false
-            state.error = ''
+            state.user = action.payload;
+            state.loading = false;
+            state.error = '';
         })
         builder.addCase(fetchUser.rejected, (state, action) => {
             // state.user = "No Change"
             console.log("Something went wrong while fetching user data");
-            state.error = action.error.message || 'Something Went Wrong'
-            state.loading = false
+            state.error = action.error.message || 'Something Went Wrong';
+            state.loading = false;
         })
     }
 })

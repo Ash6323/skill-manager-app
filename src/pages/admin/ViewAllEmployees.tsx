@@ -1,16 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import {Employee} from '../../constants/Entities';
+import {Employee} from '../../constants/entities';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import useHttp from "../../config/https";
 import Loader from '../../components/loaders/Loader';
+import { useAppSelector } from '../../store/hooks';
 
 const ViewAllEmployees = () => {
 
-    const {axiosInstance, loading} = useHttp();
+    const loading = useAppSelector(state => state.loader.loading);
+    const axiosInstance = useHttp();
     const [employees, setEmployees] = useState<Employee[]>([]);
     const navigate = useNavigate();
     

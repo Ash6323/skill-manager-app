@@ -1,11 +1,13 @@
-import { PayloadAction, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import skillReducer from '../features/skill/skillSlice';
 import userReducer from '../features/user/userSlice';
+import loaderReducer from '../features/loader/loaderSlice';
 
 const store = configureStore({
     reducer: {
         skill: skillReducer,
-        user: userReducer
+        user: userReducer,
+        loader: loaderReducer,
     }
 })
 

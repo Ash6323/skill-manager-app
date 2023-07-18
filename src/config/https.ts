@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useState } from "react";
+import { loaderActive, loaderInactive } from "../features/loader/loaderSlice";
+import { useAppDispatch } from '../store/hooks';
 
-const https = () => {
+const useHttp = () => {
+  const dispatch = useAppDispatch();
   // const [loading, setLoading] = useState<boolean>(false);
-  const loading: boolean = false;
   const axiosInstance = axios.create({
     // baseURL: "https://employee-skill-manager2.azurewebsites.net/api/",
     baseURL: "https://localhost:7247/api/",
@@ -49,6 +50,7 @@ const https = () => {
   axiosInstance.interceptors.request.use(
     (config) => {
       // setLoading(true);
+      dispatch(loaderActive());
       const token = localStorage.getItem("accessToken");
       if (token) {
         config.headers["Authorization"] = `Bearer ${token}`;
@@ -57,6 +59,7 @@ const https = () => {
     },
     (error) => {
       // setLoading(false);
+      dispatch(loaderInactive());
       return Promise.reject(error);
     }
   );
@@ -65,11 +68,13 @@ const https = () => {
   axiosInstance.interceptors.response.use(
     (response) => {
       // setLoading(false);
+      dispatch(loaderInactive());
       return response;
     },
     async (error) => {
       const originalRequest = error.config;
       // setLoading(false);
+      dispatch(loaderInactive());
       if (error.response.status === 401 && !originalRequest._retry) {
         if (isRefreshing) {
           // Token refresh is already in progress, add the request to the queue
@@ -106,6 +111,6 @@ const https = () => {
       return Promise.reject(error);
     }
   );
-  return { axiosInstance, loading };
+  return axiosInstance;
 };
-export default https;
+export default useHttp;

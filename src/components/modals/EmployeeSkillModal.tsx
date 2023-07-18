@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import {Modal} from 'react-bootstrap';
-import {EmployeeSkillMap} from '../../constants/Entities';
+import {EmployeeSkillMap} from '../../constants/entities';
 import useHttp from "../../config/https";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import Loader from '../loaders/Loader';
+import { useAppSelector } from '../../store/hooks';
 
 interface IModal {
   ShowUpdateModal: (show: boolean) => void;
@@ -15,7 +16,8 @@ interface IModal {
 
 const EmployeeSkillModal: React.FC<IModal> = ({ShowUpdateModal, updatedEmployeeId, updatedSkillId, updatedExpertise}) => {
 
-  const {axiosInstance, loading} = useHttp();
+  const loading = useAppSelector(state => state.loader.loading);
+  const axiosInstance = useHttp();
   const [newExpertise, setNewExpertise] = useState<EmployeeSkillMap>({employeeId:"", skillId:0, expertise:-1});
   const [expertises, setExpertises] = useState<string[]>([]);
   const [show, setShow] = useState<boolean>(false);

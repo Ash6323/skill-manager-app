@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { Modal } from "react-bootstrap";
-import {EmployeeSkills} from '../../constants/Entities';
+import {EmployeeSkills} from '../../constants/entities';
 import React, {useState} from "react";
 import useHttp from "../../config/https";
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,11 +11,12 @@ import UpdateExpertiseModal from '../../components/modals/EmployeeSkillModal';
 import GenerateReportModal from '../../components/modals/GenerateReportModal';
 import Loader from '../../components/loaders/Loader';
 
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useAppSelector } from '../../store/hooks';
 
 const AdminHomePage = () => {
 
-    const {axiosInstance, loading} = useHttp();
+    const loading = useAppSelector(state => state.loader.loading);
+    const axiosInstance = useHttp();
     const [allEmployeeSkills, setAllEmployeeSkills] = useState<EmployeeSkills[]>([]);
     const [show, setShow] = useState(false);
     const [updateShow, setUpdateShow] = useState(false);

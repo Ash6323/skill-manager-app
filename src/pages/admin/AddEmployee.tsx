@@ -4,15 +4,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import {NewEmployee, UpdateAdmin, UpdateEmployee} from '../../constants/Entities';
+import {NewEmployee, UpdateAdmin, UpdateEmployee} from '../../constants/entities';
 import useHttp from "../../config/https";
 import {useLocation} from 'react-router-dom';
 import Loader from '../../components/loaders/Loader';
+import { useAppSelector } from '../../store/hooks';
 
 const AddEmployee = () => {
 
     const navigate = useNavigate();
-    const {axiosInstance, loading} = useHttp();
+    const loading = useAppSelector(state => state.loader.loading);
+    const axiosInstance = useHttp();
     const [newEmployee,setNewEmployee]=useState<NewEmployee>
                                     ({firstName:"",lastName: "",username:"",phoneNumber:"",email:"",password:"",gender:"",
                                     street:"",town:"",city:"",zipcode:"",dateOfBirth:"",previousOrganisation:"",previousDesignation:""});

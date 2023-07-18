@@ -1,8 +1,9 @@
 import React, { useState} from 'react';
 import {Modal} from 'react-bootstrap';
-import {Skill} from '../../constants/Entities';
+import {Skill} from '../../constants/entities';
 import useHttp from "../../config/https";
 import { ToastContainer, toast } from 'react-toastify';
+import { useAppSelector } from '../../store/hooks';
 import 'react-toastify/dist/ReactToastify.css'
 import Loader from '../loaders/Loader';
 
@@ -12,7 +13,8 @@ interface IModal {
 
 const AddSkillModal:React.FC<IModal> = ({ShowModal}) => {
 
-  const {axiosInstance, loading} = useHttp();
+  const loading = useAppSelector(state => state.loader.loading);
+  const axiosInstance = useHttp();
   const [newSkill, setNewSkill] = useState<Skill>({id:0, skillName:"",description:""});
   const [show, setShow] = useState<boolean>(false);
 

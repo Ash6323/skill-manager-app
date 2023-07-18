@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import {EmployeeSkills} from '../../constants/Entities';
+import {EmployeeSkills} from '../../constants/entities';
 import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
@@ -8,10 +8,12 @@ import React, {useState} from "react";
 import useHttp from "../../config/https";
 import GenerateReportModal from '../../components/modals/GenerateReportModal';
 import Loader from '../../components/loaders/Loader';
+import { useAppSelector } from '../../store/hooks';
 
 const ViewSkills = () => {
 
-    const {axiosInstance, loading} = useHttp();
+    const loading = useAppSelector(state => state.loader.loading);
+    const axiosInstance = useHttp();
     const [skills, setSkills] = useState<EmployeeSkills>();
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
     const [reportShow, setReportShow] = useState(false);

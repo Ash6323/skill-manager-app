@@ -3,8 +3,9 @@ import { Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useHttp from "../../config/https";
-import { Skill } from '../../constants/Entities';
+import { Skill } from '../../constants/entities';
 import Loader from "../loaders/Loader";
+import { useAppSelector } from '../../store/hooks';
 
 interface IModal {
   ShowUpdateModal: (showUpdate: boolean) => void;
@@ -16,7 +17,8 @@ interface IModal {
 const UpdateSkillModal: React.FC<IModal> = ({ShowUpdateModal, updateSkillId, updateSkillName, updateSkillDescription,}) => {
   
   const [updatedSkill, setUpdatedSkill] = useState<Skill>({id: 0, skillName: "", description: "",});
-  const {axiosInstance, loading} = useHttp();
+  const loading = useAppSelector(state => state.loader.loading);
+  const axiosInstance = useHttp();
   const [show, setShow] = useState<boolean>(false);
 
   React.useEffect(() => {

@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import useHttp from "../../config/https";
 import 'react-toastify/dist/ReactToastify.css'
 import Loader from '../loaders/Loader';
+import { useAppSelector } from '../../store/hooks';
 
 interface IModal {
   ShowReportModal: (showUpdate: boolean) => void;
@@ -13,7 +14,8 @@ interface IModal {
 
 const GenerateReportModal:React.FC<IModal> = ({ShowReportModal, employeeId, employeeName}) => {
 
-  const {axiosInstance, loading} = useHttp();
+  const loading = useAppSelector(state => state.loader.loading);
+  const axiosInstance = useHttp();
   const [show, setShow] = useState<boolean>(false);
 
   const handleClose = () => {

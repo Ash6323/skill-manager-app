@@ -7,8 +7,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useHttp from "../../config/https";
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { fetchUser, logout } from "../../features/user/userSlice";
+import Users from '../../constants/enums';
 
 interface IProfile {
     userFullName: string,
@@ -16,18 +17,17 @@ interface IProfile {
 
 const Navbar: React.FC<IProfile> = ({userFullName}) => {
 
+    const axiosInstance = useHttp();
+    const navigate = useNavigate();
+    const user = useAppSelector(state => state.user);
+    const dispatch = useAppDispatch();
     const [signIn, setSignIn] = useState<string>("Sign In"); 
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
     const [profileImage, setProfileImage] = useState<string>();
-    const { axiosInstance } = useHttp();
-    const navigate = useNavigate();
-
-    const user = useAppSelector(state => state.user);
-    const dispatch = useAppDispatch();
 
     const getUser = () => {
-        const url = userProps.role === "Admin" ? `Admin` : `Employee`;
-        axiosInstance.get(`${url}/${userProps.userId}`).then((response) =>
+        const apiEndpoint = userProps.role === Users.Admin ? Users.Admin : Users.Employee;
+        axiosInstance.get(`${apiEndpoint}/${userProps.userId}`).then((response) =>
         {
             setProfileImage(response.data.data.profilePictureUrl);
         }).catch(error => {
@@ -47,7 +47,7 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
     }
 
     const profileNavigator = () => {
-        if (userFullName === "Anonymous")
+        if (userFullName === Users.Anonymous)
             navigate("/");
         else
             navigate("profile");
@@ -56,8 +56,8 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
     useEffect( () => {
         if(localStorage.getItem("User") != null)
         {
+            // getUser();            
             setSignIn("Sign Out");
-            // getUser();
             dispatch(fetchUser());
         }
     },[]);
@@ -81,7 +81,7 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
                         data-bs-toggle="dropdown" aria-expanded="false">
                         {/* <img src={profileImage? `https://localhost:7247/${profileImage}`: AvatarImage }
                                 width="32" height="32" className="rounded-circle" alt="user-image"> */}
-                        <img src={user.user.profilePictureUrl? `https://localhost:7247/${user.user.profilePictureUrl}`: AvatarImage }
+                        <img src = {user.user.profilePictureUrl? `https://localhost:7247/${user.user.profilePictureUrl}`: AvatarImage }
                                 width="32" height="32" className="rounded-circle" alt="user-image">
                             {/* `https://employee-skill-manager2.azurewebsites.net/${profileImage} */}
                         </img>
@@ -100,8 +100,7 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
                     </ul>
                 </div>
             </div>
-            {user.error ? <ToastContainer /> : null}
-            {/* <ToastContainer /> */}
+            <ToastContainer />
         </header></>
     );
 };
