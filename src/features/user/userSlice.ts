@@ -1,7 +1,6 @@
-import useHttp from "../../config/https";
+import https from "../../config/https";
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '../../constants/Entities';
-import axios from 'axios';
 
 interface InitialState {
     user: User,
@@ -31,24 +30,24 @@ const initialState: InitialState = {
     loading: false
 }
 
-const userProps = JSON.parse(localStorage.getItem("User") || '{}');
-const userRole = userProps.role === "Admin" ? `Admin` : `Employee`;
-
-export const fetchUser = createAsyncThunk('user/fetchUser', () => {
-    const { axiosInstance, loading } = useHttp();
-    return useHttp().axiosInstance
-        .get(`${userRole}/${userProps.userId}`)
-        .then(response => response.data.data)
-
-    // return axios
-    // .get(`https://localhost:7247/api/${userRole}/${userProps.userId}`)
-    // .then(response => response.data.data)
+const fetchUser = createAsyncThunk('user/fetchUser', async () => {
+    const userProps = JSON.parse(localStorage.getItem("User") || '{}');
+    const userRole = userProps.role === "Admin" ? `Admin` : `Employee`;
+    const { axiosInstance } = https();
+    return await axiosInstance
+            .get(`${userRole}/${userProps.userId}`)
+            .then(response => response.data.data)
+            .catch(error => console.log(error));
 })
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        logout: (state) => {
+            state.user = initialState.user
+        },
+    },
     extraReducers: builder => {
         builder.addCase(fetchUser.fulfilled, (state, action: PayloadAction<User>) => {
             state.user = action.payload
@@ -63,4 +62,7 @@ const userSlice = createSlice({
         })
     }
 })
+
 export default userSlice.reducer
+export { fetchUser }
+export const { logout } = userSlice.actions;

@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { PayloadAction, configureStore } from "@reduxjs/toolkit";
 import skillReducer from '../features/skill/skillSlice';
 import userReducer from '../features/user/userSlice';
 
