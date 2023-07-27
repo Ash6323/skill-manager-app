@@ -37,6 +37,7 @@ const LandingPage = () => {
   };
 
   const login = async () => {
+    
     axiosInstance.post(`Auth/login`, userDetails)
       .then((response) => {
         if (response.data.token) {
@@ -59,7 +60,8 @@ const LandingPage = () => {
       .catch((error) => {
         if (error.response) {
           setInvalidFlag(true);
-        } else if (error.request) {
+        } 
+        else if (error.request) {
           toast.error("Server Inactive or Busy", {
             position: toast.POSITION.TOP_RIGHT,
           });
@@ -69,7 +71,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <Navbar userFullName = {Users.Anonymous} />
+      <Navbar userFullName = { Users.Anonymous } />
       {loading ? <Loader /> : ""}
       <div className="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto login-card-body">
         <div className="card card0 border-0">

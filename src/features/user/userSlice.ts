@@ -1,7 +1,5 @@
-import useHttp from "../../config/https";
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '../../constants/entities';
-import Users from '../../constants/enums';
 
 interface InitialState {
     user: User,
@@ -68,5 +66,5 @@ const userSlice = createSlice({
 })
 
 // export { fetchUser }
-export default userSlice.reducer
+export default userSlice.reducer;
 export const { login, logout } = userSlice.actions;

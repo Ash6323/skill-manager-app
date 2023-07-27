@@ -3,7 +3,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import AvatarImage from '../../assets/images/img_avatar.png';
 import IXBanner from '../../assets/images/IX-banner.png';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useHttp from "../../config/https";
@@ -20,19 +20,17 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
     const axiosInstance = useHttp();
     const navigate = useNavigate();
     const user = useAppSelector(state => state.user);
-    console.log('user',user)
     const dispatch = useAppDispatch();
-    const [signIn, setSignIn] = useState<string>("Sign In"); 
+    const [signIn, setSignIn] = useState<string>("Sign In");
     const userProps = JSON.parse(localStorage.getItem("User") || '{}');
-    const [profileImage, setProfileImage] = useState<string>();
 
     const getUser = () => {
         const apiEndpoint = userProps.role === Users.Admin ? Users.Admin : Users.Employee;
         axiosInstance.get(`${apiEndpoint}/${userProps.userId}`).then((response) =>
         {
-            // setProfileImage(response.data.data.profilePictureUrl);
-            dispatch(login(response.data.data))
-        }).catch(error => {
+            dispatch(login(response.data.data));
+        })
+        .catch(error => {
             if(error.response)
             {
                 toast.error(error.response.data.message, {
@@ -58,7 +56,7 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
     useEffect( () => {
         if(localStorage.getItem("User") != null)
         {
-            getUser();            
+            getUser();
             setSignIn("Sign Out");
             // dispatch(fetchUser());
         }
@@ -103,7 +101,8 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
                 </div>
             </div>
             <ToastContainer />
-        </header></>
+        </header>
+        </>
     );
 };
 export default Navbar;
