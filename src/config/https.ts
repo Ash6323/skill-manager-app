@@ -76,7 +76,7 @@ const useHttp = () => {
       const originalRequest = error.config;
       // setLoading(false);
       dispatch(loaderInactive());
-      if (error.response.status === 401 && !originalRequest._retry) {
+      if (error.response?.status === 401 && !originalRequest._retry) {
         if (isRefreshing) {
           // Token refresh is already in progress, add the request to the queue
           try {

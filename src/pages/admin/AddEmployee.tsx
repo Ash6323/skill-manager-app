@@ -9,6 +9,7 @@ import useHttp from "../../config/https";
 import {useLocation} from 'react-router-dom';
 import Loader from '../../components/loaders/Loader';
 import { useAppSelector } from '../../store/hooks';
+import messages from '../../constants/messages';
 
 const AddEmployee = () => {
 
@@ -47,11 +48,11 @@ const AddEmployee = () => {
             if (error.request)
             {
                 if (error.response.status === 403 || error.response.status === 401) {
-                    toast.error("Unauthorized", {
+                    toast.error(messages.api.unauthorized, {
                       position: toast.POSITION.TOP_RIGHT,
                     });
                 } else {
-                toast.error("Server Inactive or Busy", {
+                toast.error(messages.api.server_inactive, {
                     position: toast.POSITION.TOP_RIGHT,
                 });
                 }
@@ -145,7 +146,7 @@ const AddEmployee = () => {
                     }
                     else if (error.request)
                     {
-                        toast.error("Server Inactive or Busy", {
+                        toast.error(messages.api.server_inactive, {
                             position: toast.POSITION.TOP_RIGHT        
                         });
                     }
@@ -170,7 +171,7 @@ const AddEmployee = () => {
                     }
                     else if (error.request)
                     {
-                        toast.error("Server Inactive or Busy", {
+                        toast.error(messages.api.server_inactive, {
                             position: toast.POSITION.TOP_RIGHT        
                         });
                     }
@@ -199,7 +200,7 @@ const AddEmployee = () => {
                     }
                     else if (error.request)
                     {
-                        toast.error("Server Inactive or Busy", {
+                        toast.error(messages.api.server_inactive, {
                             position: toast.POSITION.TOP_RIGHT        
                         });
                     }

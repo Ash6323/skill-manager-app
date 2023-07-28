@@ -10,6 +10,7 @@ import MapSkillModal from '../../components/modals/MapSkillModal';
 import UpdateExpertiseModal from '../../components/modals/EmployeeSkillModal';
 import GenerateReportModal from '../../components/modals/GenerateReportModal';
 import Loader from '../../components/loaders/Loader';
+import messages from '../../constants/messages';
 
 import { useAppSelector } from '../../store/hooks';
 
@@ -67,11 +68,11 @@ const AdminHomePage = () => {
             else if (error.request)
             {
                 if (error.response.status === 403 || error.response.status === 401) {
-                    toast.error("Unauthorized", {
+                    toast.error(messages.api.unauthorized, {
                       position: toast.POSITION.TOP_RIGHT,
                     });
                 } else {
-                toast.error("Server Inactive or Busy", {
+                toast.error(messages.api.server_inactive, {
                     position: toast.POSITION.TOP_RIGHT,
                 });
                 }

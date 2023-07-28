@@ -11,6 +11,7 @@ import useHttp from "../../config/https";
 import { useAppSelector } from '../../store/hooks';
 import Loader from "../../components/loaders/LandingPageLoader";
 import Users from '../../constants/enums';
+import messages from "../../constants/messages";
 
 const LandingPage = () => {
 
@@ -62,7 +63,7 @@ const LandingPage = () => {
           setInvalidFlag(true);
         } 
         else if (error.request) {
-          toast.error("Server Inactive or Busy", {
+          toast.error(messages.api.server_inactive, {
             position: toast.POSITION.TOP_RIGHT,
           });
         }
@@ -137,12 +138,6 @@ const LandingPage = () => {
               <small className="ml-4 ml-sm-5 mb-2">
                 Copyright &copy; 2019. All rights reserved.
               </small>
-              <div className="social-contact ml-4 ml-sm-auto">
-                <span className="fa fa-facebook mr-4 text-sm"></span>
-                <span className="fa fa-google-plus mr-4 text-sm"></span>
-                <span className="fa fa-linkedin mr-4 text-sm"></span>
-                <span className="fa fa-twitter mr-4 mr-sm-5 text-sm"></span>
-              </div>
             </div>
           </div>
         </div>

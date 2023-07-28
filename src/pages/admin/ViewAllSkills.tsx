@@ -61,12 +61,12 @@ const ViewAllSkills = () => {
             else if (error.request)
             {
                 if (error.response.status === 403 || error.response.status === 401) {
-                    toast.error("Unauthorized", {
+                    toast.error(messages.api.unauthorized, {
                       position: toast.POSITION.TOP_RIGHT,
                     });
                 } 
                 else {
-                    toast.error("Server Inactive or Busy", {
+                    toast.error(messages.api.server_inactive, {
                       position: toast.POSITION.TOP_RIGHT,
                     });
                 }

@@ -10,6 +10,7 @@ import useHttp from "../../config/https";
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { login, logout } from "../../features/user/userSlice";
 import Users from '../../constants/enums';
+import messages from '../../constants/messages';
 
 interface IProfile {
     userFullName: string,
@@ -39,7 +40,7 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
             }
             else if (error.request)
             {
-                toast.error("Server Inactive or Busy", {
+                toast.error(messages.api.server_inactive, {
                     position: toast.POSITION.TOP_RIGHT
                 });
             }
@@ -59,6 +60,9 @@ const Navbar: React.FC<IProfile> = ({userFullName}) => {
             getUser();
             setSignIn("Sign Out");
             // dispatch(fetchUser());
+        }
+        else {
+            dispatch(logout());
         }
     },[]);
 

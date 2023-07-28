@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import Loader from '../../components/loaders/Loader';
 import { useAppSelector } from '../../store/hooks';
+import messages from '../../constants/messages';
 
 const AvailableSkills = () => {
 
@@ -28,12 +29,12 @@ const AvailableSkills = () => {
             else if (error.request)
             {
                 if (error.response.status === 403 || error.response.status === 401) {
-                    toast.error("Unauthorized", {
+                    toast.error(messages.api.unauthorized, {
                       position: toast.POSITION.TOP_RIGHT,
                     });
                 } 
                 else {
-                    toast.error("Server Inactive or Busy", {
+                    toast.error(messages.api.server_inactive, {
                       position: toast.POSITION.TOP_RIGHT,
                     });
                 }
