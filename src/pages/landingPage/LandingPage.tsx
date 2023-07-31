@@ -80,7 +80,7 @@ const LandingPage = () => {
             <div className="col-lg-6">
               <div className="card1 pb-5">
                 <div className="row">
-                  <img src={Logo} className="logo" alt="incubxperts-logo"></img>
+                  <img src= {Logo} className= "logo" alt="incubxperts-logo"></img>
                 </div>
                 <div className="row px-3 justify-content-center mt-4 mb-5 border-line">
                   <img
@@ -107,8 +107,8 @@ const LandingPage = () => {
                     name="Username"
                     placeholder="Enter Username"
                     value={userDetails.Username}
-                    onChange={handleChange}
-                  ></input>
+                    onChange={handleChange}>  
+                  </input>
                 </div>
                 <div className="row">
                   <label className="mt-2 mb-2">
@@ -119,8 +119,8 @@ const LandingPage = () => {
                     name="Password"
                     placeholder="Enter password"
                     value={userDetails.Password}
-                    onChange={handleChange}
-                  ></input>
+                    onChange={handleChange}>
+                  </input>
                 </div>
                 <div className="row mt-3 mb-3">
                   <button

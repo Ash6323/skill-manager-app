@@ -1,8 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "./App.css";
-import useHttp from "./config/https";
-import Loader from "./components/loaders/Loader";
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/landingPage/LandingPage";
 import AdminParentPage from "./pages/admin/AdminParentPage";
